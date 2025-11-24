@@ -905,7 +905,12 @@ class Roads:
                 # `SimpleIntersection(connected, flinger, scale)` here.
                 continue
 
+            if connector.min_layer not in layered_connectors:
+                layered_connectors[connector.min_layer] = []
             layered_connectors[connector.min_layer].append(connector)
+
+            if connector.max_layer not in layered_connectors:
+                layered_connectors[connector.max_layer] = []
             layered_connectors[connector.max_layer].append(connector)
 
         for layer in sorted(layered_roads.keys()):

@@ -70,14 +70,21 @@ class Polyline:
                     .parallel_offset(parallel_offset)
                     .coords
                 )
-            except (ValueError, NotImplementedError):
+            except (ValueError, NotImplementedError) as error:
                 logger.warning(
-                    "Failed to offset polyline `%s`.", str(self.points)
+                    "Failed to offset polyline `%s`: %s.",
+                    str(self.points),
+                    error,
                 )
                 return None
 
         if len(points) < MINIMAL_NUMBER_OF_POINTS:
-            logger.warning("Failed to offset polyline `%s`.", str(self.points))
+            logger.warning(
+                "Failed to offset polyline `%s` by %f: too few points (%d).",
+                str(self.points),
+                parallel_offset,
+                len(points),
+            )
             return None
 
         return (
