@@ -1,6 +1,8 @@
 #!/usr/bin/env bash
 
-source .venv/bin/activate
+if [ -d ".venv" ]; then
+    source .venv/bin/activate
+fi
 
 echo "Looking for changes..."
 files=`git status --porcelain | wc -l`
@@ -12,10 +14,10 @@ else
     exit 1
 fi
 
+# Check format, lint, run static analyzer.
 data/githooks/pre-commit || { echo "FAIL"; exit 1; }
 
 # Unit tests with pytest.
-
 echo "Run tests with pytest..."
 pytest -vv || { echo "FAIL"; exit 1; }
 

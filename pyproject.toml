@@ -30,6 +30,7 @@ dependencies = [
 dev = [
     "pytest~=7.4.0",
     "ruff~=0.14.5",
+    "ty~=0.0.1a27",
 ]
 
 [project.urls]
@@ -77,3 +78,6 @@ lint.ignore = [
     "TD003",  # Issues for todos are not required.
 ]
 line-length = 80
+
+[tool.ty.src]
+exclude = ["map_machine/doc/moire_manager.py"]
