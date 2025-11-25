@@ -14,7 +14,7 @@ Modify the code
 ❗ **IMPORTANT** ❗ Before committing please enable Git hooks:
 
 ```shell
-git config --local core.hooksPath data/githooks
+git config --local core.hooksPath .githooks
 ```
 
 This will allow you to automatically check your commit message and code before committing and pushing changes. This will crucially speed up pull request merging and make Git history neat and uniform.
