@@ -36,8 +36,8 @@ COMMANDS: list[str] = [
 def parse_arguments(args: list[str]) -> argparse.Namespace:
     """Parse Map Machine command-line arguments."""
 
-    # Preparse arguments adding space before coordinates and bounding box if the
-    # first value is negative.  In that case `argparse` interprets in as an
+    # Preparse arguments, adding space before coordinates and bounding box if
+    # the first value is negative.  In that case `argparse` interprets it as an
     # option name.
     for argument in (
         "-c",
@@ -53,7 +53,7 @@ def parse_arguments(args: list[str]) -> argparse.Namespace:
             break
 
     parser: argparse.ArgumentParser = argparse.ArgumentParser(
-        description="Map Machine. OpenStreetMap renderer with custom icon set"
+        description="Map Machine. OpenStreetMap renderer with a custom icon set"
     )
     parser.add_argument(
         "-v",
@@ -65,10 +65,12 @@ def parse_arguments(args: list[str]) -> argparse.Namespace:
 
     render_parser = subparser.add_parser(
         "render",
-        description="Render SVG map.  Use `--bounding-box` to specify geo "
-        "boundaries, `--input` to specify OSM XML or JSON input file, or "
-        "`--coordinates` and `--size` to specify central point and resulting "
-        "image size.",
+        description=(
+            "Render an SVG map.  Use `--bounding-box` to specify geo "
+            "boundaries, `--input` to specify an OSM XML or JSON input file, "
+            "or `--coordinates` and `--size` to specify central point and "
+            "resulting image size."
+        ),
         help="draw SVG map",
     )
     add_render_arguments(render_parser)
@@ -76,9 +78,11 @@ def parse_arguments(args: list[str]) -> argparse.Namespace:
 
     tile_parser = subparser.add_parser(
         "tile",
-        description="Generate SVG and PNG 256 × 256 px tiles for slippy maps.  "
-        "You can use server command to run server in order to display "
-        "generated tiles as a map (e.g. with Leaflet).",
+        description=(
+            "Generate SVG and PNG 256 × 256 px tiles for slippy maps.  You "
+            "can use the server command to run a server to display generated "
+            "tiles as a map (e.g. with Leaflet)."
+        ),
         help="generate SVG and PNG tiles for slippy maps",
     )
     add_tile_arguments(tile_parser)
@@ -86,8 +90,10 @@ def parse_arguments(args: list[str]) -> argparse.Namespace:
 
     server_parser = subparser.add_parser(
         "server",
-        description="Run in order to display generated tiles as a map "
-        "(e.g. with Leaflet).",
+        description=(
+            "Run a server to display generated tiles as a map (e.g. with "
+            "Leaflet)."
+        ),
         help="run tile server",
     )
     add_server_arguments(server_parser)
@@ -96,23 +102,26 @@ def parse_arguments(args: list[str]) -> argparse.Namespace:
     add_draw_arguments(
         subparser.add_parser(
             "draw",
-            description="Draw map element separately.",
+            description="Draw a map element separately.",
             help="draw OSM element: node, way, relation",
         )
     )
     add_mapcss_arguments(
         subparser.add_parser(
             "mapcss",
-            description="Write directory with MapCSS file and generated "
-            "Röntgen icons.",
+            description=(
+                "Create a directory containing a MapCSS file and generated "
+                "Röntgen icons."
+            ),
             help="write MapCSS file",
         )
     )
 
     subparser.add_parser(
         "icons",
-        description="Generate Röntgen icons as a grid and as separate SVG "
-        "icons",
+        description=(
+            "Generate Röntgen icons as a grid and as separate SVG icons."
+        ),
         help="draw Röntgen icons",
     )
     subparser.add_parser(
@@ -132,8 +141,10 @@ def add_map_arguments(parser: argparse.ArgumentParser) -> None:
         "--scheme",
         metavar="<id> or <path>",
         default="default",
-        help="scheme identifier (look for `<id>.yml` file) or path to a YAML "
-        "scheme file",
+        help=(
+            "scheme identifier (look for `<id>.yml` file) or path to a YAML "
+            "scheme file"
+        ),
     )
     parser.add_argument(
         "--buildings",
@@ -156,7 +167,7 @@ def add_map_arguments(parser: argparse.ArgumentParser) -> None:
         dest="overlap",
         default=12,
         type=int,
-        help="how many pixels should be left around icons and text",
+        help="size of the margin in pixels to leave around icons and text",
         metavar="<integer>",
     )
     parser.add_argument(
@@ -171,12 +182,12 @@ def add_map_arguments(parser: argparse.ArgumentParser) -> None:
     parser.add_argument(
         "--level",
         default="overground",
-        help="display only this floor level",
+        help="display only the specified floor level",
     )
     parser.add_argument(
         "--seed",
         default="",
-        help="seed for random",
+        help="seed for random number generation",
         metavar="<string>",
     )
     parser.add_argument(
@@ -187,13 +198,15 @@ def add_map_arguments(parser: argparse.ArgumentParser) -> None:
     )
     parser.add_argument(
         "--country",
-        help="two-letter code (ISO 3166-1 alpha-2) of country, that should be "
-        "used for location restrictions",
+        help=(
+            "two-letter code (ISO 3166-1 alpha-2) of the country that should "
+            "be used for location restrictions"
+        ),
         default="world",
     )
     parser.add_argument(
         "--ignore-level-matching",
-        help="draw all map features ignoring the current level",
+        help="draw all map features, ignoring the current level",
         action=argparse.BooleanOptionalAction,
         default=False,
     )
@@ -205,8 +218,10 @@ def add_map_arguments(parser: argparse.ArgumentParser) -> None:
     )
     parser.add_argument(
         "--building-colors",
-        help="paint walls (if isometric mode is enabled) and roofs with "
-        "specified colors",
+        help=(
+            "paint walls (if isometric mode is enabled) and roofs with "
+            "specified colors"
+        ),
         action=argparse.BooleanOptionalAction,
         default=False,
     )
@@ -224,7 +239,7 @@ def add_map_arguments(parser: argparse.ArgumentParser) -> None:
     )
     parser.add_argument(
         "--background",
-        help="enable or disable the background e.g. to use it as layer",
+        help="enable or disable the background (e.g., to use it as a layer)",
         action=argparse.BooleanOptionalAction,
         default=True,
     )
@@ -236,7 +251,7 @@ def add_tile_arguments(parser: argparse.ArgumentParser) -> None:
         "-c",
         "--coordinates",
         metavar="<latitude>,<longitude>",
-        help="coordinates of any location inside the tile",
+        help="coordinates of any location within the tile",
     )
     parser.add_argument(
         "-t",
@@ -246,7 +261,7 @@ def add_tile_arguments(parser: argparse.ArgumentParser) -> None:
     )
     parser.add_argument(
         "--cache",
-        help="path for temporary OSM files",
+        help="directory path for temporary OSM files",
         default="cache",
         metavar="<path>",
     )
@@ -254,8 +269,10 @@ def add_tile_arguments(parser: argparse.ArgumentParser) -> None:
         "-b",
         "--bounding-box",
         "--boundary-box",  # Legacy old name.
-        help="construct the minimum amount of tiles that cover the requested "
-        "bounding box",
+        help=(
+            "generate the minimum number of tiles that cover the requested "
+            "bounding box"
+        ),
         metavar="<lon1>,<lat1>,<lon2>,<lat2>",
     )
     parser.add_argument(
@@ -263,8 +280,10 @@ def add_tile_arguments(parser: argparse.ArgumentParser) -> None:
         "--zoom",
         type=str,
         metavar="<range>",
-        help="OSM zoom levels; can be list of numbers or ranges, e.g. `16-18`, "
-        "`16,17,18`, or `16,18-20`",
+        help=(
+            "OSM zoom levels; can be a list of numbers or ranges, e.g. "
+            "`16-18`, `16,17,18`, or `16,18-20`"
+        ),
         default="18",
     )
     parser.add_argument(
@@ -272,8 +291,10 @@ def add_tile_arguments(parser: argparse.ArgumentParser) -> None:
         "--input",
         dest="input_file_name",
         metavar="<path>",
-        help="input OSM XML file name (if not specified, the file will be "
-        "downloaded using the OpenStreetMap API)",
+        help=(
+            "input OSM XML file name (if not specified, the file will be "
+            "downloaded using the OpenStreetMap API)"
+        ),
     )
 
 
@@ -281,7 +302,7 @@ def add_server_arguments(parser: argparse.ArgumentParser) -> None:
     """Add arguments for server command."""
     parser.add_argument(
         "--cache",
-        help="path for temporary OSM files",
+        help="directory path for temporary OSM files",
         default="cache",
         metavar="<path>",
     )
@@ -315,8 +336,10 @@ def add_render_arguments(parser: argparse.ArgumentParser) -> None:
         dest="input_file_names",
         metavar="<path>",
         nargs="*",
-        help="input XML file name or names (if not specified, file will be "
-        "downloaded using the OpenStreetMap API)",
+        help=(
+            "input XML file name or names (if not specified, files will be "
+            "downloaded using the OpenStreetMap API)"
+        ),
     )
     parser.add_argument(
         "-o",
@@ -331,11 +354,11 @@ def add_render_arguments(parser: argparse.ArgumentParser) -> None:
         "--bounding-box",
         "--boundary-box",  # Legacy old name.
         metavar="<lon1>,<lat1>,<lon2>,<lat2>",
-        help="geo bounding box",
+        help="geographic bounding box",
     )
     parser.add_argument(
         "--cache",
-        help="path for temporary OSM files",
+        help="directory path for temporary OSM files",
         default="cache",
         metavar="<path>",
     )
@@ -351,13 +374,13 @@ def add_render_arguments(parser: argparse.ArgumentParser) -> None:
         "-c",
         "--coordinates",
         metavar="<latitude>,<longitude>",
-        help="coordinates of any location inside the tile",
+        help="coordinates of any location within the tile",
     )
     parser.add_argument(
         "-s",
         "--size",
         metavar="<width>,<height>",
-        help="resulted image size",
+        help="resulting image size",
     )
 
 
@@ -379,7 +402,9 @@ def add_mapcss_arguments(parser: argparse.ArgumentParser) -> None:
         "--lifecycle",
         action=argparse.BooleanOptionalAction,
         default=True,
-        help="add icons for lifecycle tags; be careful: this will increase the "
-        f"number of node and area selectors by {len(STAGES_OF_DECAY) + 1} "
-        f"times",
+        help=(
+            "add icons for lifecycle tags; be careful: this increases the "
+            f"number of node and area selectors by {len(STAGES_OF_DECAY) + 1} "
+            f"times"
+        ),
     )
