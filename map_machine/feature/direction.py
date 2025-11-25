@@ -36,14 +36,16 @@ def parse_vector(text: str) -> np.ndarray | None:
     :param text: vector text representation
     :return: parsed normalized vector
     """
+    radians: float
+
     try:
-        radians: float = np.radians(float(text)) + SHIFT
+        radians = np.radians(float(text)) + SHIFT
         return np.array((np.cos(radians), np.sin(radians)))
     except ValueError:
         pass
 
     try:
-        radians: float = np.radians(middle(text)) + SHIFT
+        radians = np.radians(middle(text)) + SHIFT
         return np.array((np.cos(radians), np.sin(radians)))
     except KeyError:
         pass
@@ -143,16 +145,20 @@ class DirectionSet:
         return ", ".join(map(str, self.sectors))
 
     def draw(self, center: np.ndarray, radius: float) -> Iterable[PathCommands]:
-        """Construct SVG "d" for arc elements.
+        """Construct SVG `d` for arc elements.
 
         :param center: center point of all arcs
         :param radius: radius of all arcs
-        :return: list of "d" values
+        :return: list of `d` values
         """
-        return filter(
-            lambda x: x is not None,
-            (x.draw(center, radius) for x in self.sectors if x),
-        )
+        path_commands: Iterable[PathCommands | None] = [
+            sector.draw(center, radius) for sector in self.sectors if sector
+        ]
+        return [
+            path_command
+            for path_command in path_commands
+            if path_command is not None
+        ]
 
     def is_right(self) -> bool | None:
         """Check if main direction of the sector is right.
@@ -188,10 +194,14 @@ class DirectionSector(Tagged):
 
         if self.get_tag("man_made") == "surveillance":
             direction = self.get_tag("camera:direction")
-            if "camera:angle" in self.tags:
-                angle = float(self.get_tag("camera:angle"))
-            if "angle" in self.tags:
-                angle = float(self.get_tag("angle"))
+            for tag_key in ("camera:angle", "angle"):
+                tag_value: str | None = self.get_tag(tag_key)
+                if tag_value is not None:
+                    try:
+                        angle = float(tag_value)
+                        break
+                    except (ValueError, TypeError):
+                        pass
             direction_radius = 50.0
             direction_color = scheme.get_color("direction_camera_color")
         elif self.get_tag("traffic_sign") == "stop":

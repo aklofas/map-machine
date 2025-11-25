@@ -137,7 +137,9 @@ class Building(Figure):
         if (path_commands := self.get_path(flinger, shift_1)) is None:
             return
 
-        path: Path = Path(
+        path: Path
+
+        path = Path(
             path_commands, fill="#000000", stroke="#000000", stroke_width=1.0
         )
         building_shade.add(path)
@@ -154,7 +156,7 @@ class Building(Figure):
                     np.add(flung_1, shift_2),
                     "Z",
                 ]
-                path: Path = Path(
+                path = Path(
                     command, fill="#000000", stroke="#000000", stroke_width=1.0
                 )
                 building_shade.add(path)
@@ -238,10 +240,10 @@ def draw_walls(
         if use_building_colors
         else building.wall_default_color
     )
+    color_part: float
 
-    color: Color
     if building.is_construction:
-        color_part: float = segment.angle * 0.2
+        color_part = segment.angle * 0.2
         color = Color(
             rgb=(
                 color.get_red() + color_part,
@@ -256,7 +258,7 @@ def draw_walls(
         color = Color(color)
         color.set_luminance(color.get_luminance() * 0.85)
     else:
-        color_part: float = segment.angle * 0.2 - 0.1
+        color_part = segment.angle * 0.2 - 0.1
         color = Color(
             rgb=(
                 max(min(color.get_red() + color_part, 1), 0),

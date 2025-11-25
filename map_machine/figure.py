@@ -53,14 +53,14 @@ class Figure(Tagged):
         commands: str | None
 
         for outer_nodes in self.outers:
-            commands: str | None = get_path(outer_nodes, offset, flinger)
+            commands = get_path(outer_nodes, offset, flinger)
             if commands:
                 path += f"{commands} "
             else:
                 return None
 
         for inner_nodes in self.inners:
-            commands: str | None = get_path(inner_nodes, offset, flinger)
+            commands = get_path(inner_nodes, offset, flinger)
             if commands:
                 path += f"{commands} "
             else:
@@ -94,10 +94,12 @@ class StyledFigure(Figure):
         """
         if offset is None:
             offset = np.array((0.0, 0.0))
+
         path: str = ""
+        commands: str | None
 
         for outer_nodes in self.outers:
-            commands: str | None = get_path(
+            commands = get_path(
                 outer_nodes, offset, flinger, self.line_style.parallel_offset
             )
             if commands:
@@ -106,7 +108,7 @@ class StyledFigure(Figure):
                 return None
 
         for inner_nodes in self.inners:
-            commands: str | None = get_path(
+            commands = get_path(
                 inner_nodes, offset, flinger, self.line_style.parallel_offset
             )
             if commands:

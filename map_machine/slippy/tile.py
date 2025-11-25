@@ -468,17 +468,23 @@ def generate_tiles(options: argparse.Namespace) -> None:
 
     scheme: Scheme = Scheme.from_file(scheme_path)
     cache_path: Path = Path(options.cache)
+    message: str
+
     if not cache_path.exists():
-        message: str = (
+        message = (
             f"Cache directory `{cache_path}` does not exist, please create it."
         )
         logger.fatal(message)
         sys.exit(1)
 
     bounding_box: BoundingBox
+    configuration: MapConfiguration
+    tile: Tile
+    tiles: Tiles
+    osm_data: OSMData
 
     if options.input_file_name:
-        osm_data: OSMData = OSMData()
+        osm_data = OSMData()
         osm_data.parse_osm_file(Path(options.input_file_name))
 
         if osm_data.view_box is None:
@@ -491,10 +497,10 @@ def generate_tiles(options: argparse.Namespace) -> None:
             bounding_box = osm_data.view_box
 
         for zoom_level in zoom_levels:
-            configuration: MapConfiguration = MapConfiguration.from_options(
+            configuration = MapConfiguration.from_options(
                 scheme, options, zoom_level
             )
-            tiles: Tiles = Tiles.from_bounding_box(bounding_box, zoom_level)
+            tiles = Tiles.from_bounding_box(bounding_box, zoom_level)
             tiles.draw(directory, cache_path, configuration, osm_data)
 
     elif options.coordinates:
@@ -505,17 +511,15 @@ def generate_tiles(options: argparse.Namespace) -> None:
             np.array(coordinates), min_zoom_level
         )
         try:
-            osm_data: OSMData = min_tile.load_osm_data(cache_path)
+            osm_data = min_tile.load_osm_data(cache_path)
         except NetworkError as error:
-            message: str = f"Map is not loaded. {error.message}"
+            message = f"Map is not loaded. {error.message}"
             raise NetworkError(message) from error
 
         for zoom_level in zoom_levels:
-            tile: Tile = Tile.from_coordinates(
-                np.array(coordinates), zoom_level
-            )
+            tile = Tile.from_coordinates(np.array(coordinates), zoom_level)
             try:
-                configuration: MapConfiguration = MapConfiguration.from_options(
+                configuration = MapConfiguration.from_options(
                     scheme, options, zoom_level
                 )
                 tile.draw_with_osm_data(osm_data, directory, configuration)
@@ -524,8 +528,8 @@ def generate_tiles(options: argparse.Namespace) -> None:
 
     elif options.tile:
         zoom_level, x, y = map(int, options.tile.split("/"))
-        tile: Tile = Tile(x, y, zoom_level)
-        configuration: MapConfiguration = MapConfiguration.from_options(
+        tile = Tile(x, y, zoom_level)
+        configuration = MapConfiguration.from_options(
             scheme, options, zoom_level
         )
         tile.draw(directory, cache_path, configuration)
@@ -534,23 +538,23 @@ def generate_tiles(options: argparse.Namespace) -> None:
         try:
             bounding_box = BoundingBox.from_text(options.bounding_box)
         except ValueError:
-            message: str = "Failed to parse bounding box."
+            message = "Failed to parse bounding box."
             logger.fatal(message)
             sys.exit(1)
 
         min_tiles: Tiles = Tiles.from_bounding_box(bounding_box, min_zoom_level)
         try:
-            osm_data: OSMData = min_tiles.load_osm_data(cache_path)
+            osm_data = min_tiles.load_osm_data(cache_path)
         except NetworkError as error:
-            message: str = f"Map is not loaded. {error.message}"
+            message = f"Map is not loaded. {error.message}"
             raise NetworkError(message) from error
 
         for zoom_level in zoom_levels:
             if EXTEND_TO_BIGGER_TILE:
-                tiles: Tiles = min_tiles.subdivide(zoom_level)
+                tiles = min_tiles.subdivide(zoom_level)
             else:
-                tiles: Tiles = Tiles.from_bounding_box(bounding_box, zoom_level)
-            configuration: MapConfiguration = MapConfiguration.from_options(
+                tiles = Tiles.from_bounding_box(bounding_box, zoom_level)
+            configuration = MapConfiguration.from_options(
                 scheme, options, zoom_level
             )
             tiles.draw(directory, cache_path, configuration, osm_data)

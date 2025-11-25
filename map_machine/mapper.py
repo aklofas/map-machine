@@ -83,29 +83,32 @@ class Map:
             x for x in figures if x.line_style.priority < ROAD_PRIORITY
         ]
 
+        path: SVGPath
+        path_commands: str | None
+
         for figure in bottom_figures:
-            path_commands: str | None = figure.get_path(self.flinger)
+            path_commands = figure.get_path(self.flinger)
 
             if not path_commands or "M" not in path_commands:
                 logger.warning("Malformed figure `%s`.", str(figure))
                 continue
 
             if path_commands:
-                path: SVGPath = SVGPath(d=path_commands)
+                path = SVGPath(d=path_commands)
                 path.update(figure.line_style.style)
                 self.svg.add(path)
 
         constructor.roads.draw(self.svg, self.flinger)
 
         for figure in top_figures:
-            path_commands: str | None = figure.get_path(self.flinger)
+            path_commands = figure.get_path(self.flinger)
 
             if not path_commands or "M" not in path_commands:
                 logger.warning("Malformed figure `%s`.", str(figure))
                 continue
 
             if path_commands:
-                path: SVGPath = SVGPath(d=path_commands)
+                path = SVGPath(d=path_commands)
                 path.update(figure.line_style.style)
                 self.svg.add(path)
 
@@ -204,7 +207,7 @@ class Map:
                 (0.0, -height * scale * BUILDING_SCALE)
             )
             for wall in sorted_walls:
-                building: Building = walls[wall]
+                building = walls[wall]
                 if building.height < height or building.min_height >= height:
                     continue
 

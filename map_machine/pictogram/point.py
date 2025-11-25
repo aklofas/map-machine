@@ -116,7 +116,7 @@ class Point(Tagged):
 
         position: np.ndarray = self.point + np.array((0.0, self.y))
         tags: dict[str, str] | None = self.tags if self.add_tooltips else None
-        self.main_icon_painted: bool = self.draw_point_shape(
+        self.main_icon_painted = self.draw_point_shape(
             svg,
             self.icon_set.main_icon,
             self.icon_set.default_icon,
@@ -134,11 +134,14 @@ class Point(Tagged):
         if not self.icon_set.extra_icons or not self.main_icon_painted:
             return
 
+        left: float
+        point: np.ndarray
         is_place_for_extra: bool = True
+
         if occupied:
-            left: float = -(len(self.icon_set.extra_icons) - 1.0) * 8.0
+            left = -(len(self.icon_set.extra_icons) - 1.0) * 8.0
             for _ in self.icon_set.extra_icons:
-                point: np.ndarray = np.array(
+                point = np.array(
                     (int(self.point[0] + left), int(self.point[1] + self.y))
                 )
                 if occupied.check(point):
@@ -147,9 +150,9 @@ class Point(Tagged):
                 left += 16.0
 
         if is_place_for_extra:
-            left: float = -(len(self.icon_set.extra_icons) - 1.0) * 8.0
+            left = -(len(self.icon_set.extra_icons) - 1.0) * 8.0
             for icon in self.icon_set.extra_icons:
-                point: np.ndarray = self.point + np.array((left, self.y))
+                point = self.point + np.array((left, self.y))
                 self.draw_point_shape(svg, icon, None, point, occupied=occupied)
                 left += 16.0
             if self.icon_set.extra_icons:
@@ -165,8 +168,9 @@ class Point(Tagged):
         tags: dict[str, str] | None = None,
     ) -> bool:
         """Draw one combined icon and its outline."""
-        # Down-cast floats to integers to make icons pixel-perfect.
-        position: np.ndarray = np.array((int(position[0]), int(position[1])))
+
+        # Down-cast floats to integers to snap icons to pixel grid.
+        position = np.array((int(position[0]), int(position[1])))
 
         icon_to_draw: Icon = icon
         is_painted: bool = True

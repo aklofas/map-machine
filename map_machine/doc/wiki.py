@@ -13,7 +13,6 @@ from map_machine.workspace import Workspace
 
 if TYPE_CHECKING:
     from map_machine.doc.doc_collections import Collection
-    from map_machine.osm.osm_reader import Tags
 
 WORKSPACE: Workspace = Workspace(Path("temp"))
 
@@ -105,10 +104,10 @@ class WikiTable:
             else:
                 text += "|\n"
             for column_value in self.collection.column_values:
-                current_tags: Tags = dict(self.collection.tags) | {
+                current_tags = dict(self.collection.tags) | {
                     self.collection.row_key: row_value
                 }
-                if column_value:
+                if column_value and self.collection.column_key:
                     current_tags |= {self.collection.column_key: column_value}
                 icon, _ = MapConfiguration(SCHEME).get_icon(
                     EXTRACTOR, current_tags, set()
@@ -136,12 +135,12 @@ def generate_new_text(
     :return: new wiki page text
     """
     wiki_text: str
-    icons = []
+    icons: list[Icon] = []
 
     if table.collection.row_key or table.collection.row_tags:
         wiki_text, icons = table.generate_wiki_table()
     else:
-        processed = set()
+        processed: set[str] = set()
         icon, _ = MapConfiguration(SCHEME).get_icon(
             EXTRACTOR, table.collection.tags, processed
         )
@@ -184,8 +183,8 @@ def generate_new_text(
 
     # If Röntgen rendering section already exists.
 
-    start: int | None = None
-    end: int = -1
+    start = None
+    end = -1
 
     for index, line in enumerate(lines):
         if HEADER_PATTERN.match(line) and start is not None:
@@ -210,7 +209,7 @@ def generate_new_text(
             if pattern.match(line):
                 headers[i] = index
 
-    filtered = list(filter(lambda x: x is not None, headers))
+    filtered = [x for x in headers if x is not None]
     header: int
 
     if filtered:

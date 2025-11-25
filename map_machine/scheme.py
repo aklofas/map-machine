@@ -2,6 +2,7 @@
 
 from __future__ import annotations
 
+import contextlib
 import logging
 import re
 from dataclasses import dataclass
@@ -157,7 +158,6 @@ class Matcher(Tagged):
             return False, {}
 
         for config_tag_key in self.tags:
-            config_tag_key: str
             is_matched, matched_groups = is_matched_tag(
                 config_tag_key, self.tags[config_tag_key], tags
             )
@@ -170,7 +170,6 @@ class Matcher(Tagged):
 
         if self.exception:
             for config_tag_key in self.exception:
-                config_tag_key: str
                 is_matched, matched_groups = is_matched_tag(
                     config_tag_key, self.exception[config_tag_key], tags
                 )
@@ -304,8 +303,10 @@ class RoadMatcher(Matcher):
     def get_priority(self, tags: Tags) -> float:
         """Get priority for drawing order."""
         layer: float = 0.0
-        if "layer" in tags:
-            layer = float(tags.get("layer"))
+        layer_value: str | None = tags.get("layer")
+        if layer_value is not None:
+            with contextlib.suppress(ValueError, TypeError):
+                layer = float(layer_value)
         return 1000.0 * layer + self.priority
 
 
@@ -375,7 +376,7 @@ class Scheme:
                 raise ValueError(message)
             return cls(content)
 
-    def get_color(self, color: str) -> Color:
+    def get_color(self, color_string: str) -> Color:
         """Get any color.
 
         Return color if the color is in scheme, otherwise return default color.
@@ -383,10 +384,10 @@ class Scheme:
         :param color: input color string representation
         :return: color specification
         """
-        if color in self.colors:
-            specification: str | dict = self.colors[color]
+        if color_string in self.colors:
+            specification: str | dict = self.colors[color_string]
             if isinstance(specification, str):
-                return Color(self.colors[color])
+                return Color(self.colors[color_string])
 
             color: Color = self.get_color(specification["color"])
             if "darken" in specification:
@@ -394,13 +395,13 @@ class Scheme:
                 color.set_luminance(color.get_luminance() * (1 - percent))
             return color
 
-        if color.lower() in self.colors:
-            return Color(self.colors[color.lower()])
+        if color_string.lower() in self.colors:
+            return Color(self.colors[color_string.lower()])
 
         try:
-            return Color(color)
+            return Color(color_string)
         except (ValueError, AttributeError):
-            logger.debug("Unknown color `%s`.", color)
+            logger.debug("Unknown color `%s`.", color_string)
             if "default" in self.colors:
                 return Color(self.colors["default"])
             return DEFAULT_COLOR
@@ -565,7 +566,7 @@ class Scheme:
             dot_spec: ShapeSpecification = ShapeSpecification(
                 extractor.get_shape(DEFAULT_SHAPE_ID), self.get_color("default")
             )
-            main_icon: Icon = Icon([dot_spec])
+            main_icon = Icon([dot_spec])
 
         if main_icon and color:
             main_icon.recolor(color)
@@ -652,9 +653,7 @@ class Scheme:
         shape (required), color (optional), and offset (optional).
         """
         shape: Shape = extractor.get_shape(DEFAULT_SHAPE_ID)
-        color: Color = (
-            color if color is not None else Color(self.colors["default"])
-        )
+        color = color if color is not None else Color(self.colors["default"])
         offset: np.ndarray = np.array((0.0, 0.0))
         flip_horizontally: bool = False
         flip_vertically: bool = False

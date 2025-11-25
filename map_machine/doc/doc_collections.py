@@ -50,13 +50,13 @@ class Collection:
     tags: Tags
 
     # Tag key to be used in rows.
-    row_key: str | None = None
+    row_key: str
 
     # List of tag values to be used in rows.
-    row_values: list[str] = field(default_factory=list)
+    row_values: list[str]
 
     # Tag key to be used in columns.
-    column_key: str | None = None
+    column_key: str
 
     # List of tag values to be used in columns.
     column_values: list[str] = field(default_factory=list)
@@ -69,9 +69,9 @@ class Collection:
         """Deserialize icon collection from structure."""
         return cls(
             structure["tags"],
-            structure.get("row_key"),
+            structure["row_key"],
             structure.get("row_values", []),
-            structure.get("column_key"),
+            structure["column_key"],
             structure.get("column_values", []),
             structure.get("row_tags", []),
         )
@@ -263,7 +263,7 @@ class SVGTable:
         rotate: bool = False,
     ) -> None:
         """Draw text on the table."""
-        text: Text = self.svg.text(
+        text_element: Text = self.svg.text(
             text,
             point,
             font_family=self.font,
@@ -272,8 +272,10 @@ class SVGTable:
             font_weight=weight,
         )
         if rotate:
-            text.update({"transform": f"rotate(270,{point[0]},{point[1]})"})
-        self.svg.add(text)
+            text_element.update(
+                {"transform": f"rotate(270,{point[0]},{point[1]})"}
+            )
+        self.svg.add(text_element)
 
     def draw_cross(self, position: np.ndarray, size: float = 15) -> None:
         """Draw cross in the cell."""

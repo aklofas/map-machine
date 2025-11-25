@@ -17,7 +17,7 @@ from map_machine.pictogram.icon import (
     ShapeExtractor,
     ShapeSpecification,
 )
-from map_machine.scheme import NodeMatcher, Scheme
+from map_machine.scheme import Scheme
 from map_machine.workspace import workspace
 
 if TYPE_CHECKING:
@@ -81,7 +81,6 @@ class IconCollection:
                 icons.append(constructed_icon)
 
         for matcher in scheme.node_matchers:
-            matcher: NodeMatcher
             if matcher.shapes:
                 add(matcher.shapes)
             if matcher.add_shapes:
@@ -116,19 +115,21 @@ class IconCollection:
         for icon in icons:
             specified_ids |= set(icon.get_shape_ids())
 
+        shape: Shape
+
         if add_unused:
             for shape_id in extractor.shapes.keys() - specified_ids:
-                shape: Shape = extractor.get_shape(shape_id)
+                shape = extractor.get_shape(shape_id)
                 if shape.is_part:
                     continue
-                icon: Icon = Icon([ShapeSpecification(shape, color)])
+                icon = Icon([ShapeSpecification(shape, color)])
                 icon.recolor(color, white=background_color)
                 icons.append(icon)
 
         if add_all:
             for shape_id in extractor.shapes:
-                shape: Shape = extractor.get_shape(shape_id)
-                icon: Icon = Icon([ShapeSpecification(shape, color)])
+                shape = extractor.get_shape(shape_id)
+                icon = Icon([ShapeSpecification(shape, color)])
                 icon.recolor(color, white=background_color)
                 icons.append(icon)
 

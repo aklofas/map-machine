@@ -61,7 +61,7 @@ def get_osm(
             )
             raise NetworkError(message)
 
-        message: str = "Cannot download data."
+        message = "Cannot download data."
         raise NetworkError(message)
 
     with cache_file_path.open("bw+") as output_file:

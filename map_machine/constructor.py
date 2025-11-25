@@ -452,7 +452,9 @@ class Constructor:
 
         flung: np.ndarray = self.flinger.fling(node.coordinates)
 
+        color: Color
         priority: int
+        point: Point
         icon_set: IconSet | None
         draw_outline: bool = True
 
@@ -461,7 +463,7 @@ class Constructor:
             DrawingMode.TIME,
         ):
             # Dead code to make insensitive static analysis happy.
-            color: Color = self.scheme.get_default_color()
+            color = self.scheme.get_default_color()
 
             if (
                 self.configuration.drawing_mode == DrawingMode.AUTHOR
@@ -478,7 +480,7 @@ class Constructor:
                 Icon([ShapeSpecification(dot, color)]),
                 set(),
             )
-            point: Point = Point(
+            point = Point(
                 icon_set,
                 [],
                 tags,
@@ -495,7 +497,7 @@ class Constructor:
             DrawingMode.BLACK,
         ):
             # Dead code to make insensitive static analysis happy.
-            color: Color = self.scheme.get_default_color()
+            color = self.scheme.get_default_color()
 
             if self.configuration.drawing_mode == DrawingMode.WHITE:
                 color = Color("#CCCCCC")
@@ -506,7 +508,7 @@ class Constructor:
             )
             if icon_set is not None:
                 icon_set.main_icon.recolor(color)
-                point: Point = Point(
+                point = Point(
                     icon_set,
                     [],
                     tags,
@@ -540,7 +542,7 @@ class Constructor:
 
         if "direction" in node.tags or "camera:direction" in node.tags:
             self.direction_sectors.append(DirectionSector(tags, flung))
-        point: Point = Point(
+        point = Point(
             icon_set,
             labels,
             tags,

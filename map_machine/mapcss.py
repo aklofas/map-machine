@@ -16,6 +16,7 @@ from map_machine.workspace import workspace
 
 if TYPE_CHECKING:
     import argparse
+    from collections.abc import Sequence
     from pathlib import Path
 
 __author__ = "Sergey Vartanov"
@@ -88,8 +89,8 @@ class MapCSSWriter:
         self.add_icons_for_lifecycle: bool = add_icons_for_lifecycle
         self.icon_directory_name: str = icon_directory_name
 
-        self.point_matchers: list[Matcher] = scheme.node_matchers
-        self.line_matchers: list[Matcher] = scheme.way_matchers
+        self.point_matchers: Sequence[Matcher] = scheme.node_matchers
+        self.line_matchers: Sequence[Matcher] = scheme.way_matchers
 
     def add_selector(
         self,

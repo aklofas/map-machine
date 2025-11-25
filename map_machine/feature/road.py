@@ -164,7 +164,7 @@ class RoadPart:
             stroke="#000000",
         )
         drawing.add(line)
-        line: Path = drawing.path(
+        line = drawing.path(
             (
                 "M", self.point_1 + self.right_vector,
                 "L", self.point_2 + self.right_vector,
@@ -298,9 +298,12 @@ class Intersection:
     def __init__(self, parts: list[RoadPart]) -> None:
         self.parts: list[RoadPart] = sorted(parts, key=lambda x: x.get_angle())
 
+        next_index: int
+        part_2: RoadPart
+
         for index, part_1 in enumerate(self.parts):
-            next_index: int = 0 if index == len(self.parts) - 1 else index + 1
-            part_2: RoadPart = self.parts[next_index]
+            next_index = 0 if index == len(self.parts) - 1 else index + 1
+            part_2 = self.parts[next_index]
             line_1: Line = Line(
                 part_1.point_1 + part_1.right_vector,
                 part_1.point_2 + part_1.right_vector,
@@ -317,8 +320,8 @@ class Intersection:
             part_2.update()
 
         for index, part_1 in enumerate(self.parts):
-            next_index: int = 0 if index == len(self.parts) - 1 else index + 1
-            part_2: RoadPart = self.parts[next_index]
+            next_index = 0 if index == len(self.parts) - 1 else index + 1
+            part_2 = self.parts[next_index]
             part_1.update()
             part_2.update()
 
@@ -338,16 +341,20 @@ class Intersection:
         self, drawing: svgwrite.Drawing, scale: float, *, is_debug: bool = False
     ) -> None:
         """Draw all road parts and intersection."""
-        inner_commands = ["M"]
+        inner_commands: list[str | np.ndarray] = ["M"]
         for part in self.parts:
-            inner_commands += [part.left_connection, "L"]
+            if part.left_connection is not None:
+                inner_commands += [part.left_connection, "L"]
         inner_commands[-1] = "Z"
 
-        outer_commands = ["M"]
+        outer_commands: list[str | np.ndarray] = ["M"]
         for part in self.parts:
-            outer_commands += [part.left_connection, "L"]
-            outer_commands += [part.left_outer, "L"]
-            outer_commands += [part.right_outer, "L"]
+            if part.left_connection is not None:
+                outer_commands += [part.left_connection, "L"]
+            if part.left_outer is not None:
+                outer_commands += [part.left_outer, "L"]
+            if part.right_outer is not None:
+                outer_commands += [part.right_outer, "L"]
         outer_commands[-1] = "Z"
 
         if is_debug:
@@ -405,10 +412,11 @@ class Road(Tagged):
             except ValueError:
                 pass
 
+        value: str
         placement_parts: int = 2
 
         if "placement" in tags:
-            value: str = tags["placement"]
+            value = tags["placement"]
             if (
                 ":" in value
                 and len(parts := value.split(":")) == placement_parts
@@ -431,10 +439,14 @@ class Road(Tagged):
         number: int
         if "lanes:forward" in tags:
             number = int(tags["lanes:forward"])
-            (x.set_forward(is_forward=True) for x in self.lanes[-number:])
+            for lane in self.lanes[-number:]:
+                if lane:
+                    lane.set_forward(is_forward=True)
         if "lanes:backward" in tags:
             number = int(tags["lanes:backward"])
-            (x.set_forward(is_forward=False) for x in self.lanes[:number])
+            for lane in self.lanes[:number]:
+                if lane:
+                    lane.set_forward(is_forward=False)
 
         if "width" in tags:
             with contextlib.suppress(ValueError):
@@ -448,7 +460,7 @@ class Road(Tagged):
         self.is_transition: bool = False
 
         if "placement" in tags:
-            value: str = tags["placement"]
+            value = tags["placement"]
             if value == "transition":
                 self.is_transition = True
             elif (
@@ -456,7 +468,7 @@ class Road(Tagged):
                 and len(parts := value.split(":")) == placement_parts
             ):
                 place, lane_string = parts
-                lane_number: int = int(lane_string) - 1
+                lane_number = int(lane_string) - 1
                 self.placement_offset = -self.width * self.scale / 2.0
                 if lane_number > 0:
                     self.placement_offset += sum(
@@ -793,13 +805,14 @@ class ComplexConnector(Connector):
         """Draw connection outline."""
         filter_: Filter | None = self.road_1.get_filter(svg, is_border=True)
 
+        path: Path
         if filter_:
-            path: Path = svg.path(
+            path = svg.path(
                 d=["M", *self.curve_1, "M", *self.curve_2],
                 filter=filter_.get_funciri(),
             )
         else:
-            path: Path = svg.path(d=["M", *self.curve_1, "M", *self.curve_2])
+            path = svg.path(d=["M", *self.curve_1, "M", *self.curve_2])
         path.update(self.road_1.get_style(is_border=True, is_for_stroke=True))
         svg.add(path)
 
@@ -882,8 +895,6 @@ class Roads:
                     layered_connectors[road.layer].append(connector)
 
         for connected in self.nodes.values():
-            connector: Connector
-
             if len(connected) <= 1:
                 continue
 

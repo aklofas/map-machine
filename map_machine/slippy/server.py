@@ -17,6 +17,7 @@ from map_machine.workspace import workspace
 
 if TYPE_CHECKING:
     import argparse
+    from socket import socket
 
 __author__ = "Sergey Vartanov"
 __email__ = "me@enzet.ru"
@@ -35,7 +36,7 @@ class TileServerHandler(SimpleHTTPRequestHandler):
 
     def __init__(
         self,
-        request: bytes,
+        request: socket | tuple[bytes, socket],
         client_address: tuple[str, int],
         server: HTTPServer,
     ) -> None:

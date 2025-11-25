@@ -103,9 +103,9 @@ class Tagged:
             (KILOMETERS_PATTERN, 1000.0),
             (MILES_PATTERN, 1609.344),
         ]:
-            matcher: re.Match = pattern.match(value)
+            matcher: re.Match | None = pattern.match(value)
             if matcher:
-                float_value: float | None = parse_float(matcher.group("value"))
+                float_value = parse_float(matcher.group("value"))
                 if float_value is not None:
                     return float_value * ratio
 
@@ -506,4 +506,8 @@ class OSMData:
 
     def parse_object(self, element: Element) -> None:
         """Parse astronomical object properties from XML element."""
-        self.equator_length = float(element.get("equator"))
+        equator_length = element.get("equator")
+        if equator_length is None:
+            logger.fatal("Equator length is not found in the element.")
+            return
+        self.equator_length = float(equator_length)
