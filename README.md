@@ -5,7 +5,6 @@
 
 The **Map Machine** project consists of
 
-
   * a Python [OpenStreetMap](http://openstreetmap.org) renderer:
     * SVG [map generation](#map-generation),
     * SVG and PNG [tile generation](#tile-generation),
@@ -23,8 +22,7 @@ See
   * [map features](#map-features),
   * [using Röntgen as JOSM style](#use-röntgen-as-josm-map-paint-style).
 
-Usage example
--------------
+## Usage example
 
 ```shell
 map-machine render -b 2.284,48.860,2.290,48.865
@@ -38,8 +36,7 @@ map-machine tile -b 2.361,48.871,2.368,48.875
 
 will automatically download OSM data and render PNG tiles that cover the specified area to the `out/tiles` directory. See [Tile generation](#tile-generation).
 
-Röntgen icon set
-----------------
+## Röntgen icon set
 
 The central feature of the project is the Röntgen icon set. It is a set of monochrome 14 × 14 px pixel-aligned icons specially created for the Map Machine project. Unlike the Map Machine source code, which is under the MIT license, all icons are under the [CC BY](http://creativecommons.org/licenses/by/4.0/) license. So, with the appropriate credit the icon set can be used outside the project. Some icons can be used as emoji symbols.
 
@@ -51,18 +48,17 @@ Feel free to request new icons via issues for whatever you want to see on the ma
 
 Generate an icon grid and sets of individual icons with `map-machine icons`. It will update the `doc/grid.svg` file, and create SVG files in the `out/icons_by_id` directory where files are named using shape identifiers (e.g. `power_tower_portal_2_level.svg`) and in the `icons_by_name` directory where files are named using shape names (e.g. `Röntgen portal two-level transmission tower.svg`). Files from the last directory are used in the OpenStreetMap wiki (e.g. [`File:Röntgen_portal_two-level_transmission_tower.svg`](https://wiki.openstreetmap.org/wiki/File:R%C3%B6ntgen_portal_two-level_transmission_tower.svg)).
 
-Map features
-------------
+## Map features
 
-### Extra icons ###
+### Extra icons
 
 Map Machine uses icons to visualize tags for nodes and areas. But unlike other renderers, Map Machine can use more than one icon to visualize an entity and can use colors to visualize [`colour`](https://wiki.openstreetmap.org/wiki/Key:colour) value or other entity properties (like [`material`](https://wiki.openstreetmap.org/wiki/Key:material) or [`genus`](https://wiki.openstreetmap.org/wiki/Key:genus)).
 
-### Isometric building shapes ###
+### Isometric building shapes
 
 With `--buildings isometric` or `--buildings isometric-no-parts` (not set by default), buildings are drawn using isometric shapes for walls and shade in proportion to [`building:levels`](https://wiki.openstreetmap.org/wiki/Key:building:levels), [`building:min_level`](https://wiki.openstreetmap.org/wiki/Key:building:min_level), [`height`](https://wiki.openstreetmap.org/wiki/Key:height), and [`min_height`](https://wiki.openstreetmap.org/wiki/Key:min_height) values.
 
-#### Example ####
+#### Example
 
 ```shell
 map-machine render -c -26.19049,28.05605 -s 600,400 --buildings isometric
@@ -70,11 +66,11 @@ map-machine render -c -26.19049,28.05605 -s 600,400 --buildings isometric
 
 ![3D buildings](doc/buildings.svg)
 
-### Road lanes ###
+### Road lanes
 
 To determine the road width Map Machine uses the [`width`](https://wiki.openstreetmap.org/wiki/Key:width) tag value or estimates it based on the [`lanes`](https://wiki.openstreetmap.org/wiki/Key:lanes) value. If lane value is specified, it also draws lane separators. This map style is highly inspired by Christoph Hormann's post [Navigating the Maze](http://blog.imagico.de/navigating-the-maze-part-2/).
 
-#### Example ####
+#### Example
 
 ```shell
 map-machine render -c 47.61224,-122.33866 -s 600,400
@@ -82,19 +78,19 @@ map-machine render -c 47.61224,-122.33866 -s 600,400
 
 ![Road lanes](doc/lanes.svg)
 
-### Trees ###
+### Trees
 
 Visualization of tree leaf types (broadleaved or needle-leaved) and genus or taxon by means of icon shapes and leaf cycles (deciduous or evergreen) by means of color.
 
-#### Example ####
+#### Example
 
 ![Trees](doc/trees.svg)
 
-### Viewpoint and camera direction ###
+### Viewpoint and camera direction
 
 [`direction`](https://wiki.openstreetmap.org/wiki/Key:direction) tag values for [`tourism`](https://wiki.openstreetmap.org/wiki/Key:tourism) = [`viewpoint`](https://wiki.openstreetmap.org/wiki/Tag:tourism=viewpoint) and [`camera:direction`](https://wiki.openstreetmap.org/wiki/Key:camera:direction) for [`man_made`](https://wiki.openstreetmap.org/wiki/Key:man_made) = [`surveillance`](https://wiki.openstreetmap.org/wiki/Tag:man_made=surveillance) are rendered with sectors displaying the direction and angle (15º if angle is not specified) or the whole circle for panorama view. Radial gradient is used for surveillance and inverted radial gradient is used for viewpoints.
 
-#### Example ####
+#### Example
 
 ```shell
 map-machine render -c 52.50892,13.3244 -s 600,400 -z 18.5
@@ -104,7 +100,7 @@ map-machine render -c 52.50892,13.3244 -s 600,400 -z 18.5
 
 ![Viewpoints](doc/viewpoints.svg)
 
-### Power tower design ###
+### Power tower design
 
 Visualize [`design`](https://wiki.openstreetmap.org/wiki/Key:design) values used with [`power`](https://wiki.openstreetmap.org/wiki/Key:power) = [`tower`](https://wiki.openstreetmap.org/wiki/Tag:power=tower) and [`power`](https://wiki.openstreetmap.org/wiki/Key:power) = [`pole`](https://wiki.openstreetmap.org/wiki/Tag:power=pole) tags. `design` has more than 1 million usages in OpenStreetMap.
 
@@ -112,27 +108,27 @@ Visualize [`design`](https://wiki.openstreetmap.org/wiki/Key:design) values used
 
 ![Power tower design](doc/power.svg)
 
-### Colors ###
+### Colors
 
 Map icons have [`colour`](https://wiki.openstreetmap.org/wiki/Key:colour) tag value if it is present, otherwise, icons are displayed with dark grey color by default, purple color for shop nodes, red color for emergency features, and special colors for natural features. Map Machine also takes into account [`building:colour`](https://wiki.openstreetmap.org/wiki/Key:building:colour), [`roof:colour`](https://wiki.openstreetmap.org/wiki/Key:roof:colour) and other `*:colour` tags, and uses the [`colour`](https://wiki.openstreetmap.org/wiki/Key:colour) tag value to paint subway lines.
 
 ![Building colors](doc/colors.svg)
 
-### Emergency ###
+### Emergency
 
 ![Emergency](doc/icons_emergency.svg)
 
-### Japanese map symbols ###
+### Japanese map symbols
 
 Japanese maps usually use [special symbols](https://en.wikipedia.org/wiki/List_of_Japanese_map_symbols) called *chizukigou* (地図記号) which are different from standard map symbols used in other countries. They can be enabled with `--country jp` option.
 
 ![Japanese map symbols](doc/icons_japanese.svg)
 
-### Indoor features ###
+### Indoor features
 
 Draw indoor features specifying level with `--level` option. Possible values are numbers (e.g. `1`, `0.5`), lists of number separated by `;` (e.g. `1;2;4;4.5`), `all`, `overground`, and `underground`. The default value is not `all`, but `overground`, so underground objects are not shown on the map if `--level` option is not specified.
 
-#### Example ####
+#### Example
 
 ```shell
 map-machine render -c 4.5978,-74.07507 -s 600,400 -z 19.5 --level 0
@@ -140,42 +136,39 @@ map-machine render -c 4.5978,-74.07507 -s 600,400 -z 19.5 --level 0
 
 ![Indoor](doc/indoor.svg)
 
-### Shape combination ###
+### Shape combination
 
 One of the key features of Map Machine is constructing icons from several shapes.
 
-#### Masts ####
+#### Masts
 
 For [`man_made`](https://wiki.openstreetmap.org/wiki/Key:man_made) = [`mast`](https://wiki.openstreetmap.org/wiki/Tag:man_made=mast) distinguish types (communication, lighting, monitoring, and siren) and construction (freestanding or lattice, and using of guys) are rendered by combining 7 unique icon shapes.
 
 ![Mast types](doc/mast.svg)
 
-#### Volcanoes ####
+#### Volcanoes
 
 For [`natural`](https://wiki.openstreetmap.org/wiki/Key:natural) = [`volcano`](https://wiki.openstreetmap.org/wiki/Tag:natural=volcano) status (active, dormant, extinct, or unspecified) and type (stratovolcano, shield, or scoria) are rendered by combining 7 unique icon shapes.
 
 ![Volcano types](doc/volcano.svg)
 
-Wireframe view
---------------
+## Wireframe view
 
-### Creation time mode ###
+### Creation time mode
 
 Visualize element creation time with `--mode time`.
 
 ![Creation time mode](doc/time.svg)
 
-### Author mode ###
+### Author mode
 
 Every way and node displayed with the random color picked for each author with `--mode author`.
 
 ![Author mode](doc/author.svg)
 
-Installation
-------------
+## Installation
 
 Requirements: Python 3.9.
-
 
   * Install the [cairo 2D graphic library](https://www.cairographics.org/download/),
   * install the [GEOS library](https://libgeos.org),
@@ -187,8 +180,7 @@ pip install git+https://github.com/enzet/map-machine
 
 For more detailed instructions, see [instructions](doc/INSTALL.md).
 
-Map generation
---------------
+## Map generation
 
 The `render` command is used to generate an SVG map from OpenStreetMap data. You can run it using:
 
@@ -200,7 +192,7 @@ map-machine render \
     <other arguments>
 ```
 
-### Example ###
+### Example
 
 ```shell
 map-machine render \
@@ -210,37 +202,35 @@ map-machine render \
 
 will download OSM data to `cache/2.284,48.860,2.290,48.865.osm` and render an SVG map of the specified area to `out/esplanade_du_trocadéro.svg`.
 
-### Arguments ###
+### Arguments
 
 | Option | Description |
 |---|---|
-| <span style="white-space: nowrap;">`-i`</span>, <span style="white-space: nowrap;">`--input`</span> `<path>` | input XML file name or names (if not specified, file will be downloaded using the OpenStreetMap API) |
+| <span style="white-space: nowrap;">`-i`</span>, <span style="white-space: nowrap;">`--input`</span> `<path>` | input XML file name or names (if not specified, files will be downloaded using the OpenStreetMap API) |
 | <span style="white-space: nowrap;">`-o`</span>, <span style="white-space: nowrap;">`--output`</span> `<path>` | output SVG file name, default value: `out/map.svg` |
-| <span style="white-space: nowrap;">`-b`</span>, <span style="white-space: nowrap;">`--bounding-box`</span> `<lon1>,<lat1>,<lon2>,<lat2>` | geo bounding box |
-| <span style="white-space: nowrap;">`--cache`</span> `<path>` | path for temporary OSM files, default value: `cache` |
+| <span style="white-space: nowrap;">`-b`</span>, <span style="white-space: nowrap;">`--bounding-box`</span>, <span style="white-space: nowrap;">`--boundary-box`</span> `<lon1>,<lat1>,<lon2>,<lat2>` | geographic bounding box |
+| <span style="white-space: nowrap;">`--cache`</span> `<path>` | directory path for temporary OSM files, default value: `cache` |
 | <span style="white-space: nowrap;">`-z`</span>, <span style="white-space: nowrap;">`--zoom`</span> `<float>` | OSM zoom level, default value: 18.0 |
-| <span style="white-space: nowrap;">`-c`</span>, <span style="white-space: nowrap;">`--coordinates`</span> `<latitude>,<longitude>` | coordinates of any location inside the tile |
-| <span style="white-space: nowrap;">`-s`</span>, <span style="white-space: nowrap;">`--size`</span> `<width>,<height>` | resulted image size |
-
+| <span style="white-space: nowrap;">`-c`</span>, <span style="white-space: nowrap;">`--coordinates`</span> `<latitude>,<longitude>` | coordinates of any location within the tile |
+| <span style="white-space: nowrap;">`-s`</span>, <span style="white-space: nowrap;">`--size`</span> `<width>,<height>` | resulting image size |
 plus [map configuration options](#map-options)
 
-Tile generation
----------------
+## Tile generation
 
 Command `tile` is used to generate PNG tiles for [slippy maps](https://wiki.openstreetmap.org/wiki/Slippy_Map). To use them, run [Map Machine tile server](#tile-server).
 
 | Option | Description |
 |---|---|
-| <span style="white-space: nowrap;">`-c`</span>, <span style="white-space: nowrap;">`--coordinates`</span> `<latitude>,<longitude>` | coordinates of any location inside the tile |
+| <span style="white-space: nowrap;">`-c`</span>, <span style="white-space: nowrap;">`--coordinates`</span> `<latitude>,<longitude>` | coordinates of any location within the tile |
 | <span style="white-space: nowrap;">`-t`</span>, <span style="white-space: nowrap;">`--tile`</span> `<zoom level>/<x>/<y>` | tile specification |
-| <span style="white-space: nowrap;">`--cache`</span> `<path>` | path for temporary OSM files, default value: `cache` |
-| <span style="white-space: nowrap;">`-b`</span>, <span style="white-space: nowrap;">`--bounding-box`</span> `<lon1>,<lat1>,<lon2>,<lat2>` | construct the minimum amount of tiles that cover the requested bounding box |
-| <span style="white-space: nowrap;">`-z`</span>, <span style="white-space: nowrap;">`--zoom`</span> `<range>` | OSM zoom levels; can be list of numbers or ranges, e.g. `16-18`, `16,17,18`, or `16,18-20`, default value: `18` |
+| <span style="white-space: nowrap;">`--cache`</span> `<path>` | directory path for temporary OSM files, default value: `cache` |
+| <span style="white-space: nowrap;">`-b`</span>, <span style="white-space: nowrap;">`--bounding-box`</span>, <span style="white-space: nowrap;">`--boundary-box`</span> `<lon1>,<lat1>,<lon2>,<lat2>` | generate the minimum number of tiles that cover the requested bounding box |
+| <span style="white-space: nowrap;">`-z`</span>, <span style="white-space: nowrap;">`--zoom`</span> `<range>` | OSM zoom levels; can be a list of numbers or ranges, e.g. `16-18`, `16,17,18`, or `16,18-20`, default value: `18` |
 | <span style="white-space: nowrap;">`-i`</span>, <span style="white-space: nowrap;">`--input`</span> `<path>` | input OSM XML file name (if not specified, the file will be downloaded using the OpenStreetMap API) |
 
 plus [map configuration options](#map-options)
 
-### Generate one tile ###
+### Generate one tile
 
 Specify the tile coordinates:
 
@@ -266,7 +256,7 @@ map-machine tile -c 55.7510637,37.6270761 -z 18
 
 will generate an SVG file `out/tiles/tile_18_158471_81953.svg` and a PNG file `out/tiles/tile_18_158471_81953.png`.
 
-### Generate a set of tiles ###
+### Generate a set of tiles
 
 Specify the bounding box to get the minimal set of tiles that covers the area:
 
@@ -286,8 +276,7 @@ map-machine tile -b 2.361,48.871,2.368,48.875
 
 will generate 36 PNG tiles at zoom level 18 from tile 18/132791/90164 all the way to 18/132796/90169 and two cached files `cache/2.360,48.869,2.370,48.877_18.svg` and `cache/2.360,48.869,2.370,48.877_18.png`.
 
-Tile server
------------
+## Tile server
 
 The `server` command is used to run a tile server for slippy maps.
 
@@ -299,10 +288,11 @@ Stop server interrupting the process with <kbd>Ctrl</kbd> + <kbd>C</kbd>.
 
 | Option | Description |
 |---|---|
-| <span style="white-space: nowrap;">`--cache`</span> `<path>` | path for temporary OSM files, default value: `cache` |
+| <span style="white-space: nowrap;">`--cache`</span> `<path>` | directory path for temporary OSM files, default value: `cache` |
+| <span style="white-space: nowrap;">`--update-cache`</span> | allow writing to cache |
 | <span style="white-space: nowrap;">`--port`</span> `<integer>` | port number, default value: 8080 |
 
-### Example ###
+### Example
 
 Create a minimal amount of tiles that cover specified bounding box for zoom levels 16, 17, 18, and 19:
 
@@ -341,8 +331,7 @@ HTML code:
 
 See full HTML example in `doc/leaflet.html`.
 
-Map options
------------
+## Map options
 
 Map configuration options used by `render` and `tile` commands:
 
@@ -351,19 +340,20 @@ Map configuration options used by `render` and `tile` commands:
 | <span style="white-space: nowrap;">`--scheme`</span> `<id> or <path>` | scheme identifier (look for `<id>.yml` file) or path to a YAML scheme file, default value: `default` |
 | <span style="white-space: nowrap;">`--buildings`</span> `<mode>` | building drawing mode: no, flat, isometric, isometric-no-parts, default value: `flat` |
 | <span style="white-space: nowrap;">`--mode`</span> `<string>` | map drawing mode: normal, author, time, white, black, default value: `normal` |
-| <span style="white-space: nowrap;">`--overlap`</span> `<integer>` | how many pixels should be left around icons and text, default value: 12 |
+| <span style="white-space: nowrap;">`--overlap`</span> `<integer>` | size of the margin in pixels to leave around icons and text, default value: 12 |
 | <span style="white-space: nowrap;">`--labels`</span> `<string>` | label drawing mode: no, main, all, address, default value: `main` |
-| <span style="white-space: nowrap;">`--level`</span> | display only this floor level, default value: `overground` |
-| <span style="white-space: nowrap;">`--seed`</span> `<string>` | seed for random |
+| <span style="white-space: nowrap;">`--level`</span> | display only the specified floor level, default value: `overground` |
+| <span style="white-space: nowrap;">`--seed`</span> `<string>` | seed for random number generation |
 | <span style="white-space: nowrap;">`--tooltips`</span> | add tooltips with tags for icons in SVG files |
-| <span style="white-space: nowrap;">`--country`</span> | two-letter code (ISO 3166-1 alpha-2) of country, that should be used for location restrictions, default value: `world` |
-| <span style="white-space: nowrap;">`--ignore-level-matching`</span> | draw all map features ignoring the current level |
+| <span style="white-space: nowrap;">`--country`</span> | two-letter code (ISO 3166-1 alpha-2) of the country that should be used for location restrictions, default value: `world` |
+| <span style="white-space: nowrap;">`--ignore-level-matching`</span> | draw all map features, ignoring the current level |
 | <span style="white-space: nowrap;">`--roofs`</span> | draw building roofs, set by default |
 | <span style="white-space: nowrap;">`--building-colors`</span> | paint walls (if isometric mode is enabled) and roofs with specified colors |
 | <span style="white-space: nowrap;">`--show-overlapped`</span> | show hidden nodes with a dot |
+| <span style="white-space: nowrap;">`--hide-credit`</span> | hide credit |
+| <span style="white-space: nowrap;">`--background`</span> | enable or disable the background (e.g., to use it as a layer), set by default |
 
-MapCSS 0.2 generation
----------------------
+## MapCSS 0.2 generation
 
 The `mapcss` command can be used to generate a MapCSS scheme. `map-machine mapcss` will create an `out/map_machine_mapcss` directory with simple MapCSS 0.2 scheme adding icons from the Röntgen icon set to nodes and areas: `.mapcss` file and directory with icons.
 
@@ -373,10 +363,9 @@ To create a MapCSS style with Map Machine style also for ways and relations, run
 |---|---|
 | <span style="white-space: nowrap;">`--icons`</span> | add icons for nodes and areas, set by default |
 | <span style="white-space: nowrap;">`--ways`</span> | add style for ways and relations |
-| <span style="white-space: nowrap;">`--lifecycle`</span> | add icons for lifecycle tags; be careful: this will increase the number of node and area selectors by 9 times, set by default |
+| <span style="white-space: nowrap;">`--lifecycle`</span> | add icons for lifecycle tags; be careful: this increases the number of node and area selectors by 9 times, set by default |
 
-### Use Röntgen as JOSM map paint style ###
-
+### Use Röntgen as JOSM map paint style
 
   * Run `map-machine mapcss`.
   * Open [JOSM](https://josm.openstreetmap.de/).
@@ -386,7 +375,7 @@ To create a MapCSS style with Map Machine style also for ways and relations, run
 
 To enable/disable the Map Machine map paint style go to <kbd>View</kbd> → <kbd>Map Paint Styles</kbd> → <kbd>Map Machine</kbd>.
 
-#### Example ####
+#### Example
 
 ![JOSM example](doc/josm.png)
 

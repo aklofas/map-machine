@@ -120,12 +120,12 @@ class MapMachineMoire(Default, ABC):
         if "=" in spec:
             key, tag = spec.split("=")
             return (
-                self.get_ref_(f"{PREFIX}Key:{key}", self.m([key]))
+                self._get_ref(f"{PREFIX}Key:{key}", self.m([key]))
                 + " = "
-                + self.get_ref_(f"{PREFIX}Tag:{key}={tag}", self.m([tag]))
+                + self._get_ref(f"{PREFIX}Tag:{key}={tag}", self.m([tag]))
             )
 
-        return self.get_ref_(f"{PREFIX}Key:{spec}", self.m([spec]))
+        return self._get_ref(f"{PREFIX}Key:{spec}", self.m([spec]))
 
     def color(self, _: Arguments) -> str:
         """Convert tag to a simple color sample."""
