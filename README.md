@@ -5,10 +5,10 @@
 
 The **Map Machine** project consists of
 
-  * a Python [OpenStreetMap](http://openstreetmap.org) renderer:
+  * a Python [OpenStreetMap](https://openstreetmap.org) renderer:
     * SVG [map generation](#map-generation),
     * SVG and PNG [tile generation](#tile-generation),
-  * the [Röntgen](#röntgen-icon-set) icon set: unique CC-BY 4.0 map icons.
+  * the Röntgen ([site](https://enzet.ru/roentgen), [GitHub](https://github.com/enzet/Roentgen)) icon set: unique CC-BY 4.0 map icons.
 
 The idea behind the Map Machine project is to **show all the richness of the OpenStreetMap data**: to have a possibility to display any map feature represented by OpenStreetMap data tags by means of colors, shapes, and icons. Map Machine is created both for map contributors: to display all changes one made on the map even if they are small, and for map users: to dig down into the map and find every detail that was mapped.
 
@@ -38,7 +38,7 @@ will automatically download OSM data and render PNG tiles that cover the specifi
 
 ## Röntgen icon set
 
-The central feature of the project is the Röntgen icon set. It is a set of monochrome 14 × 14 px pixel-aligned icons specially created for the Map Machine project. Unlike the Map Machine source code, which is under the MIT license, all icons are under the [CC BY](http://creativecommons.org/licenses/by/4.0/) license. So, with the appropriate credit the icon set can be used outside the project. Some icons can be used as emoji symbols.
+The central feature of the project is the Röntgen icon set. It is a set of monochrome 14 × 14 px pixel-aligned icons specially created for the Map Machine project. Unlike the Map Machine source code, which is under the MIT license, all icons are under the [CC BY](https://creativecommons.org/licenses/by/4.0/) license. So, with the appropriate credit the icon set can be used outside the project. Some icons can be used as emoji symbols.
 
 All icons tend to support a common design style, which is heavily inspired by [Maki](https://github.com/mapbox/maki), [Osmic](https://github.com/gmgeo/osmic), and [Temaki](https://github.com/ideditor/temaki).
 
@@ -68,7 +68,7 @@ map-machine render -c -26.19049,28.05605 -s 600,400 --buildings isometric
 
 ### Road lanes
 
-To determine the road width Map Machine uses the [`width`](https://wiki.openstreetmap.org/wiki/Key:width) tag value or estimates it based on the [`lanes`](https://wiki.openstreetmap.org/wiki/Key:lanes) value. If lane value is specified, it also draws lane separators. This map style is highly inspired by Christoph Hormann's post [Navigating the Maze](http://blog.imagico.de/navigating-the-maze-part-2/).
+To determine the road width Map Machine uses the [`width`](https://wiki.openstreetmap.org/wiki/Key:width) tag value or estimates it based on the [`lanes`](https://wiki.openstreetmap.org/wiki/Key:lanes) value. If lane value is specified, it also draws lane separators. This map style is highly inspired by Christoph Hormann's post [Navigating the Maze](https://blog.imagico.de/navigating-the-maze-part-2/).
 
 #### Example
 

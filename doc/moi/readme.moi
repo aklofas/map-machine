@@ -1,11 +1,11 @@
 The \b {Map Machine} project consists of
 
 \list
-    {a Python \ref {http://openstreetmap.org} {OpenStreetMap} renderer:
+    {a Python \ref {https://openstreetmap.org} {OpenStreetMap} renderer:
     \list
         {SVG \ref {#map-generation} {map generation},}
         {SVG and PNG \ref {#tile-generation} {tile generation},}}
-    {the \ref {#röntgen-icon-set} {Röntgen} icon set\: unique CC-BY 4.0 map icons.}
+    {the Röntgen (\ref {https://enzet.ru/roentgen} {site}, \ref {https://github.com/enzet/Roentgen} {GitHub}) icon set\: unique CC-BY 4.0 map icons.}
 
 The idea behind the Map Machine project is to \b {show all the richness of the OpenStreetMap data}\: to have a possibility to display any map feature represented by OpenStreetMap data tags by means of colors, shapes, and icons.  Map Machine is created both for map contributors\: to display all changes one made on the map even if they are small, and for map users\: to dig down into the map and find every detail that was mapped.
 
@@ -31,7 +31,7 @@ will automatically download OSM data and render PNG tiles that cover the specifi
 
 \2 {Röntgen icon set} {röntgen-icon-set}
 
-The central feature of the project is the Röntgen icon set.  It is a set of monochrome 14 × 14 px pixel-aligned icons specially created for the Map Machine project.  Unlike the Map Machine source code, which is under the MIT license, all icons are under the \ref {http://creativecommons.org/licenses/by/4.0/} {CC BY} license.  So, with the appropriate credit the icon set can be used outside the project.  Some icons can be used as emoji symbols.
+The central feature of the project is the Röntgen icon set.  It is a set of monochrome 14 × 14 px pixel-aligned icons specially created for the Map Machine project.  Unlike the Map Machine source code, which is under the MIT license, all icons are under the \ref {https://creativecommons.org/licenses/by/4.0/} {CC BY} license.  So, with the appropriate credit the icon set can be used outside the project.  Some icons can be used as emoji symbols.
 
 All icons tend to support a common design style, which is heavily inspired by \ref {https://github.com/mapbox/maki} {Maki}, \ref {https://github.com/gmgeo/osmic} {Osmic}, and \ref {https://github.com/ideditor/temaki} {Temaki}.
 
@@ -59,7 +59,7 @@ With \m {--buildings isometric} or \m {--buildings isometric-no-parts} (not set 
 
 \3 {Road lanes} {road-lanes}
 
-To determine the road width Map Machine uses the \osm {width} tag value or estimates it based on the \osm {lanes} value. If lane value is specified, it also draws lane separators.  This map style is highly inspired by Christoph Hormann's post \ref {http://blog.imagico.de/navigating-the-maze-part-2/} {Navigating the Maze}.
+To determine the road width Map Machine uses the \osm {width} tag value or estimates it based on the \osm {lanes} value. If lane value is specified, it also draws lane separators.  This map style is highly inspired by Christoph Hormann's post \ref {https://blog.imagico.de/navigating-the-maze-part-2/} {Navigating the Maze}.
 
 \4 {Example}
 
