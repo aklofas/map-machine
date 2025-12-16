@@ -4,7 +4,7 @@ if [ -d ".venv" ]; then
     source .venv/bin/activate
 fi
 
-echo "Checking code format with Ruff..."
+echo "Check code format with Ruff..."
 if ! ruff format --check; then
     ruff format --diff
     echo "FAIL"
@@ -16,3 +16,5 @@ ruff check || { echo "FAIL"; exit 1; }
 
 echo "Check with ty..."
 ty check || { echo "FAIL"; exit 1; }
+
+echo "OK"

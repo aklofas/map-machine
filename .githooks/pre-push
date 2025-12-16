@@ -4,7 +4,7 @@ if [ -d ".venv" ]; then
     source .venv/bin/activate
 fi
 
-echo "Looking for changes..."
+echo "Look for changes..."
 files=`git status --porcelain | wc -l`
 if [ ${files} == 0 ] ; then
     echo "OK"
@@ -14,10 +14,8 @@ else
     exit 1
 fi
 
-# Check format, lint, run static analyzer.
 .githooks/pre-commit || { echo "FAIL"; exit 1; }
 
-# Unit tests with pytest.
 echo "Run tests with pytest..."
 pytest -vv || { echo "FAIL"; exit 1; }
 

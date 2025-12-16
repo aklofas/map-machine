@@ -45,25 +45,44 @@
 
 ## 0.1.9
 
+### Fixes
+
 - Fix a problem with a mutable field ([Philipp](https://github.com/phillies),
   [#153](https://github.com/enzet/map-machine/issues/153)).
-- Add icon for `natural=human`.
+
+
+### Improvements
+
 - Add `--hide-credit` option.
 - Make colors more configurable.
 
+### New Tag Support
+
+- Add icon for `natural=human`.
+
 ## 0.1.8
+
+### Fixes
+
+- Fix leading `-` issue in argument parsing.
+- Fix style for golf features.
+- Support empty scheme file
+  ([#140](https://github.com/enzet/map-machine/issues/140)).
+
+### Improvements
 
 - Improve colors for indoor features
   ([#139](https://github.com/enzet/map-machine/issues/139)).
-- Support empty scheme file
-  ([#140](https://github.com/enzet/map-machine/issues/140)).
+- Enhance argument processing
+  ([#100](https://github.com/enzet/map-machine/issues/100)).
+
+### New Tag Support
+
 - Add icons for:
   - flags,
   - camp, fire, `tourism=camp_pitch`
     ([#144](https://github.com/enzet/map-machine/issues/144)).
 - Support `tourism=artwork` for ways.
-- Enhance argument processing
-  ([#100](https://github.com/enzet/map-machine/issues/100)).
 - Reuse icon for:
   - `traffic_sign=*`,
   - `parking=yes`,
@@ -71,12 +90,23 @@
   - `dog=yes`,
   - `shower=yes`,
   - `washing_machine=yes`.
-- Fix style for golf features.
-- Fix leading `-` issue in argument parsing.
 
 ## 0.1.7
 
 _17 August 2022_
+
+### Fixes
+
+- Fix style for `indoor=room`
+  ([#139](https://github.com/enzet/map-machine/issues/139)).
+
+### Improvements
+
+- **Breaking change**: rename `element` command to `draw` and change format.
+- Add `--scheme` option
+  ([#140](https://github.com/enzet/map-machine/issues/140)).
+
+### New Tag Support
 
 - Add icons for:
   - `shop=car_parts`, `shop=variety_store`
@@ -85,22 +115,22 @@ _17 August 2022_
   - `tomb=pyramid`.
 - Reuse icon for `shop=department_store`
   ([#48](https://github.com/enzet/map-machine/issues/48)).
-- Fix style for `indoor=room`
-  ([#139](https://github.com/enzet/map-machine/issues/139)).
 - Redraw diving tower and fountain icons.
-- Add `--scheme` option
-  ([#140](https://github.com/enzet/map-machine/issues/140)).
-- Rename `element` command to `draw` and change format.
 
 ## 0.1.6
 
 _4 July 2022_
 
-- Support `attraction=water_slide`
-  ([#137](https://github.com/enzet/map-machine/issues/137)).
+### Fixes
+
 - Fix diving tower priority
   ([#138](https://github.com/enzet/map-machine/issues/138)); test
   `test_icons/test_diving_tower`.
+
+### New Tag Support
+
+- Support `attraction=water_slide`
+  ([#137](https://github.com/enzet/map-machine/issues/137)).
 - Add icon for `amenity=dressing_room`
   ([#135](https://github.com/enzet/map-machine/issues/135)).
 
@@ -108,14 +138,21 @@ _4 July 2022_
 
 _6 June 2022_
 
-- Support `/` as a delimiter for coordinates.
+### Fixes
+
 - Fix `placement` tag processing
   ([#128](https://github.com/enzet/map-machine/issues/128)).
-- Split way priority ([#125](https://github.com/enzet/map-machine/issues/125)).
 - Fix typo in `motorcar=yes`
   ([#133](https://github.com/enzet/map-machine/issues/133)).
 
+### Improvements
+
+- Support `/` as a delimiter for coordinates.
+- Split way priority ([#125](https://github.com/enzet/map-machine/issues/125)).
+
 ## 0.1.4
+
+### Fixes
 
 - Fix vending machine priority
   ([#132](https://github.com/enzet/map-machine/issues/132)).
@@ -126,6 +163,20 @@ _6 June 2022_
 
 _2022.4_
 
+### Fixes
+
+- Fix waterways priority
+  ([#126](https://github.com/enzet/map-machine/issues/126)).
+- Fix electricity shape.
+
+### Improvements
+
+- Show small dot for overlapped icons
+  ([#121](https://github.com/enzet/map-machine/issues/121)).
+- Support color for default icon.
+
+### New Tag Support
+
 - Add style for
   - `greenhouse_horticulture`,
   - `recreation_ground`,
@@ -133,41 +184,62 @@ _2022.4_
     ([#129](https://github.com/enzet/map-machine/issues/129)).
 - Add style for `railway=construction`
   ([#125](https://github.com/enzet/map-machine/issues/125)).
-- Fix electricity shape.
-- Support color for default icon.
-- Fix waterways priority
-  ([#126](https://github.com/enzet/map-machine/issues/126)).
-- Show small dot for overlapped icons
-  ([#121](https://github.com/enzet/map-machine/issues/121)).
 
 ## 0.1.2
 
 _2022.2.3_
 
+### Fixes
+
+- Wrap temporarily matrix creation
+  ([#114](https://github.com/enzet/map-machine/issues/114)).
+
+### Improvements
+
+- Copy license file to icon collection
+  ([#98](https://github.com/enzet/map-machine/issues/98)).
+- Fix beach shape.
+
+### New Tag Support
+
 - Add icons for:
   - `highway=traffic_mirror`.
   - Japanese symbol for health center.
   - Japanese symbol for police station.
-- Fix beach shape.
-- Copy license file to icon collection
-  ([#98](https://github.com/enzet/map-machine/issues/98)).
-- Wrap temporarily matrix creation
-  ([#114](https://github.com/enzet/map-machine/issues/114)).
 
 ## 0.1.1
 
 _2022.2.2_
 
-- Add icon for `playground=sandpit`.
-- Fix probe, lunokhod shape, solar panel.
-- Reuse icon for `shop=antiques`.
+### Improvements
+
 - Add `--building-colors` option.
+- Fix probe, lunokhod shape, solar panel.
 - More precise area detection.
+
+### New Tag Support
+
+- Add icon for `playground=sandpit`.
+- Reuse icon for `shop=antiques`.
 - Support `area=yes` for roads.
 
 ## 0.1.0
 
 _2022.2.1_
+
+### Fixes
+
+- Fix wall order.
+
+### Improvements
+
+- Add support for Docker (Sven Fischer).
+- Support roof and walls colors.
+- Remove wildcard matching for `tourism=*`.
+- Redraw icon for swimming area.
+- Fix bed shape.
+
+### New Tag Support
 
 - Add icons for:
   - `tourism=apartment`,
@@ -177,13 +249,6 @@ _2022.2.1_
   - mazes,
   - `leisure=escape_game`.
 - Reuse icon for `craft=jeweller`.
-- Redraw icon for swimming area.
-- Add support for Docker (Sven Fischer).
-- Fix bed shape.
-- Remove wildcard matching for `tourism=*`.
-- For buildings:
-  - Support roof and walls colors.
-  - Fix walls order.
 
 ## 0.0.35
 
