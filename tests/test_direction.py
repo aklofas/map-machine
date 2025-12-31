@@ -10,18 +10,24 @@ __email__ = "me@enzet.ru"
 
 def test_compass_points_1() -> None:
     """Test north direction."""
-    assert np.allclose(parse_vector("N"), np.array([0, -1]))
+    vector: np.ndarray | None = parse_vector("N")
+    assert vector is not None
+    assert np.allclose(vector, np.array([0, -1]))
 
 
 def test_compass_points_2() -> None:
     """Test north-west direction."""
     root: np.float64 = -np.sqrt(2) / 2
-    assert np.allclose(parse_vector("NW"), np.array([root, root]))
+    vector: np.ndarray | None = parse_vector("NW")
+    assert vector is not None
+    assert np.allclose(vector, np.array([root, root]))
 
 
 def test_compass_points_3() -> None:
     """Test south-south-west direction."""
-    assert np.allclose(parse_vector("SSW"), np.array([-0.38268343, 0.92387953]))
+    vector: np.ndarray | None = parse_vector("SSW")
+    assert vector is not None
+    assert np.allclose(vector, np.array([-0.38268343, 0.92387953]))
 
 
 def test_invalid() -> None:
@@ -31,7 +37,9 @@ def test_invalid() -> None:
 
 def test_degree() -> None:
     """Test east direction."""
-    assert np.allclose(parse_vector("90"), np.array([1, 0]))
+    vector: np.ndarray | None = parse_vector("90")
+    assert vector is not None
+    assert np.allclose(vector, np.array([1, 0]))
 
 
 def test_main_direction() -> None:
@@ -49,5 +57,7 @@ def test_sector_parsing() -> None:
     Sector("-90", angle=0)
 
     sector: Sector = Sector("0-180")
+    assert sector.start is not None
+    assert sector.end is not None
     assert np.allclose(sector.start, [0, -1])
     assert np.allclose(sector.end, [0, 1])

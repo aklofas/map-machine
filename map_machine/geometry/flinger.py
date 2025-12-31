@@ -55,7 +55,10 @@ class Flinger:
         """Do nothing but return coordinates unchanged."""
         return coordinates
 
-    def get_scale(self, _: np.ndarray | None = None) -> float:
+    def get_scale(
+        self,
+        coordinates: np.ndarray | None = None,  # noqa: ARG002
+    ) -> float:
         """Return pixels per meter ratio for the given geo coordinates."""
         return 1.0
 

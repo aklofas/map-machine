@@ -18,13 +18,18 @@ class ArgumentParser(argparse.ArgumentParser):
         self.arguments: list[dict[str, Any]] = []
         super().__init__(*args, **kwargs)
 
-    def add_argument(self, *args, **kwargs) -> None:  # noqa: ANN002, ANN003
+    def add_argument(
+        self,
+        *args,  # noqa: ANN002
+        **kwargs,  # noqa: ANN003
+    ) -> argparse.Action:
         """Just store argument with options."""
-        super().add_argument(*args, **kwargs)
+        action: argparse.Action = super().add_argument(*args, **kwargs)
         argument: dict[str, Any] = {"arguments": args}
         argument |= kwargs
 
         self.arguments.append(argument)
+        return action
 
     def get_complete(self, command: str) -> str:
         """Return fish complete command."""
