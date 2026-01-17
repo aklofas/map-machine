@@ -71,6 +71,40 @@ class Occupied:
             assert self.matrix[point[0], point[1]]
 
 
+def draw_icon_safe(
+    icon_specification: IconSpecification,
+    svg: svgwrite.Drawing,
+    position_tuple: tuple[int, int],
+    *,
+    outline: bool = False,
+    tags: dict[str, str] | None = None,
+) -> None:
+    """Try to draw icon specification."""
+    try:
+        icon_specification.draw(
+            svg,
+            roentgen.get_shapes(),
+            position_tuple,
+            outline=outline,
+            tags=tags,
+        )
+    except Exception as error:  # noqa: BLE001
+        # TODO(enzet): this is a hack to work around a bug in SVG flipping using
+        # `svgpathtools`. We should fix it in Röntgen.
+        message: str = f"Failed to draw icon at {position_tuple}: {error}."
+        logger.warning(message)
+        for shape_specification in icon_specification.shape_specifications:
+            shape_specification.flip_horizontally = False
+            shape_specification.flip_vertically = False
+        icon_specification.draw(
+            svg,
+            roentgen.get_shapes(),
+            position_tuple,
+            outline=outline,
+            tags=tags,
+        )
+
+
 class Point(Tagged):
     """Object on the map with no dimensional attributes.
 
@@ -189,19 +223,9 @@ class Point(Tagged):
                 return False
 
         if self.draw_outline:
-            icon_to_draw.draw(
-                svg,
-                roentgen.get_shapes(),
-                position_tuple,
-                outline=True,
-            )
+            draw_icon_safe(icon_to_draw, svg, position_tuple, outline=True)
 
-        icon_to_draw.draw(
-            svg,
-            roentgen.get_shapes(),
-            position_tuple,
-            tags=tags,
-        )
+        draw_icon_safe(icon_to_draw, svg, position_tuple, tags=tags)
 
         if occupied and is_painted:
             overlap: int = occupied.overlap
