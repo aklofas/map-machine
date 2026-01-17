@@ -51,13 +51,13 @@ class Collection:
     tags: Tags
 
     # Tag key to be used in rows.
-    row_key: str
+    row_key: str | None
 
     # List of tag values to be used in rows.
     row_values: list[str]
 
     # Tag key to be used in columns.
-    column_key: str
+    column_key: str | None
 
     # List of tag values to be used in columns.
     column_values: list[str] = field(default_factory=list)
@@ -70,9 +70,9 @@ class Collection:
         """Deserialize icon collection from structure."""
         return cls(
             structure["tags"],
-            structure["row_key"],
+            structure.get("row_key"),
             structure.get("row_values", []),
-            structure["column_key"],
+            structure.get("column_key"),
             structure.get("column_values", []),
             structure.get("row_tags", []),
         )
@@ -96,15 +96,15 @@ class SVGTable:
         self.font: str = ",".join(MONOSPACE_FONTS)
         self.font_width: float = self.font_size * 0.7
 
-        if not self.collection.row_key:
-            message: str = "Row key is required."
-            raise ValueError(message)
+        row_key_size: int = 0
+        if self.collection.row_key:
+            row_key_size = len(self.collection.row_key)
 
         self.size: list[float] = [
             (
                 max(
                     max(map(len, self.collection.row_values)) * self.font_width,
-                    len(self.collection.row_key) * self.font_width
+                    row_key_size * self.font_width
                     + (self.offset if self.collection.column_values else 0),
                     170.0,
                 )
@@ -330,7 +330,7 @@ def draw_svg_tables(output_path: Path, html_file_path: Path) -> None:
                 with path.open("w+") as output_file:
                     svg.write(output_file)
                 html_file.write(
-                    f'<img src="{path}" style="border: 1px solid #DDD;" />\n'
+                    f'<img src="../{path}" style="border: 1px solid #DDD;" />\n'
                 )
 
 
