@@ -1,4 +1,4 @@
-"""WIP: road shape drawing."""
+"""Road shape drawing."""
 
 from __future__ import annotations
 
@@ -665,7 +665,7 @@ def get_curve_points(
     *,
     is_end: bool,
 ) -> list[np.ndarray]:
-    """TODO: add description.
+    """Get curve points for road connector drawing.
 
     :param road: road segment
     :param center: road intersection point

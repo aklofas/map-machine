@@ -44,7 +44,7 @@ class LineStyle:
 
 
 class MatchingType(Enum):
-    """Description on how tag was matched."""
+    """Description of how a tag was matched."""
 
     NOT_MATCHED = 0
     MATCHED_BY_SET = 1
@@ -142,7 +142,7 @@ class Matcher(Tagged):
     def is_matched(
         self, tags: Tags, country: str | None = None
     ) -> tuple[bool, dict[str, str]]:
-        """Check whether element tags matches tag matcher.
+        """Check whether element tags match the tag matcher.
 
         :param tags: element tags to be matched
         :param country: country of the element (to match location restrictions
@@ -406,7 +406,7 @@ class Scheme:
 
         Return color if the color is in scheme, otherwise return default color.
 
-        :param color: input color string representation
+        :param color_string: input color string representation
         :return: color specification
         """
         if color_string in self.colors:
@@ -451,8 +451,8 @@ class Scheme:
     def is_no_drawable(self, key: str, value: str) -> bool:
         """Check whether the tag is not drawable.
 
-        Return true if key is specified as no drawable (should not be
-        represented on the map as icon set or as text) by the scheme.
+        Return true if the key is specified as non-drawable (should not be
+        represented on the map as an icon set or as text) by the scheme.
 
         :param key: OpenStreetMap tag key
         :param value: OpenStreetMap tag value
@@ -472,8 +472,8 @@ class Scheme:
     def is_writable(self, key: str, value: str) -> bool:
         """Check whether the tag is writable.
 
-        Return true if key is specified as writable (should be represented on
-        the map as text) by the scheme.
+        Return true if the key is specified as writable (should be represented
+        on the map as text) by the scheme.
 
         :param key: OpenStreetMap tag key
         :param value: OpenStreetMap tag value
@@ -639,7 +639,7 @@ class Scheme:
         return None
 
     def is_area(self, tags: Tags) -> bool:
-        """Check whether way described by tags is area."""
+        """Check whether the way described by tags is an area."""
         for matcher in self.area_matchers:
             matching, _ = matcher.is_matched(tags)
             if matching:
@@ -647,7 +647,7 @@ class Scheme:
         return False
 
     def process_ignored(self, tags: Tags, processed: set[str]) -> None:
-        """Mark all ignored tag as processed.
+        """Mark all ignored tags as processed.
 
         :param tags: input tag dictionary
         :param processed: processed set

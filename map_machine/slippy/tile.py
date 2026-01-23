@@ -148,7 +148,7 @@ class Tile:
     ) -> None:
         """Draw tile to SVG and PNG files.
 
-        :param directory_name: output directory to storing tiles
+        :param directory_name: output directory for storing tiles
         :param cache_path: directory to store SVG and PNG tiles
         :param configuration: drawing configuration
         """
@@ -288,7 +288,7 @@ class Tiles:
         """Draw PNG images.
 
         Draw one PNG image with all tiles and split it into a set of separate
-        PNG file with Pillow.
+        PNG files with Pillow.
 
         :param directory: directory for tiles
         :param cache_path: directory for temporary OSM files

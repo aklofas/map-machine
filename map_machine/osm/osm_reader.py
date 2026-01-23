@@ -262,7 +262,7 @@ class OSMWay(Tagged):
         )
 
     def is_cycle(self) -> bool:
-        """Is way a cycle way or an area boundary."""
+        """Check whether the way is a cycle or an area boundary."""
         return self.nodes[0] == self.nodes[-1]
 
     def __repr__(self) -> str:

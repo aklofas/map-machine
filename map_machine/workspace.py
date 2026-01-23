@@ -1,4 +1,4 @@
-"""File and directory path in the project."""
+"""File and directory paths in the project."""
 
 from __future__ import annotations
 

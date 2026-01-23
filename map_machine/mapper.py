@@ -275,7 +275,7 @@ class Map:
         """Draw credits.
 
         Add OpenStreetMap credit and the link to the project itself.
-        OpenStreetMap requires to use the credit “© OpenStreetMap contributors”.
+        OpenStreetMap requires using the credit "© OpenStreetMap contributors".
 
         See https://www.openstreetmap.org/copyright
         """

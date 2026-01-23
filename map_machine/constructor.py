@@ -60,10 +60,10 @@ DEFAULT_SMALL_SHAPE_ID: str = "default_small"
 def line_center(
     nodes: list[OSMNode], flinger: Flinger
 ) -> tuple[np.ndarray, np.ndarray]:
-    """Get geometric center of nodes set.
+    """Get the geometric center of a set of nodes.
 
     :param nodes: node list
-    :param flinger: flinger that remap geo positions
+    :param flinger: flinger that remaps geo positions
     """
     boundary: list[MinMax] = [MinMax(), MinMax()]
 
@@ -77,7 +77,7 @@ def line_center(
 
 
 def get_user_color(text: str, seed: str) -> Color:
-    """Generate random color based on text."""
+    """Generate a random color based on text."""
     if text == "":
         return Color("black")
     return Color("#" + sha256((seed + text).encode("utf-8")).hexdigest()[-6:])
@@ -132,7 +132,7 @@ def glue(ways: list[OSMWay]) -> list[list[OSMNode]]:
 
 
 def is_cycle(nodes: list[OSMNode]) -> bool:
-    """Is way a cycle way or an area boundary."""
+    """Check whether the way is a cycle or an area boundary."""
     return nodes[0] == nodes[-1]
 
 
@@ -422,7 +422,7 @@ class Constructor:
                 self.construct_line(relation, inners_path, outers_path)
 
     def construct_nodes(self) -> None:
-        """Construct point and add them to the collection."""
+        """Construct points and add them to the collection."""
         logger.info("Constructing nodes...")
 
         # Sort node vertically (using latitude values) to draw them from top to
@@ -559,7 +559,7 @@ class Constructor:
 
 
 def check_level_number(tags: Tags, level: float) -> bool:
-    """Check if element described by tags is no the specified level."""
+    """Check whether the element described by tags is on the specified level."""
     if "level" in tags:
         if level not in parse_levels(tags["level"]):
             return False

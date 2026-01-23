@@ -1,4 +1,4 @@
-"""Rectangle that limit space on the map."""
+"""Rectangle that limits the space on the map."""
 
 from __future__ import annotations
 
@@ -27,7 +27,7 @@ BOUNDING_BOX_PATTERN: re.Pattern = re.compile(
 
 @dataclass
 class BoundingBox:
-    """Rectangle that limit space on the map."""
+    """Rectangle that limits the space on the map."""
 
     left: float  # Minimum longitude.
     bottom: float  # Minimum latitude.
@@ -157,7 +157,7 @@ class BoundingBox:
 
         Bounding box format is
         <longitude 1>,<latitude 1>,<longitude 2>,<latitude 2>.  Coordinates are
-        rounded to three digits after comma.
+        rounded to three decimal places.
         """
         left: float = np.floor(self.left * 1000.0) / 1000.0
         bottom: float = np.floor(self.bottom * 1000.0) / 1000.0

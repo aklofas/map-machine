@@ -1,4 +1,4 @@
-"""Text processing for map element."""
+"""Text processing for map elements."""
 
 from __future__ import annotations
 
@@ -55,7 +55,7 @@ def get_address(
 
 
 def format_voltage(value: str) -> str:
-    """Format voltage value to more human-readable form.
+    """Format a voltage value to a more human-readable form.
 
     :param value: presumably string representation of integer, in Volts
     """

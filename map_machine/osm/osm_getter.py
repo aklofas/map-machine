@@ -29,7 +29,7 @@ class NetworkError(Exception):
 def get_osm(
     bounding_box: BoundingBox, cache_file_path: Path, *, to_update: bool = False
 ) -> str:
-    """Download OSM data from the web or get if from the cache.
+    """Download OSM data from the web or get it from the cache.
 
     :param bounding_box: borders of the map part to download
     :param cache_file_path: cache file to store downloaded OSM data
@@ -66,7 +66,7 @@ def get_osm(
 
 
 def get_data(address: str, parameters: dict[str, str]) -> bytes:
-    """Construct Internet page URL and get its descriptor.
+    """Construct a URL with parameters and fetch its content.
 
     :param address: URL without parameters
     :param parameters: URL parameters

@@ -94,7 +94,7 @@ class Polyline:
         )
 
     def shorten(self, index: int, length: float) -> None:
-        """Make shorten part specified with index."""
+        """Shorten the part at the specified index."""
         index_2: int = 1 if index == 0 else -2
         diff: np.ndarray = self.points[index_2] - self.points[index]
         self.points[index] = (
@@ -103,7 +103,7 @@ class Polyline:
 
 
 class Line:
-    """Infinity line: Ax + By + C = 0."""
+    """Infinite line: Ax + By + C = 0."""
 
     def __init__(self, start: np.ndarray, end: np.ndarray) -> None:
         # TODO(enzet): add check for `start.near(end)`.
@@ -112,18 +112,18 @@ class Line:
         self.c: float = start[0] * end[1] - end[0] * start[1]
 
     def parallel_shift(self, shift: np.ndarray) -> None:
-        """Shift current vector according with shift.
+        """Shift the current line by the given vector.
 
         :param shift: shift vector
         """
         self.c -= self.a * shift[0] + self.b * shift[1]
 
     def is_parallel(self, other: Line) -> bool:
-        """If lines are parallel or equal."""
+        """Check whether the lines are parallel or equal."""
         return np.allclose(other.a * self.b - self.a * other.b, 0.0)
 
     def get_intersection_point(self, other: Line) -> np.ndarray:
-        """Get point of intersection current line with other."""
+        """Get the intersection point of this line with another."""
         if other.a * self.b - self.a * other.b == 0.0:
             return np.array((0.0, 0.0))
 
@@ -165,7 +165,7 @@ class Segment:
         return self.y < other.y
 
     def intersection(self, other: Segment) -> list[float] | None:
-        """Find and intersection point between two segments.
+        """Find the intersection point between two segments.
 
         :return: `None` if segments don't intersect, [x, y] coordinates of
             the resulting point otherwise.

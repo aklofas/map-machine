@@ -28,7 +28,7 @@ GET_REQUEST_PARTS: list[str] = ["address", "tiles", "zoom_level", "x", "y"]
 
 
 class TileServerHandler(SimpleHTTPRequestHandler):
-    """HTTP request handler that process sloppy map tile requests."""
+    """HTTP request handler that processes slippy map tile requests."""
 
     cache: Path = Path("cache")
     update_cache: bool = False

@@ -1,4 +1,4 @@
-"""Utility file."""
+"""Utility classes and functions."""
 
 from __future__ import annotations
 

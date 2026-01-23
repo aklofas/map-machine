@@ -21,7 +21,7 @@ def pseudo_mercator(coordinates: np.ndarray) -> np.ndarray:
     and y is a stretched latitude and may have any real value:
     (-infinity, +infinity).
 
-    :param coordinates: geo positional in the form of (latitude, longitude)
+    :param coordinates: geo position in the form of (latitude, longitude)
     :return: position on the plane in the form of (x, y)
     """
     latitude, longitude = coordinates

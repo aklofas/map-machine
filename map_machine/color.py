@@ -13,9 +13,9 @@ BRIGHTNESS_THRESHOLD: float = 0.78125
 
 
 def is_bright(color: Color) -> bool:
-    """Check whether color is bright enough to have black outline.
+    """Check whether the color is bright enough to have a black outline.
 
-    Otherwise it should have white outline.
+    Otherwise it should have a white outline.
     """
     return (
         0.2126 * color.red + 0.7152 * color.green + 0.0722 * color.blue

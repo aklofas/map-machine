@@ -50,7 +50,7 @@ class Occupied:
         except (MemoryError, ValueError):
             logger.fatal(
                 "Failed to allocate a matrix required by overlap algorithm. "
-                "Try to use smallest area or try `--overlap=0` options."
+                "Try using a smaller area or the `--overlap=0` option."
             )
             sys.exit(1)
 
@@ -286,7 +286,7 @@ class Point(Tagged):
         *,
         is_debug: bool = False,
     ) -> None:
-        """Drawing text.
+        """Draw text.
 
           ######     ###  outline 2
          #------#    ---  outline 1

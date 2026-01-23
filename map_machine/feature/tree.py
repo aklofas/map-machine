@@ -1,7 +1,7 @@
 """Drawing tree features on the map.
 
-If radius of trunk or crown are specified they are displayed with simple
-circles.
+If the radius of the trunk or crown is specified, it is displayed as a simple
+circle.
 """
 
 from typing import TYPE_CHECKING
