@@ -102,7 +102,8 @@ colors:
   wall_color: "#E8E8E8"
   wall_construction_color: "#84807C"
   water_border_color: "#6688BB"
-  water_color: "#AACCFF"
+  water_color: "#80C8F0"
+  swimming_area_color: "#80D0F0"
   wetland_color: "#BFE0D8"
   wood_border_color: "#A8BC74"
   wood_color: "#B8CC84"
@@ -2741,6 +2742,10 @@ ways:
       stroke: route_color
     priority: 42.0
 
+  - tags: {leisure: swimming_area}
+    style:
+      fill: swimming_area_color
+    priority: 22.0  # Should be over water.
   - tags: {leisure: garden}
     style:
       fill: grass_color
