@@ -2173,6 +2173,13 @@ ways:
   - tags: {man_made: bridge}
     style: {fill: "#AAAAAA"}
     priority: 22.0
+  - tags: {man_made: pier}
+    style:
+      stroke-linecap: round
+      stroke-linejoin: round
+      stroke-width: 5
+      stroke: background_color
+    priority: 22.0
   - tags: {indoor: area}
     style:
       stroke: indoor_border_color
