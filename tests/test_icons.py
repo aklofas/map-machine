@@ -110,7 +110,7 @@ def test_icon() -> None:
     Tags that should be visualized with single main icon and without extra
     icons.
     """
-    check_icon_set({"natural": "tree"}, [("tree", Color("#98AC64"))])
+    check_icon_set({"natural": "tree"}, [("tree", Color("#52A329"))])
 
 
 def test_icon_1_extra() -> None:

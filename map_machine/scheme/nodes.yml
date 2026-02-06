@@ -1660,7 +1660,7 @@ nodes:
     start_zoom_level: 18.0
     tags:
     - tags: {natural: tree}
-      shapes: [{shape: tree, color: $tree_color, outline: no}]
+      shapes: [{shape: tree, color: $tree_color}]
     - tags: {leaf_type: broadleaved}
       shapes: [{shape: tree_with_leaf, color: $tree_color}]
     - tags: {leaf_type: needleleaved}
