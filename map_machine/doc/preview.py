@@ -152,7 +152,6 @@ def main(id_: str | None) -> None:
                 SCHEME,
                 label_mode=LabelMode.NO,
                 zoom_level=15.7,
-                ignore_level_matching=True,
             ),
         )
 
@@ -169,9 +168,7 @@ def main(id_: str | None) -> None:
         draw_around_point(
             np.array((55.751, 37.628)),
             "trees",
-            MapConfiguration(
-                SCHEME, label_mode=LabelMode(LabelMode.ALL), zoom_level=18.1
-            ),
+            MapConfiguration(SCHEME, zoom_level=18.1, level="overground"),
             get=BoundingBox(37.624, 55.749, 37.633, 55.753),
         )
 

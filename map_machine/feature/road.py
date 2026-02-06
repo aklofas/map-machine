@@ -458,6 +458,16 @@ class Road(Tagged):
         if "layer" in tags:
             self.layer = float(tags["layer"])
 
+        self.level: float = 0.0
+        if "level" in tags:
+            try:
+                levels = [
+                    float(x) for x in tags["level"].replace(",", ".").split(";")
+                ]
+                self.level = min(levels)
+            except ValueError:
+                pass
+
         self.placement_offset: float = 0.0
         self.is_transition: bool = False
 
@@ -710,6 +720,12 @@ class Connector:
         self.max_layer: float = max(
             connection[0].layer for connection in connections
         )
+        self.min_level: float = min(
+            connection[0].level for connection in connections
+        )
+        self.max_level: float = max(
+            connection[0].level for connection in connections
+        )
         self.scale: float = self.road_1.scale
         self.flinger: Flinger = flinger
 
@@ -888,10 +904,16 @@ class Roads:
 
     def draw_simple(self, svg: Drawing) -> None:
         """Draw roads as styled figures, usually lines with outlines."""
-        for road in sorted(self.roads, key=lambda x: x.matcher.priority):
+        for road in sorted(
+            self.roads,
+            key=lambda x: (x.level, x.layer, x.matcher.priority),
+        ):
             road.draw(svg, is_border=True)
 
-        for road in sorted(self.roads, key=lambda x: x.matcher.priority):
+        for road in sorted(
+            self.roads,
+            key=lambda x: (x.level, x.layer, x.matcher.priority),
+        ):
             road.draw(svg, is_border=False)
 
     def draw_lanes(
@@ -901,14 +923,17 @@ class Roads:
         if not self.roads:
             return
 
-        layered_roads: dict[float, list[Road]] = {}
-        layered_connectors: dict[float, list[Connector]] = {}
+        level_layer = tuple[float, float]
+
+        layered_roads: dict[level_layer, list[Road]] = {}
+        layered_connectors: dict[level_layer, list[Connector]] = {}
 
         for road in self.roads:
+            key: level_layer = (road.level, road.layer)
             if not road.is_transition:
-                if road.layer not in layered_roads:
-                    layered_roads[road.layer] = []
-                layered_roads[road.layer].append(road)
+                if key not in layered_roads:
+                    layered_roads[key] = []
+                layered_roads[key].append(road)
             else:
                 connections = [
                     [
@@ -922,9 +947,9 @@ class Roads:
                     connector: Connector = ComplexConnector(
                         [connections[0][0], connections[1][0]], flinger
                     )
-                    if road.layer not in layered_connectors:
-                        layered_connectors[road.layer] = []
-                    layered_connectors[road.layer].append(connector)
+                    if key not in layered_connectors:
+                        layered_connectors[key] = []
+                    layered_connectors[key].append(connector)
 
         for connected in self.nodes.values():
             if len(connected) <= 1:
@@ -948,19 +973,30 @@ class Roads:
                 # `SimpleIntersection(connected, flinger, scale)` here.
                 continue
 
-            if connector.min_layer not in layered_connectors:
-                layered_connectors[connector.min_layer] = []
-            layered_connectors[connector.min_layer].append(connector)
-
-            if connector.max_layer not in layered_connectors:
-                layered_connectors[connector.max_layer] = []
-            layered_connectors[connector.max_layer].append(connector)
-
-        for layer in sorted(layered_roads.keys()):
-            roads: list[Road] = sorted(
-                layered_roads[layer], key=lambda x: x.matcher.priority
+            min_key: level_layer = (
+                connector.min_level,
+                connector.min_layer,
             )
-            connectors: list[Connector] | None = layered_connectors.get(layer)
+            if min_key not in layered_connectors:
+                layered_connectors[min_key] = []
+            layered_connectors[min_key].append(connector)
+
+            max_key: level_layer = (
+                connector.max_level,
+                connector.max_layer,
+            )
+            if max_key not in layered_connectors:
+                layered_connectors[max_key] = []
+            layered_connectors[max_key].append(connector)
+
+        for level_layer_key in sorted(layered_roads.keys()):
+            roads: list[Road] = sorted(
+                layered_roads[level_layer_key],
+                key=lambda x: x.matcher.priority,
+            )
+            connectors: list[Connector] | None = layered_connectors.get(
+                level_layer_key
+            )
 
             # Draw borders.
 
@@ -968,7 +1004,10 @@ class Roads:
                 road.draw(svg, is_border=True)
             if connectors:
                 for connector in connectors:
-                    if connector.min_layer == layer:
+                    if (
+                        connector.min_level,
+                        connector.min_layer,
+                    ) == level_layer_key:
                         connector.draw_border(svg)
 
             # Draw inner parts.
@@ -977,7 +1016,10 @@ class Roads:
                 road.draw(svg, is_border=False)
             if connectors:
                 for connector in connectors:
-                    if connector.max_layer == layer:
+                    if (
+                        connector.max_level,
+                        connector.max_layer,
+                    ) == level_layer_key:
                         connector.draw(svg)
 
             # Draw lane separators.

@@ -118,10 +118,26 @@ class StyledFigure(Figure):
 
         return path
 
+    def get_level(self) -> float:
+        """Get figure level value or 0 if it is not specified.
+
+        For multi-value levels (e.g. "0;1"), return the minimum value.
+        """
+        if "level" in self.tags:
+            try:
+                levels: list[float] = [
+                    float(x)
+                    for x in self.tags["level"].replace(",", ".").split(";")
+                ]
+                return min(levels)
+            except ValueError:
+                return 0.0
+        return 0.0
+
     def get_layer(self) -> float:
         """Get figure layer value or 0 if it is not specified.
 
-        TODO: support values separated by "," or ";".
+        TODO(enzet): support values separated by "," or ";".
         """
         try:
             if "layer" in self.tags:
@@ -131,10 +147,17 @@ class StyledFigure(Figure):
         return 0.0
 
     def __lt__(self, other: StyledFigure) -> bool:
-        """Compare figures based on priority and layer."""
+        """Compare figures based on level, layer, and priority."""
+
+        # First, check level.
+        if self.get_level() != other.get_level():
+            return self.get_level() < other.get_level()
+
+        # Then, check layer.
         if self.get_layer() != other.get_layer():
             return self.get_layer() < other.get_layer()
 
+        # Then, check priority.
         return self.line_style.priority < other.line_style.priority
 
 

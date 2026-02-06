@@ -302,7 +302,7 @@ class WayMatcher(Matcher):
                 else:
                     way_matcher.style[key] = value
 
-        priority = structure.get("priority", 0.0)
+        priority: float = structure.get("priority", 0.0)
         way_matcher.priority = scheme.get_value(priority)
         way_matcher.parallel_offset = structure.get("parallel_offset", 0.0)
 
