@@ -5,7 +5,7 @@
 
 **Map Machine** is a Python OpenStreetMap renderer that **can easily create static SVG maps** out of OpenStreetMap data. It also can generate PNG tiles for [slippy maps](https://wiki.openstreetmap.org/wiki/Slippy_Map) and run a tile server for them. It uses the Röntgen icon set ([site](https://enzet.ru/roentgen), [GitHub](https://github.com/enzet/Roentgen)) to display map features.
 
-The idea behind the combination of the Röntgen icon set and the Map Machine project is to have a possibility to **show all the richness of the OpenStreetMap data**: to display any map feature represented by OpenStreetMap data tags by means of colors, shapes, and icons. For contributors it means possibility to display all changes even if they are small. And map users can dig down into the map and find every detail that was mapped.
+The idea behind the combination of the Röntgen icon set and the Map Machine project is to have a possibility to **show all the richness of the OpenStreetMap data**: to display any map feature represented by OpenStreetMap data tags by means of colors, shapes, and icons. For contributors it means the possibility of displaying all changes even if they are small. And map users can dig down into the map and find every detail that was mapped.
 
 Unlike standard OpenStreetMap renderers, **Map Machine is a playground for experiments** where one can easily try to support any unsupported tag, proposed tagging scheme, tags with little or even single usage, deprecated ones that are still in use.
 
@@ -55,7 +55,7 @@ map-machine render -c -26.19049,28.05605 -s 600,400 --buildings isometric
 
 ### Road Lanes (Experimental)
 
-To determine the road width Map Machine uses the [`width`](https://wiki.openstreetmap.org/wiki/Key:width) tag value or estimates it based on the [`lanes`](https://wiki.openstreetmap.org/wiki/Key:lanes) value. If lane value is specified, it also draws lane separators. This map style is highly inspired by Christoph Hormann's post [Navigating the Maze](https://blog.imagico.de/navigating-the-maze-part-2/).
+To determine the road width Map Machine uses the [`width`](https://wiki.openstreetmap.org/wiki/Key:width) tag value or estimates it based on the [`lanes`](https://wiki.openstreetmap.org/wiki/Key:lanes) value. If a lane value is specified, it also draws lane separators. This map style is highly inspired by Christoph Hormann's post [Navigating the Maze](https://blog.imagico.de/navigating-the-maze-part-2/).
 
 #### Example
 
@@ -84,7 +84,7 @@ map-machine render -c 55.751,37.628 -s 600,400
 
 ### Viewpoint and camera direction
 
-[`direction`](https://wiki.openstreetmap.org/wiki/Key:direction) tag values for [`tourism`](https://wiki.openstreetmap.org/wiki/Key:tourism) = [`viewpoint`](https://wiki.openstreetmap.org/wiki/Tag:tourism=viewpoint) and [`camera:direction`](https://wiki.openstreetmap.org/wiki/Key:camera:direction) for [`man_made`](https://wiki.openstreetmap.org/wiki/Key:man_made) = [`surveillance`](https://wiki.openstreetmap.org/wiki/Tag:man_made=surveillance) are rendered with sectors displaying the direction and angle (15º if angle is not specified) or the whole circle for panorama view. Radial gradient is used for surveillance and inverted radial gradient is used for viewpoints.
+[`direction`](https://wiki.openstreetmap.org/wiki/Key:direction) tag values for [`tourism`](https://wiki.openstreetmap.org/wiki/Key:tourism) = [`viewpoint`](https://wiki.openstreetmap.org/wiki/Tag:tourism=viewpoint) and [`camera:direction`](https://wiki.openstreetmap.org/wiki/Key:camera:direction) for [`man_made`](https://wiki.openstreetmap.org/wiki/Key:man_made) = [`surveillance`](https://wiki.openstreetmap.org/wiki/Tag:man_made=surveillance) are rendered with sectors displaying the direction and angle (15º if angle is not specified) or the whole circle for panorama view. A radial gradient is used for surveillance and an inverted radial gradient is used for viewpoints.
 
 #### Example
 
@@ -122,7 +122,7 @@ Japanese maps usually use [special symbols](https://en.wikipedia.org/wiki/List_o
 
 ### Indoor features
 
-Indoor features can be visualized by specifying level with `--level` option. Possible values are numbers (e.g. `1`, `0.5`), lists of number separated by `;` (e.g. `1;2;4;4.5`), `all`, `overground`, and `underground`. The default value is not `all`, but `overground`, so underground objects are not shown on the map if `--level` option is not specified.
+Indoor features can be visualized by specifying level with `--level` option. Possible values are numbers (e.g. `1`, `0.5`), lists of numbers separated by `;` (e.g. `1;2;4;4.5`), `all`, `overground`, and `underground`. The default value is not `all`, but `overground`, so underground objects are not shown on the map if `--level` option is not specified.
 
 #### Example
 
@@ -138,7 +138,7 @@ One of the key features of Map Machine is constructing icons from several shapes
 
 #### Masts
 
-For [`man_made`](https://wiki.openstreetmap.org/wiki/Key:man_made) = [`mast`](https://wiki.openstreetmap.org/wiki/Tag:man_made=mast) distinguish types (communication, lighting, monitoring, and siren) and construction (freestanding or lattice, and using of guys) are rendered by combining 7 unique icon shapes.
+For [`man_made`](https://wiki.openstreetmap.org/wiki/Key:man_made) = [`mast`](https://wiki.openstreetmap.org/wiki/Tag:man_made=mast), distinct types (communication, lighting, monitoring, and siren) and construction methods (freestanding or lattice, and use of guys) are rendered by combining 7 unique icon shapes.
 
 ![Mast types](doc/mast.svg)
 
@@ -158,7 +158,7 @@ Visualize element creation time with `--mode time`.
 
 ### Author mode
 
-Every way and node displayed with the random color picked for each author with `--mode author`.
+Every way and node is displayed with a random color picked for each author with `--mode author`.
 
 ![Author mode](doc/author.svg)
 
@@ -203,6 +203,7 @@ will download OSM data to `cache/2.284,48.860,2.290,48.865.osm` and render an SV
 | Option | Description |
 |---|---|
 | <span style="white-space: nowrap;">`--no-overpass`</span> | do not use Overpass API to download complete data for incomplete relations |
+| <span style="white-space: nowrap;">`--overpass-query`</span> `<path>` | path to a custom Overpass query file; use {{bbox}} as a placeholder for the bounding box |
 | <span style="white-space: nowrap;">`-i`</span>, <span style="white-space: nowrap;">`--input`</span> `<path>` | input XML file name or names (if not specified, files will be downloaded using the OpenStreetMap API) |
 | <span style="white-space: nowrap;">`-o`</span>, <span style="white-space: nowrap;">`--output`</span> `<path>` | output SVG file name, default value: `out/map.svg` |
 | <span style="white-space: nowrap;">`-b`</span>, <span style="white-space: nowrap;">`--bounding-box`</span>, <span style="white-space: nowrap;">`--boundary-box`</span> `<lon1>,<lat1>,<lon2>,<lat2>` | geographic bounding box |
@@ -255,6 +256,7 @@ Command `tile` is used to generate PNG tiles for [slippy maps](https://wiki.open
 | Option | Description |
 |---|---|
 | <span style="white-space: nowrap;">`--no-overpass`</span> | do not use Overpass API to download complete data for incomplete relations |
+| <span style="white-space: nowrap;">`--overpass-query`</span> `<path>` | path to a custom Overpass query file; use {{bbox}} as a placeholder for the bounding box |
 | <span style="white-space: nowrap;">`-c`</span>, <span style="white-space: nowrap;">`--coordinates`</span> `<latitude>,<longitude>` | coordinates of any location within the tile |
 | <span style="white-space: nowrap;">`-t`</span>, <span style="white-space: nowrap;">`--tile`</span> `<zoom level>/<x>/<y>` | tile specification |
 | <span style="white-space: nowrap;">`--cache`</span> `<path>` | directory path for temporary OSM files, default value: `cache` |
@@ -280,7 +282,7 @@ map-machine tile \
     --zoom <OSM zoom levels>
 ```
 
-The tile will be stored as an SVG file `out/tiles/tile_<zoom level>_<x>_<y>.svg` and a PNG file `out/tiles/tile_<zoom level>_<x>_<y>.svg`, where `x` and `y` are tile coordinates. The `--zoom` option will be ignored if it is used with the `--tile` option.
+The tile will be stored as an SVG file `out/tiles/tile_<zoom level>_<x>_<y>.svg` and a PNG file `out/tiles/tile_<zoom level>_<x>_<y>.png`, where `x` and `y` are tile coordinates. The `--zoom` option will be ignored if it is used with the `--tile` option.
 
 Example:
 
@@ -300,7 +302,7 @@ map-machine tile \
     --zoom <OSM zoom levels>
 ```
 
-The bounding box will be extended to the boundaries of the minimal tileset that covers the area, then it will be extended a bit more to avoid some artifacts on the edges rounded to 3 digits after the decimal point. The map with the new bounding box coordinates will be written to the cache directory as SVG and PNG files. All tiles will be stored as SVG files `out/tiles/tile_<zoom level>_<x>_<y>.svg` and PNG files `out/tiles/tile_<zoom level>_<x>_<y>.svg`, where `x` and `y` are tile coordinates.
+The bounding box will be extended to the boundaries of the minimal tileset that covers the area, then it will be extended a bit more to avoid some artifacts on the edges rounded to 3 digits after the decimal point. The map with the new bounding box coordinates will be written to the cache directory as SVG and PNG files. All tiles will be stored as SVG files `out/tiles/tile_<zoom level>_<x>_<y>.svg` and PNG files `out/tiles/tile_<zoom level>_<x>_<y>.png`, where `x` and `y` are tile coordinates.
 
 Example:
 
@@ -350,7 +352,7 @@ L.tileLayer('http://127.0.0.1:8080/tiles/{z}/{x}/{y}', {
     attribution: 'Map data &copy; ' +
         '<a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> ' +
         'contributors, imagery &copy; ' +
-        '<a href="https:/github.com/enzet/map-machine">Map Machine</a>',
+        '<a href="https://github.com/enzet/map-machine">Map Machine</a>',
     id: 'map_machine',
     tileSize: 256,
     zoomOffset: 0
@@ -372,21 +374,21 @@ Map configuration options used by `render` and `tile` commands:
 | Option | Description |
 |---|---|
 | <span style="white-space: nowrap;">`--scheme`</span> `<id> or <path>` | scheme identifier (look for `<id>.yml` file) or path to a YAML scheme file, default value: `default` |
-| <span style="white-space: nowrap;">`--buildings`</span> `<mode>` | building drawing mode: no, flat, isometric, isometric-no-parts, default value: `flat` |
-| <span style="white-space: nowrap;">`--roads`</span> `<mode>` | road drawing mode: no, simple, lanes, default value: `simple` |
-| <span style="white-space: nowrap;">`--mode`</span> `<string>` | map drawing mode: normal, author, time, white, black, default value: `normal` |
+| <span style="white-space: nowrap;">`--buildings`</span> `<mode>` | building drawing mode (overrides scheme): no, flat, isometric, isometric-no-parts |
+| <span style="white-space: nowrap;">`--roads`</span> `<mode>` | road drawing mode (overrides scheme): no, simple, lanes |
+| <span style="white-space: nowrap;">`--mode`</span> `<string>` | map drawing mode (overrides scheme): normal, author, time, white, black |
 | <span style="white-space: nowrap;">`--overlap`</span> `<integer>` | size of the margin in pixels to leave around icons and text, default value: 12 |
-| <span style="white-space: nowrap;">`--labels`</span> `<string>` | label drawing mode: no, main, all, address, default value: `main` |
+| <span style="white-space: nowrap;">`--labels`</span> `<string>` | label drawing mode (overrides scheme): no, main, all, address |
 | <span style="white-space: nowrap;">`--level`</span> | display only the specified floor level, default value: `overground` |
 | <span style="white-space: nowrap;">`--seed`</span> `<string>` | seed for random number generation |
 | <span style="white-space: nowrap;">`--tooltips`</span> | add tooltips with tags for icons in SVG files |
 | <span style="white-space: nowrap;">`--country`</span> | two-letter code (ISO 3166-1 alpha-2) of the country that should be used for location restrictions, default value: `world` |
 | <span style="white-space: nowrap;">`--ignore-level-matching`</span> | draw all map features, ignoring the current level |
-| <span style="white-space: nowrap;">`--roofs`</span> | draw building roofs, enabled by default |
-| <span style="white-space: nowrap;">`--building-colors`</span> | paint walls (if isometric mode is enabled) and roofs with specified colors |
+| <span style="white-space: nowrap;">`--roofs`</span> | draw building roofs (overrides scheme) |
+| <span style="white-space: nowrap;">`--building-colors`</span> `<string>` | building color mode (overrides scheme): no, full, hue |
 | <span style="white-space: nowrap;">`--show-overlapped`</span> | show hidden nodes with a dot |
 | <span style="white-space: nowrap;">`--hide-credit`</span> | hide credit |
-| <span style="white-space: nowrap;">`--background`</span> | enable or disable the background (e.g., to use it as a layer), enabled by default |
+| <span style="white-space: nowrap;">`--background`</span> | enable or disable the background, e.g., to use it as a layer (overrides scheme) |
 | <span style="white-space: nowrap;">`--crop`</span> | crop ways and areas that extend beyond the bounding box, enabled by default |
 | <span style="white-space: nowrap;">`--crop-margin`</span> | pixel margin around the bounding box for cropping, default value: 25.0 |
 

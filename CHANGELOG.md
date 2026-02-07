@@ -69,7 +69,7 @@
   ([Timur Gandzhelashvili](https://github.com/gitmur444)).
 - Fix boundaries computing ([Natanael Arndt](https://github.com/white-gecko)).
 - Fix urllib3 request ([Clement Skau](https://github.com/cskau)).
-- Handle zero length pats ([Radost Waszkiewicz](https://github.com/RadostW)).
+- Handle zero-length paths ([Radost Waszkiewicz](https://github.com/RadostW)).
 - Get rid of shape duplication in icon SVGs
   ([#150](https://github.com/enzet/map-machine/issues/150)).
 
@@ -79,7 +79,7 @@
   as `--scheme` and `--overlap`.
 - Support GitHub Codespaces
   ([Timur Gandzhelashvili](https://github.com/gitmur444)).
-- Support `natural=shurb` ([zer0-dev](https://github.com/zer0-dev)).
+- Support `natural=shrub` ([zer0-dev](https://github.com/zer0-dev)).
 - Remove `pycairo` dependency.
 - Freeze Python package versions.
 - Add background option to disable background
