@@ -270,7 +270,8 @@ class Constructor:
 
         recolor: Color | None = None
 
-        if line.tags.get("railway") == "subway":
+        # Draw railway lines with color as simple wide lines with this color.
+        if line.tags.get("railway") in ("rail", "subway"):
             for color_tag_key in ["color", "colour"]:
                 if color_tag_key in line.tags:
                     recolor = self.scheme.get_color(line.tags[color_tag_key])

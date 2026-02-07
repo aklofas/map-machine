@@ -6,9 +6,11 @@
 
 ### Improvements
 
-- Support node opacity.
-- Support `saturate` and `desaturate` color modifiers in scheme.
-- Support `addr:interpolation` key.
+Support:
+  - node opacity.
+  - `saturate` and `desaturate` color modifiers in scheme.
+  - `addr:interpolation` key,
+  - colors for `railway=rail`.
 
 ## 0.3.0
 
