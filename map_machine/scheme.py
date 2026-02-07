@@ -541,6 +541,12 @@ class Scheme:
             if "lighten" in color_specification:
                 percent: float = float(color_specification["lighten"])
                 color.set_luminance(color.get_luminance() * (1 + percent))
+            if "desaturate" in color_specification:
+                amount: float = float(color_specification["desaturate"])
+                color.set_saturation(max(0, color.get_saturation() - amount))
+            if "saturate" in color_specification:
+                amount: float = float(color_specification["saturate"])
+                color.set_saturation(min(1, color.get_saturation() + amount))
             return color
 
         if color_specification.startswith("$"):

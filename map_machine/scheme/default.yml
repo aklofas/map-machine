@@ -179,6 +179,7 @@ variables:
   pedestrian_border_color: "#BBBBBB"
   pedestrian_color: "#DDDDDD"
   pitch_border_color: {color: $pitch_color, darken: 0.2}
+  pitch_border_width: 1.0
   pitch_color: "#AAEECC"
   # place_of_worship_color
   platform_border_color: "#AAAAAA"

@@ -177,7 +177,8 @@ variables:
   path_border_color: white
   pedestrian_border_color: "#999999"
   pedestrian_color: "#dddde8"
-  pitch_border_color: "#88e0be"
+  pitch_border_color: {color: "#88e0be", darken: 0.3, desaturate: 0.2}
+  pitch_border_width: 0.5
   pitch_color: "#88e0be"
   place_of_worship_color: "#d0d0d0"
   # platform_border_color

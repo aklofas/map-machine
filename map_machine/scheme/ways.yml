@@ -751,7 +751,7 @@ ways:
     style:
       fill: $pitch_color
       stroke: $pitch_border_color
-      stroke-width: 1.0
+      stroke-width: $pitch_border_width
     priority: $priority_landuse_4
   - tags: {leisure: bleachers}
     style:

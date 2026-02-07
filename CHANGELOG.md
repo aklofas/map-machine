@@ -1,7 +1,13 @@
 ## Not-released
 
+### Fixes
+
 - Fix Carto colors.
+
+### Improvements
+
 - Support node opacity.
+- Support `saturate` and `desaturate` color modifiers in scheme.
 
 ## 0.3.0
 
