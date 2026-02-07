@@ -517,6 +517,10 @@ class Scheme:
 
     def get_variable(self, variable_name: str) -> Any:  # noqa: ANN401
         """Get variable value."""
+        name: str = variable_name[1:]
+        if name not in self.variables:
+            message: str = f"Variable `{variable_name}` not defined."
+            raise ValueError(message)
         return self.variables[variable_name[1:]]
 
     def get_color(self, color_specification: str | dict) -> Color:
@@ -786,12 +790,6 @@ class Scheme:
         The structure is just shape string identifier or dictionary with keys:
         shape (required), color (optional), and offset (optional).
         """
-        color = color if color is not None else Color(self.variables["default"])
-        offset: tuple[float, float] = (0.0, 0.0)
-        flip_horizontally: bool = False
-        flip_vertically: bool = False
-        use_outline: bool = True
-
         shape_id: str = DEFAULT_SHAPE_ID
         if "shape" in structure:
             shape_id = structure["shape"]
@@ -800,23 +798,20 @@ class Scheme:
                     shape_id = shape_id.replace(key, groups[key])
         else:
             logger.error("Invalid shape specification: `shape` key expected.")
+
+        color: Color = (
+            color if color is not None else Color(self.variables["default"])
+        )
         if "color" in structure:
             color = self.get_color(structure["color"])
-        if "offset" in structure:
-            offset = tuple(structure["offset"])
-        if "flip_horizontally" in structure:
-            flip_horizontally = structure["flip_horizontally"]
-        if "flip_vertically" in structure:
-            flip_vertically = structure["flip_vertically"]
-        if "outline" in structure:
-            use_outline = structure["outline"]
 
         return ShapeSpecification(
             shape_id,
             "main",
-            offset,
-            flip_horizontally,
-            flip_vertically,
-            use_outline,
+            tuple(structure["offset"]) if "offset" in structure else (0.0, 0.0),
+            structure.get("flip_horizontally", False),
+            structure.get("flip_vertically", False),
+            structure.get("outline", True),
             color,
+            self.get_value(structure.get("opacity", 1.0)),
         )

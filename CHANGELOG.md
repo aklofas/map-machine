@@ -1,6 +1,7 @@
 ## Not-released
 
 - Fix Carto colors.
+- Support node opacity.
 
 ## 0.3.0
 

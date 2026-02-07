@@ -52,6 +52,8 @@ variables:
   barley_dark_color: "#908F62"
   sunflower_dark_color: "#DEAC4A"
 
+  private_opacity: 1.0
+
   # Buildings.
   building_border_color: {color: $building_color, darken: 0.13}
   building_color: "#F8F0E8"

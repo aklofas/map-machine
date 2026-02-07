@@ -415,6 +415,11 @@ nodes:
       shapes: [table_and_two_chairs___pergola]
     - tags: {leisure: playground}
       shapes: [{shape: toy_horse, color: $leisure_green_color}]
+    - tags: {leisure: playground, access: private}
+      shapes:
+      - shape: toy_horse
+        color: $leisure_green_color
+        opacity: $private_opacity
     - tags: {amenity: theatre}
       shapes: [{shape: curtains, color: $amenity_brown_color}]
     - tags: {amenity: bar}
