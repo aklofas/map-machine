@@ -125,7 +125,7 @@ variables:
   military_opacity: 1.0
   aboriginal: "#82643a"
   airtransport: "#8461C4"
-  # allotments_color
+  allotments_color: "#c9e1bf"
   barrier_color: "#3f3f3f"
   # boundary_color
   bridleway_border_color: white
@@ -138,8 +138,8 @@ variables:
   farmyard_color: "#f5dcba"
   garages_color: "#dfddce"
   # ferry_terminal_color
-  # foot_area_border_color
-  # foor_area_color
+  foot_area_border_color: $pedestrian_border_color
+  foot_area_color: $pedestrian_color
   grass_color: "#cdebb0"
   grass_border_color: "#cdebb0"
   health_color: "#bf0000"
