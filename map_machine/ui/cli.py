@@ -37,7 +37,7 @@ def parse_arguments(args: list[str]) -> argparse.Namespace:
     """Parse Map Machine command-line arguments."""
 
     # Preparse arguments, adding space before coordinates and bounding box if
-    # the first value is negative.  In that case `argparse` interprets it as an
+    # the first value is negative. In that case `argparse` interprets it as an
     # option name.
     for argument in (
         "-c",
@@ -66,7 +66,7 @@ def parse_arguments(args: list[str]) -> argparse.Namespace:
     render_parser = subparser.add_parser(
         "render",
         description=(
-            "Render an SVG map.  Use `--bounding-box` to specify geo "
+            "Render an SVG map. Use `--bounding-box` to specify geo "
             "boundaries, `--input` to specify an OSM XML or JSON input file, "
             "or `--coordinates` and `--size` to specify central point and "
             "resulting image size."
@@ -79,8 +79,8 @@ def parse_arguments(args: list[str]) -> argparse.Namespace:
     tile_parser = subparser.add_parser(
         "tile",
         description=(
-            "Generate SVG and PNG 256 × 256 px tiles for slippy maps.  You "
-            "can use the server command to run a server to display generated "
+            "Generate SVG and PNG 256 × 256 px tiles for slippy maps. You can "
+            "use the server command to run a server to display generated "
             "tiles as a map (e.g. with Leaflet)."
         ),
         help="generate SVG and PNG tiles for slippy maps",
@@ -374,23 +374,6 @@ def add_draw_arguments(parser: argparse.ArgumentParser) -> None:
 def add_render_arguments(parser: argparse.ArgumentParser) -> None:
     """Add arguments for render command."""
     parser.add_argument(
-        "--no-overpass",
-        help=(
-            "do not use Overpass API to download complete data for "
-            "incomplete relations"
-        ),
-        action="store_true",
-        default=False,
-    )
-    parser.add_argument(
-        "--overpass-query",
-        metavar="<path>",
-        help=(
-            "path to a custom Overpass query file; use {{bbox}} as a "
-            "placeholder for the bounding box"
-        ),
-    )
-    parser.add_argument(
         "-i",
         "--input",
         dest="input_file_names",
@@ -441,6 +424,23 @@ def add_render_arguments(parser: argparse.ArgumentParser) -> None:
         "--size",
         metavar="<width>,<height>",
         help="resulting image size",
+    )
+    parser.add_argument(
+        "--no-overpass",
+        help=(
+            "do not use Overpass API to download complete data for "
+            "incomplete relations"
+        ),
+        action="store_true",
+        default=False,
+    )
+    parser.add_argument(
+        "--overpass-query",
+        metavar="<path>",
+        help=(
+            "path to a custom Overpass query file; use {{bbox}} as a "
+            "placeholder for the bounding box"
+        ),
     )
     parser.add_argument(
         "--gpx",
