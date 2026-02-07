@@ -96,6 +96,11 @@ variables:
   sell_color: "#AA00AA"
   sell_text_color: $default
 
+  # Address.
+  address_interpolation_border_color: "#666666"
+  address_interpolation_border_width: 1
+  address_interpolation_border_dasharray: 2,4
+
   # Land cover.
   cemetery_color: black
   cemetery_opacity: 0.05
@@ -252,6 +257,7 @@ variables:
   wall_color: "#E8E8E8"
   wall_construction_color: "#84807C"
   water_border_color: "#6688BB"
+  water_border_width: 1.0
   water_color: "#80C8F0"
   wetland_color: "#BFE0D8"
   wood_color: "#99DD77"

@@ -8,6 +8,7 @@
 
 - Support node opacity.
 - Support `saturate` and `desaturate` color modifiers in scheme.
+- Support `addr:interpolation` key.
 
 ## 0.3.0
 

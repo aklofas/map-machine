@@ -1,6 +1,7 @@
 variables:
 
-  priority_boundary: 90  # Boundary.
+  priority_boundary: 100  # Boundary.
+  priority_address: 90  # Addresses.
   priority_rail_platform: 83  # Rail platform.
   priority_rail_4: 82  # Rails.
   priority_rail_2: 81  # Rail border.
@@ -781,7 +782,7 @@ ways:
     style:
       fill: $water_color
       stroke: $water_border_color
-      stroke-width: 1.0
+      stroke-width: $water_border_width
     priority: $priority_landuse_4
 
   - tags: {tourism: artwork}
@@ -867,6 +868,13 @@ ways:
       stroke-width: 0.3
       stroke-dasharray: 10.0,5.0
     priority: $priority_boundary
+
+  - tags: {addr:interpolation: "*"}
+    style:
+      stroke: $address_interpolation_border_color
+      stroke-width: $address_interpolation_border_width
+      stroke-dasharray: $address_interpolation_border_dasharray
+    priority: $priority_address
 
 area_tags:
   - tags: {aeroway: "*"}

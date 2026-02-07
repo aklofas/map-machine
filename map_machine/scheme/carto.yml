@@ -95,6 +95,11 @@ variables:
   sell_color: "#ac39ac"
   sell_text_color: "#993399"
 
+  # Address.
+  address_interpolation_border_color: "#666666"
+  address_interpolation_border_width: 1
+  address_interpolation_border_dasharray: 2,4
+
   # Land cover.
   cemetery_color: "#aacbaf"
   cemetery_opacity: 1.0
@@ -238,6 +243,8 @@ variables:
   trunk_border_color: "#c84e2f"
   trunk_color: "#f9b29c"
   tree_trunk_color: "#97612b"
+  water_border_color: {color: $water_color, darken: 0.2, saturate: 0.2}
+  water_border_width: 1.0
   water_color: "#aad3df"
   # accommodation-text: @transportation-text;
   # advertising-grey: @man-made-icon;
