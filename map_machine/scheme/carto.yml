@@ -86,13 +86,14 @@ variables:
 
   # Node colors.
   amenity_brown_color: "#734a08"
+  craft_color: $default
+  decidious_color: {color: "#add19e", darken: 0.1}
   eat_color: "#C77400"
   evergreen_color: {color: "#add19e", darken: 0.1}
-  decidious_color: {color: "#add19e", darken: 0.1}
+  man_made_color: "#666666"
+  memorials_color: "#734a08"
   sell_color: "#ac39ac"
   sell_text_color: "#993399"
-  craft_color: $default
-  memorials_color: "#734a08"
 
   # Land cover.
   cemetery_color: "#aacbaf"
@@ -159,7 +160,6 @@ variables:
   leisure_green_color: {color: "#c8facc", darken: 0.6}
   living_street_border_color: "#bbbbbb"
   living_street_color: "#ededed"
-  man_made_color: "#666666"
   marina_text_color: "#576ddf"
   # meadow_border_color
   # meadow_color

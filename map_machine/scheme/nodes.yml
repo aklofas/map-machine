@@ -85,11 +85,11 @@ nodes:
     - tags: {historic: archaeological_site}
       shapes: [amphora]
     - tags: {leisure: swimming_area}
-      shapes: [swimming_area]
+      shapes: [{shape: swimming_area, color: $marina_text_color}]
     - tags: {leisure: swimming_pool}
-      shapes: [swimming_area]
+      shapes: [{shape: swimming_area, color: $marina_text_color}]
     - tags: {sport: swimming}
-      shapes: [swimming_area]
+      shapes: [{shape: swimming_area, color: $marina_text_color}]
     - tags: {leisure: beach}
       shapes: [beach]
     - tags: {amenity: public_bath}
@@ -714,33 +714,33 @@ nodes:
     - tags: {man_made: communications_tower}
       shapes: [tower_communication]
     - tags: {man_made: telescope}
-      shapes: [telescope_radio]
+      shapes: [{shape: telescope_radio, color: $man_made_color}]
     - tags: {man_made: telescope, telescope:type: radio}
-      shapes: [telescope_radio]
+      shapes: [{shape: telescope_radio, color: $man_made_color}]
     - tags: {man_made: telescope, telescope:type: gamma}
-      shapes: [telescope_gamma]
+      shapes: [{shape: telescope_gamma, color: $man_made_color}]
     - tags: {man_made: telescope, telescope:type: optical}
-      shapes: [observatory]
+      shapes: [{shape: observatory, color: $man_made_color}]
     - tags: {man_made: tower}
-      shapes: [tower]
+      shapes: [{shape: tower, color: $man_made_color}]
     - tags: {man_made: tower, tower:construction: dish}
-      shapes: [telescope_radio]
+      shapes: [{shape: telescope_radio, color: $man_made_color}]
     - tags: {man_made: tower, tower:construction: dish, telescope:type: radio}
-      shapes: [telescope_radio]
+      shapes: [{shape: telescope_radio, color: $man_made_color}]
     - tags: {man_made: tower, tower:construction: dish, telescope:type: gamma}
-      shapes: [telescope_gamma]
+      shapes: [{shape: telescope_gamma, color: $man_made_color}]
     - tags: {man_made: crane}
-      shapes: [crane]
+      shapes: [{shape: crane, color: $man_made_color}]
     - tags: {man_made: crane, crane:type: gantry_crane}
-      shapes: [crane_gantry]
+      shapes: [{shape: crane_gantry, color: $man_made_color}]
     - tags: {man_made: crane, crane:type: floor-mounted_crane}
-      shapes: [crane]
+      shapes: [{shape: crane, color: $man_made_color}]
     - tags: {man_made: crane, crane:type: portal_crane}
-      shapes: [crane_portal]
+      shapes: [{shape: crane_portal, color: $man_made_color}]
     - tags: {man_made: crane, crane:type: travel_lift}
-      shapes: [crane_travel_lift]
+      shapes: [{shape: crane_travel_lift, color: $man_made_color}]
     - tags: {man_made: crane, crane:type: tower_crane}
-      shapes: [crane]
+      shapes: [{shape: crane, color: $man_made_color}]
 
   - group: "Emergency"
     start_zoom_level: 15.0
@@ -829,7 +829,7 @@ nodes:
     - tags: {amenity: shelter}
       shapes: [shelter]
     - tags: {man_made: obelisk}
-      shapes: [obelisk]
+      shapes: [{shape: obelisk, color: $memorials_color}]
     - tags: {historic: monument}
       shapes: [monument]
 
@@ -850,9 +850,9 @@ nodes:
       shapes: [cave]
     - tags: {amenity: bureau_de_change}
       shapes:
-      - {shape: exchange}
-      - {shape: dollar, offset: [-4, 3]}
-      - {shape: pound, offset: [5, -2]}
+      - {shape: exchange, color: $amenity_brown_color}
+      - {shape: dollar, offset: [-4, 3], color: $amenity_brown_color}
+      - {shape: pound, offset: [5, -2], color: $amenity_brown_color}
     - tags: {sport: skateboard}
       shapes: [skateboard]
     - tags: {pipeline: substation}
@@ -954,15 +954,15 @@ nodes:
       shapes: [power_pole_delta]  # power_pole_delta_3_level
 
     - tags: {man_made: chimney}
-      shapes: [chimney]
+      shapes: [{shape: chimney, color: $man_made_color}]
     - tags: {man_made: tower, tower:type: cooling}
-      shapes: [tower_cooling]
+      shapes: [{shape: tower_cooling, color: $man_made_color}]
     - tags: {man_made: tower, tower:type: defensive}
-      shapes: [tower_defensive]
+      shapes: [{shape: tower_defensive, color: $man_made_color}]
     - tags: {man_made: tower, tower:type: pagoda}
       shapes: [pagoda]
     - tags: {man_made: tower, tower:type: observation}
-      shapes: [tower_observation]
+      shapes: [{shape: tower_observation, color: $man_made_color}]
     - tags: {man_made: tower, tower:type: watchtower}
       shapes: [tower_observation]
     - tags: {man_made: tower, tower:type: minaret}
@@ -973,161 +973,161 @@ nodes:
       shapes: [stupa]
 
     - tags: {man_made: mast, tower:construction: guyed_tube}
-      shapes: [tube_guyed]
+      shapes: [{shape: tube_guyed, color: $man_made_color}]
     - tags: {man_made: mast, tower:construction: freestanding}
-      shapes: [tube]
+      shapes: [{shape: tube, color: $man_made_color}]
     - tags: {man_made: mast, tower:construction: lattice}
-      shapes: [lattice]
+      shapes: [{shape: lattice, color: $man_made_color}]
     - tags: {man_made: mast, tower:construction: guyed_lattice}
-      shapes: [lattice_guyed]
+      shapes: [{shape: lattice_guyed, color: $man_made_color}]
     - tags: {man_made: mast, tower:type: lighting}
       shapes:
-      - tube
-      - {shape: light_left, offset: [-3, -3]}
-      - {shape: light_right, offset: [3, -3]}
+      - {shape: tube, color: $man_made_color}
+      - {shape: light_left, offset: [-3, -3], color: $man_made_color}
+      - {shape: light_right, offset: [3, -3], color: $man_made_color}
     - tags: {man_made: mast, tower:type: communication}
       shapes:
-      - tube
-      - {shape: wave_left, offset: [-3, -3]}
-      - {shape: wave_right, offset: [3, -3]}
+      - {shape: tube, color: $man_made_color}
+      - {shape: wave_left, offset: [-3, -3], color: $man_made_color}
+      - {shape: wave_right, offset: [3, -3], color: $man_made_color}
     - tags: {man_made: mast, tower:type: siren}
       shapes:
-        - tube
-        - {shape: siren_left, offset: [-3, -3]}
-        - {shape: siren_right, offset: [3, -3]}
+        - {shape: tube, color: $man_made_color}
+        - {shape: siren_left, offset: [-3, -3], color: $man_made_color}
+        - {shape: siren_right, offset: [3, -3], color: $man_made_color}
     - tags: {man_made: mast, tower:type: monitoring}
       shapes:
-        - tube
-        - {shape: dish_antenna_left, offset: [-3, -3]}
-        - {shape: dish_antenna_right, offset: [3, -3]}
+        - {shape: tube, color: $man_made_color}
+        - {shape: dish_antenna_left, offset: [-3, -3], color: $man_made_color}
+        - {shape: dish_antenna_right, offset: [3, -3], color: $man_made_color}
     - tags:
         man_made: mast
         tower:type: lighting
         tower:construction: guyed_tube
       shapes:
-      - tube_guyed
-      - {shape: light_left, offset: [-3, -3]}
-      - {shape: light_right, offset: [3, -3]}
+      - {shape: tube_guyed, color: $man_made_color}
+      - {shape: light_left, offset: [-3, -3], color: $man_made_color}
+      - {shape: light_right, offset: [3, -3], color: $man_made_color}
     - tags:
         man_made: mast
         tower:type: communication
         tower:construction: guyed_tube
       shapes:
-      - tube_guyed
-      - {shape: wave_left, offset: [-3, -3]}
-      - {shape: wave_right, offset: [3, -3]}
+      - {shape: tube_guyed, color: $man_made_color}
+      - {shape: wave_left, offset: [-3, -3], color: $man_made_color}
+      - {shape: wave_right, offset: [3, -3], color: $man_made_color}
     - tags:
         man_made: mast
         tower:type: siren
         tower:construction: guyed_tube
       shapes:
-        - tube_guyed
-        - {shape: siren_left, offset: [-3, -3]}
-        - {shape: siren_right, offset: [3, -3]}
+        - {tube_guyed, color: $man_made_color}
+        - {shape: siren_left, offset: [-3, -3], color: $man_made_color}
+        - {shape: siren_right, offset: [3, -3], color: $man_made_color}
     - tags:
         man_made: mast
         tower:type: monitoring
         tower:construction: guyed_tube
       shapes:
-        - tube_guyed
-        - {shape: dish_antenna_left, offset: [-3, -3]}
-        - {shape: dish_antenna_right, offset: [3, -3]}
+        - {shape: tube_guyed, color: $man_made_color}
+        - {shape: dish_antenna_left, offset: [-3, -3], color: $man_made_color}
+        - {shape: dish_antenna_right, offset: [3, -3], color: $man_made_color}
     - tags:
         man_made: mast
         tower:type: lighting
         tower:construction: freestanding
       shapes:
-      - tube
-      - {shape: light_left, offset: [-3, -3]}
-      - {shape: light_right, offset: [3, -3]}
+      - {shape: tube, color: $man_made_color}
+      - {shape: light_left, offset: [-3, -3], color: $man_made_color}
+      - {shape: light_right, offset: [3, -3], color: $man_made_color}
     - tags:
         man_made: mast
         tower:type: communication
         tower:construction: freestanding
       shapes:
-      - tube
-      - {shape: wave_left, offset: [-3, -3]}
-      - {shape: wave_right, offset: [3, -3]}
+      - {shape: tube, color: $man_made_color}
+      - {shape: wave_left, offset: [-3, -3], color: $man_made_color}
+      - {shape: wave_right, offset: [3, -3], color: $man_made_color}
     - tags:
         man_made: mast
         tower:type: siren
         tower:construction: freestanding
       shapes:
-        - tube
-        - {shape: siren_left, offset: [-3, -3]}
-        - {shape: siren_right, offset: [3, -3]}
+        - {shape: tube, color: $man_made_color}
+        - {shape: siren_left, offset: [-3, -3], color: $man_made_color}
+        - {shape: siren_right, offset: [3, -3], color: $man_made_color}
     - tags:
         man_made: mast
         tower:type: monitoring
         tower:construction: freestanding
       shapes:
-        - tube
-        - {shape: dish_antenna_left, offset: [-3, -3]}
-        - {shape: dish_antenna_right, offset: [3, -3]}
+        - {shape: tube, color: $man_made_color}
+        - {shape: dish_antenna_left, offset: [-3, -3], color: $man_made_color}
+        - {shape: dish_antenna_right, offset: [3, -3], color: $man_made_color}
     - tags:
         man_made: mast
         tower:type: lighting
         tower:construction: guyed_lattice
       shapes:
-      - lattice_guyed
-      - {shape: light_left, offset: [-4, -3]}
-      - {shape: light_right, offset: [3, -3]}
+      - {shape: lattice_guyed, color: $man_made_color}
+      - {shape: light_left, offset: [-4, -3], color: $man_made_color}
+      - {shape: light_right, offset: [3, -3], color: $man_made_color}
     - tags:
         man_made: mast
         tower:type: communication
         tower:construction: guyed_lattice
       shapes:
-      - lattice_guyed
-      - {shape: wave_left, offset: [-4, -3]}
-      - {shape: wave_right, offset: [3, -3]}
+      - {shape: lattice_guyed, color: $man_made_color}
+      - {shape: wave_left, offset: [-4, -3], color: $man_made_color}
+      - {shape: wave_right, offset: [3, -3], color: $man_made_color}
     - tags:
         man_made: mast
         tower:type: siren
         tower:construction: guyed_lattice
       shapes:
-        - lattice_guyed
-        - {shape: siren_left, offset: [-4, -3]}
-        - {shape: siren_right, offset: [3, -3]}
+        - {shape: lattice_guyed, color: $man_made_color}
+        - {shape: siren_left, offset: [-4, -3], color: $man_made_color}
+        - {shape: siren_right, offset: [3, -3], color: $man_made_color}
     - tags:
         man_made: mast
         tower:type: monitoring
         tower:construction: guyed_lattice
       shapes:
-        - lattice_guyed
-        - {shape: dish_antenna_left, offset: [-4, -3]}
-        - {shape: dish_antenna_right, offset: [3, -3]}
+        - {shape: lattice_guyed, color: $man_made_color}
+        - {shape: dish_antenna_left, offset: [-4, -3], color: $man_made_color}
+        - {shape: dish_antenna_right, offset: [3, -3], color: $man_made_color}
     - tags:
         man_made: mast
         tower:type: lighting
         tower:construction: lattice
       shapes:
-      - lattice
-      - {shape: light_left, offset: [-4, -3]}
-      - {shape: light_right, offset: [3, -3]}
+      - {shape: lattice, color: $man_made_color}
+      - {shape: light_left, offset: [-4, -3], color: $man_made_color}
+      - {shape: light_right, offset: [3, -3], color: $man_made_color}
     - tags:
         man_made: mast
         tower:type: communication
         tower:construction: lattice
       shapes:
-      - lattice
-      - {shape: wave_left, offset: [-4, -3]}
-      - {shape: wave_right, offset: [3, -3]}
+      - {shape: lattice, color: $man_made_color}
+      - {shape: wave_left, offset: [-4, -3], color: $man_made_color}
+      - {shape: wave_right, offset: [3, -3], color: $man_made_color}
     - tags:
         man_made: mast
         tower:type: siren
         tower:construction: lattice
       shapes:
-        - lattice
-        - {shape: siren_left, offset: [-4, -3]}
-        - {shape: siren_right, offset: [3, -3]}
+        - {shape: lattice, color: $man_made_color}
+        - {shape: siren_left, offset: [-4, -3], color: $man_made_color}
+        - {shape: siren_right, offset: [3, -3], color: $man_made_color}
     - tags:
         man_made: mast
         tower:type: monitoring
         tower:construction: lattice
       shapes:
-        - lattice
-        - {shape: dish_antenna_left, offset: [-4, -3]}
-        - {shape: dish_antenna_right, offset: [3, -3]}
+        - {shape: lattice, color: $man_made_color}
+        - {shape: dish_antenna_left, offset: [-4, -3], color: $man_made_color}
+        - {shape: dish_antenna_right, offset: [3, -3], color: $man_made_color}
 
     - tags: {man_made: tower, tower:construction: guyed_tube}
       shapes: [tube_guyed]
@@ -1224,15 +1224,15 @@ nodes:
       # Diving towers.
 
     - tags: {man_made: tower, tower:type: diving}
-      shapes: [diving_1_platforms]
+      shapes: [{shape: diving_1_platforms, color: $man_made_color}]
     - tags: {man_made: tower, tower:type: diving, tower:platforms: "1"}
-      shapes: [diving_1_platforms]
+      shapes: [{shape: diving_1_platforms, color: $man_made_color}]
     - tags: {man_made: tower, tower:type: diving, tower:platforms: "2"}
-      shapes: [diving_2_platforms]
+      shapes: [{shape: diving_2_platforms, color: $man_made_color}]
     - tags: {man_made: tower, tower:type: diving, tower:platforms: "3"}
-      shapes: [diving_3_platforms]
+      shapes: [{shape: diving_3_platforms, color: $man_made_color}]
     - tags: {man_made: tower, tower:type: diving, tower:platforms: "4"}
-      shapes: [diving_4_platforms]
+      shapes: [{shape: diving_4_platforms, color: $man_made_color}]
 
     - tags: {communication:mobile_phone: "yes"}
       add_shapes: [phone]
@@ -1546,31 +1546,31 @@ nodes:
     start_zoom_level: 18.0
     tags:
     - tags: {amenity: bench}
-      shapes: [bench]
+      shapes: [{shape: bench, color: $man_made_color}]
     - tags: {amenity: bench, backrest: "yes"}
-      shapes: [bench_backrest]
+      shapes: [{shape: bench_backrest, color: $man_made_color}]
     - tags: {amenity: bench, backrest: "no"}
-      shapes: [bench_no_backrest]
+      shapes: [{shape: bench_no_backrest, color: $man_made_color}]
     - tags: {amenity: bench, tourism: artwork, artwork_type: sculpture}
-      shapes: [bench_with_statue]
+      shapes: [{shape: bench_with_statue, color: $man_made_color}]
     - tags: {amenity: bench, tourism: artwork, artwork_type: statue}
-      shapes: [bench_with_statue]
+      shapes: [{shape: bench_with_statue, color: $man_made_color}]
     - tags: {historic: memorial, memorial: bench, amenity: bench}
-      shapes: [bench_with_inscription]
+      shapes: [{shape: bench_with_inscription, color: $man_made_color}]
     - tags: {historic: memorial, memorial: bench}
-      shapes: [bench_with_inscription]
+      shapes: [{shape: bench_with_inscription, color: $man_made_color}]
     - tags: {memorial: bench}
-      shapes: [bench_with_inscription]
+      shapes: [{shape: bench_with_inscription, color: $man_made_color}]
     - tags: {amenity: clock}
-      shapes: [clock]
+      shapes: [{shape: clock, color: $man_made_color}]
     - tags: {amenity: fountain}
       shapes: [{shape: fountain, color: $marina_text_color}]
     - tags: {fountain: bubbler}
-      shapes: [fountain_bubbler]
+      shapes: [{shape: fountain_bubbler, color: $marina_text_color}]
     - tags: {fountain: roman_wolf}
-      shapes: [fountain_roman_wolf]
+      shapes: [{shape: fountain_roman_wolf, color: $marina_text_color}]
     - tags: {fountain: toret}
-      shapes: [fountain_toret]
+      shapes: [{shape: fountain_toret, color: $marina_text_color}]
     - tags: {amenity: waste_basket}
       shapes: [waste_basket]
     - tags: {amenity: waste_disposal}
@@ -1584,31 +1584,31 @@ nodes:
     - tags: {man_made: cross}
       shapes: [latin_cross]
     - tags: {man_made: flagpole}
-      shapes: [flagpole]
+      shapes: [{shape: flagpole, color: $man_made_color}]
     - tags: {man_made: manhole}
-      shapes: [circle_9]
+      shapes: [{shape: circle_9, color: $man_made_color}]
     - tags: {manhole: drain}
-      shapes: [manhole_drain]
+      shapes: [{shape: manhole_drain, color: $man_made_color}]
     - tags: {man_made: pole}
-      shapes: [pole]
+      shapes: [{shape: pole, color: $man_made_color}]
     - tags: {man_made: pole, highway: street_lamp}
-      shapes: [pole_lamp]
+      shapes: [{shape: pole_lamp, color: $man_made_color}]
     - tags: {man_made: street_cabinet}
-      shapes: [street_cabinet]
+      shapes: [{shape: street_cabinet, color: $man_made_color}]
     - tags: {man_made: surveillance}
-      shapes: [cctv]
+      shapes: [{shape: cctv, color: $man_made_color}]
     - tags: {man_made: surveillance, camera:type: dome, camera:mount: ceiling}
-      shapes: [cctv_dome_ceiling]
+      shapes: [{shape: cctv_dome_ceiling, color: $man_made_color}]
     - tags: {man_made: surveillance, camera:type: dome, camera:mount: wall}
-      shapes: [cctv_dome_wall]
+      shapes: [{shape: cctv_dome_wall, color: $man_made_color}]
     - tags: {man_made: ventilation_shaft}
-      shapes: [ventilation]
+      shapes: [{shape: ventilation, color: $man_made_color}]
     - tags: {railway: ventilation_shaft}
-      shapes: [ventilation]
+      shapes: [{shape: ventilation, color: $man_made_color}]
     - tags: {advertising: billboard}
-      shapes: [billboard]
+      shapes: [{shape: billboard, color: $man_made_color}]
     - tags: {advertising: column}
-      shapes: [advertising_column]
+      shapes: [{shape: advertising_column, color: $man_made_color}]
     - tags: {natural: human}
       shapes: [human]
     - tags: {natural: rock}

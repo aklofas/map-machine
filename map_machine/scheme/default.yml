@@ -87,13 +87,14 @@ variables:
 
   # Node colors.
   amenity_brown_color: $default
+  craft_color: "#008800"
+  decidious_color: "#F0A020"
   eat_color: $default
   evergreen_color: "#688C44"
-  decidious_color: "#F0A020"
-  sell_color: "#AA00AA"
-  # sell_text_color
-  craft_color: "#008800"
+  man_made_color: $default
   memorials_color: $default
+  sell_color: "#AA00AA"
+  sell_text_color: $default
 
   # Land cover.
   cemetery_color: black
@@ -160,7 +161,6 @@ variables:
   leisure_green_color: $default
   # living_street_border_color
   # living_street_color
-  # man_made_color
   marina_text_color: $water_border_color
   meadow_border_color: "#BFD078"
   meadow_color: "#CFE088"
