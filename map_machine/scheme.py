@@ -15,6 +15,7 @@ from roentgen.icon import IconSpecification, ShapeSpecification
 
 from map_machine.feature.direction import DirectionSet
 from map_machine.map_configuration import (
+    BuildingColorMode,
     BuildingMode,
     DrawingMode,
     LabelMode,
@@ -459,7 +460,9 @@ class Scheme:
         )
 
         self.roofs: bool = options.get("roofs", True)
-        self.building_colors: bool = options.get("building_colors", False)
+        self.building_colors: BuildingColorMode = BuildingColorMode(
+            _yaml_str(options.get("building_colors", "hue"))
+        )
         self.background: bool = options.get("background", True)
 
         self.variables: dict[str, str] = content.get("variables", {})

@@ -18,7 +18,7 @@ options:
   labels: main
 
   roofs: yes
-  building_colors: no
+  building_colors: "no"
   background: yes
 
 variables:

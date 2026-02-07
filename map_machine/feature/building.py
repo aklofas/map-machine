@@ -12,16 +12,25 @@ from svgwrite.path import Path
 from map_machine.figure import Figure
 from map_machine.geometry.flinger import Flinger
 from map_machine.geometry.vector import Segment
+from map_machine.map_configuration import BuildingColorMode
 from map_machine.osm.osm_reader import OSMNode
 from map_machine.scheme import Scheme
 
 if TYPE_CHECKING:
     from map_machine.drawing import PathCommands
 
+
 BUILDING_MINIMAL_HEIGHT: float = 8.0
 BUILDING_SCALE: float = 0.33
 LEVEL_HEIGHT: float = 2.5
 SHADE_SCALE: float = 0.4
+
+
+def _apply_hue(base: Color, source: Color) -> Color:
+    """Return base color with hue shifted to match source."""
+    result = Color(base)
+    result.set_hue(source.get_hue())
+    return result
 
 
 class Building(Figure):
@@ -107,23 +116,28 @@ class Building(Figure):
             self.min_height = BUILDING_MINIMAL_HEIGHT + height
 
     def draw(
-        self, svg: Drawing, flinger: Flinger, *, use_building_colors: bool
+        self,
+        svg: Drawing,
+        flinger: Flinger,
+        building_color_mode: BuildingColorMode,
     ) -> None:
         """Draw simple building shape."""
 
         if (path_commands := self.get_path(flinger)) is None:
             return
 
+        if building_color_mode == BuildingColorMode.FULL:
+            fill, stroke = self.fill, self.stroke
+        elif building_color_mode == BuildingColorMode.HUE:
+            fill = _apply_hue(self.default_fill, self.fill)
+            stroke = _apply_hue(self.default_stroke, self.stroke)
+        else:
+            fill, stroke = self.default_fill, self.default_stroke
+
         path: Path = Path(
             d=path_commands,
-            stroke=(
-                self.stroke.hex
-                if use_building_colors
-                else self.default_stroke.hex
-            ),
-            fill=(
-                self.fill.hex if use_building_colors else self.default_fill.hex
-            ),
+            stroke=stroke.hex,
+            fill=fill.hex,
             stroke_linejoin="round",
         )
         svg.add(path)
@@ -167,8 +181,7 @@ class Building(Figure):
         height: float,
         previous_height: float,
         scale: float,
-        *,
-        use_building_colors: bool,
+        building_color_mode: BuildingColorMode,
     ) -> None:
         """Draw building walls."""
         if not self.has_walls:
@@ -187,7 +200,7 @@ class Building(Figure):
                 height,
                 shift_1,
                 shift_2,
-                use_building_colors=use_building_colors,
+                building_color_mode,
             )
 
     def draw_roof(
@@ -195,8 +208,7 @@ class Building(Figure):
         svg: Drawing,
         flinger: Flinger,
         scale: float,
-        *,
-        use_building_colors: bool,
+        building_color_mode: BuildingColorMode,
     ) -> None:
         """Draw building roof."""
 
@@ -207,10 +219,13 @@ class Building(Figure):
         ) is None:
             return
 
-        fill: Color = self.fill if use_building_colors else self.default_fill
-        stroke: Color = (
-            self.stroke if use_building_colors else self.default_stroke
-        )
+        if building_color_mode == BuildingColorMode.FULL:
+            fill, stroke = self.fill, self.stroke
+        elif building_color_mode == BuildingColorMode.HUE:
+            fill = _apply_hue(self.default_fill, self.fill)
+            stroke = _apply_hue(self.default_stroke, self.stroke)
+        else:
+            fill, stroke = self.default_fill, self.default_stroke
 
         path: Path = Path(
             d=path_commands,
@@ -228,18 +243,18 @@ def draw_walls(
     height: float,
     shift_1: np.ndarray,
     shift_2: np.ndarray,
-    *,
-    use_building_colors: bool,
+    building_color_mode: BuildingColorMode,
 ) -> None:
     """Draw walls for buildings as a quadrangle.
 
     Color of the wall is based on illumination.
     """
-    color: Color = (
-        building.wall_color
-        if use_building_colors
-        else building.wall_default_color
-    )
+    if building_color_mode == BuildingColorMode.FULL:
+        color = building.wall_color
+    elif building_color_mode == BuildingColorMode.HUE:
+        color = _apply_hue(building.wall_default_color, building.wall_color)
+    else:
+        color = building.wall_default_color
     color_part: float
 
     if building.is_construction:
@@ -251,12 +266,6 @@ def draw_walls(
                 color.get_blue() + color_part,
             )
         )
-    elif height <= 0.25 / BUILDING_SCALE:
-        color = Color(color)
-        color.set_luminance(color.get_luminance() * 0.70)
-    elif height <= 0.5 / BUILDING_SCALE:
-        color = Color(color)
-        color.set_luminance(color.get_luminance() * 0.85)
     else:
         color_part = segment.angle * 0.2 - 0.1
         color = Color(
@@ -266,6 +275,21 @@ def draw_walls(
                 max(min(color.get_blue() + color_part, 1), 0),
             )
         )
+        if (
+            building_color_mode == BuildingColorMode.HUE
+            and building.wall_color != building.wall_default_color
+        ):
+            color = Color(
+                saturation=0.5,
+                luminance=0.85 + color_part,
+                hue=building.wall_color.get_hue(),
+            )
+        if height <= 0.25 / BUILDING_SCALE:
+            color = Color(color)
+            color.set_luminance(color.get_luminance() * 0.70)
+        elif height <= 0.5 / BUILDING_SCALE:
+            color = Color(color)
+            color.set_luminance(color.get_luminance() * 0.85)
 
     command: PathCommands = [
         "M",

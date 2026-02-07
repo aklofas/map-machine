@@ -48,6 +48,14 @@ class BuildingMode(Enum):
     ISOMETRIC_NO_PARTS = "isometric-no-parts"
 
 
+class BuildingColorMode(Enum):
+    """Building color mode."""
+
+    NO = "no"
+    FULL = "full"
+    HUE = "hue"
+
+
 class RoadMode(Enum):
     """Road drawing mode."""
 
@@ -78,7 +86,7 @@ class MapConfiguration:
     country: str = "world"
     ignore_level_matching: bool = False
     draw_roofs: bool = True
-    use_building_colors: bool = False
+    building_color_mode: BuildingColorMode = BuildingColorMode.NO
     show_overlapped: bool = False
     credit: str | None = "© OpenStreetMap contributors"
     show_credit: bool = True
@@ -121,7 +129,11 @@ class MapConfiguration:
             options.country,
             options.ignore_level_matching,
             _resolve(options.roofs, scheme.roofs),
-            _resolve(options.building_colors, scheme.building_colors),
+            _resolve(
+                options.building_colors,
+                scheme.building_colors,
+                BuildingColorMode,
+            ),
             options.show_overlapped,
             show_credit=not options.hide_credit,
             draw_background=_resolve(options.background, scheme.background),

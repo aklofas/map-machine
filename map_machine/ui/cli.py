@@ -4,6 +4,7 @@ import argparse
 
 from map_machine import __version__
 from map_machine.map_configuration import (
+    BuildingColorMode,
     BuildingMode,
     DrawingMode,
     LabelMode,
@@ -229,12 +230,11 @@ def add_map_arguments(parser: argparse.ArgumentParser) -> None:
     )
     parser.add_argument(
         "--building-colors",
-        help=(
-            "paint walls (if isometric mode is enabled) and roofs with "
-            "specified colors (overrides scheme)"
-        ),
-        action=argparse.BooleanOptionalAction,
         default=None,
+        metavar="<string>",
+        choices=[mode.value for mode in BuildingColorMode],
+        help="building color mode (overrides scheme): "
+        + ", ".join(mode.value for mode in BuildingColorMode),
     )
     parser.add_argument(
         "--show-overlapped",

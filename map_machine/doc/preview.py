@@ -14,6 +14,7 @@ from map_machine.constructor import Constructor
 from map_machine.geometry.bounding_box import BoundingBox
 from map_machine.geometry.flinger import MercatorFlinger
 from map_machine.map_configuration import (
+    BuildingColorMode,
     BuildingMode,
     DrawingMode,
     LabelMode,
@@ -209,6 +210,7 @@ def main(id_: str | None) -> None:
                 zoom_level=17.6,
                 building_mode=BuildingMode.ISOMETRIC,
                 ignore_level_matching=True,
+                building_color_mode=BuildingColorMode.HUE,
             ),
         )
 

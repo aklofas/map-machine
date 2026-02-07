@@ -28,6 +28,7 @@ from map_machine.geometry.coastline import (
 from map_machine.geometry.flinger import Flinger, MercatorFlinger
 from map_machine.geometry.vector import Polyline
 from map_machine.map_configuration import (
+    BuildingColorMode,
     BuildingMode,
     LabelMode,
     MapConfiguration,
@@ -198,14 +199,12 @@ class Map:
         """Draw buildings: shade, walls, and roof."""
         if self.configuration.building_mode == BuildingMode.NO:
             return
-        use_building_colors: bool = self.configuration.use_building_colors
+        building_color_mode: BuildingColorMode = (
+            self.configuration.building_color_mode
+        )
         if self.configuration.building_mode == BuildingMode.FLAT:
             for building in constructor.buildings:
-                building.draw(
-                    self.svg,
-                    self.flinger,
-                    use_building_colors=use_building_colors,
-                )
+                building.draw(self.svg, self.flinger, building_color_mode)
             return
 
         logger.info("Drawing isometric buildings...")
@@ -244,17 +243,14 @@ class Map:
                     height,
                     shift_1,
                     shift_2,
-                    use_building_colors=use_building_colors,
+                    building_color_mode,
                 )
 
             if self.configuration.draw_roofs:
                 for building in constructor.buildings:
                     if building.height == height:
                         building.draw_roof(
-                            self.svg,
-                            self.flinger,
-                            scale,
-                            use_building_colors=use_building_colors,
+                            self.svg, self.flinger, scale, building_color_mode
                         )
 
             previous_height = height
