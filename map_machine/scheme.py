@@ -811,6 +811,7 @@ class Scheme:
         if "color" in structure:
             color = self.get_color(structure["color"])
 
+        # TODO(enzet): support opacity in Röntgen.
         return ShapeSpecification(
             shape_id,
             "main",
@@ -819,5 +820,4 @@ class Scheme:
             structure.get("flip_vertically", False),
             structure.get("outline", True),
             color,
-            self.get_value(structure.get("opacity", 1.0)),
         )

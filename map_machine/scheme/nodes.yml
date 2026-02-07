@@ -71,7 +71,7 @@ nodes:
     - tags: {highway: stop}
       shapes: [stop]
     - tags: {amenity: taxi}
-      shapes: [taxi]
+      shapes: [{shape: taxi, color: $transportation_color}]
 
   - group: "Big territory"
     start_zoom_level: 12.0
@@ -285,9 +285,13 @@ nodes:
       - {shape: car, offset: [0, 3], color: $sell_color}
       - {shape: wrench, offset: [0, -4], color: $sell_color}
     - tags: {amenity: car_rental}
-      shapes: [{shape: car, offset: [0, 3]}, {shape: key, offset: [1, -3]}]
+      shapes:
+      - {shape: car, offset: [0, 3], color: $transportation_color}
+      - {shape: key, offset: [1, -3], color: $transportation_color}
     - tags: {amenity: car_sharing}
-      shapes: [{shape: car, offset: [0, 3]}, {shape: sharing, offset: [0, -4]}]
+      shapes:
+      - {shape: car, offset: [0, 3], color: $transportation_color}
+      - {shape: sharing, offset: [0, -4], color: $transportation_color}
     - tags: {amenity: car_wash}
       shapes:
       - {shape: car, offset: [0, 3], color: $amenity_brown_color}
@@ -831,7 +835,7 @@ nodes:
     - tags: {man_made: obelisk}
       shapes: [{shape: obelisk, color: $memorials_color}]
     - tags: {historic: monument}
-      shapes: [monument]
+      shapes: [{shape: monument, color: $memorials_color}]
 
   - group: "Normal middle objects"
     start_zoom_level: 17.0
@@ -1305,32 +1309,32 @@ nodes:
     - tags: {natural: spring}
       shapes: [{shape: spring, color: $water_border_color}]
     - tags: {highway: elevator}
-      shapes: [elevator]
+      shapes: [{shape: elevator, color: $transportation_color}]
     - tags: {historic: cannon}
       shapes: [cannon]
     - tags: {historic: olympic_flame}
       shapes: [torch]
     - tags: {historic: memorial}
-      shapes: [memorial]
+      shapes: [{shape: memorial, color: $memorials_color}]
     - tags: {historic: memorial, memorial: plaque}
-      shapes: [plaque]
+      shapes: [{shape: plaque, color: $memorials_color}]
     - tags: {historic: memorial, memorial: statue}
-      shapes: [statue]
+      shapes: [{shape: statue, color: $memorials_color}]
     - tags: {barrier: artwork, artwork_type: statue}
-      shapes: [statue]
+      shapes: [{shape: statue, color: $memorials_color}]
     - tags: {historic: stone}
-      shapes: [stone_with_inscription]
+      shapes: [{shape: stone_with_inscription, color: $memorials_color}]
     - tags: {historic: wayside_cross}
-      shapes: [cross_and_horizontal_bar]
+      shapes: [{shape: cross_and_horizontal_bar, color: $memorials_color}]
     - tags: {historic: wayside_shrine}
-      shapes: [wayside_shrine]
+      shapes: [{shape: wayside_shrine, color: $memorials_color}]
     - tags: {historic: memorial, memorial: stone}
-      shapes: [stone_with_inscription]
+      shapes: [{shape: stone_with_inscription, color: $memorials_color}]
     - tags: {historic: tomb}
-      shapes: [tomb]
+      shapes: [{shape: tomb, color: $memorials_color}]
     - tags: {tomb: "*"}
       exception: {tomb: mausoleum}  # TODO: add exception "tomb: pyramid"
-      shapes: [tomb]
+      shapes: [{shape: tomb, color: $memorials_color}]
     - tags: {barrier: toll_booth}
       shapes: [toll_booth]
     - tags: {barrier: lift_gate}

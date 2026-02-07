@@ -11,7 +11,7 @@ variables:
   priority_barrier: 50  # Wall, kerb.
   priority_road_5: 43  # Foot area.
   priority_road_4: 42  # Foot, cycle, steps.
-  priority_road_3: 41  # Foot border.
+  priority_road_3: 40  # Foot border.
   priority_road_2: 40  # Track.
   priority_water_slide: 35  # Water slide.
   priority_over_water: 33  # Bridge, pier.
@@ -101,6 +101,30 @@ ways:
       stroke: "#44AA33"
       stroke-width: 1.0
       opacity: 0.6
+    priority: $priority_golf
+  - tags: {golf: tee}
+    style:
+      fill: $grass_color
+    priority: $priority_golf
+  - tags: {golf: fairway}
+    style:
+      fill: $grass_color
+    priority: $priority_golf
+  - tags: {golf: rough}
+    style:
+      fill: $grass_color
+    priority: $priority_golf
+  - tags: {golf: driving_range}
+    style:
+      fill: $grass_color
+    priority: $priority_golf
+  - tags: {golf: green}
+    style:
+      fill: $pitch_color
+    priority: $priority_golf
+  - tags: {golf: bunker}
+    style:
+      fill: $sand_color
     priority: $priority_golf
   - tags: {man_made: pipeline}
     style:
@@ -346,7 +370,7 @@ ways:
     priority: $priority_landuse_2
   - tags: {natural: scrub}
     style:
-      fill: $wood_color
+      fill: $scrub_color
     priority: $priority_landuse_2
   - tags: {natural: sand}
     style:
@@ -358,11 +382,11 @@ ways:
     priority: $priority_landuse_2
   - tags: {natural: heath}
     style:
-      fill: "#DDDDDD"
+      fill: $heath_color
     priority: $priority_landuse_2
   - tags: {natural: glacier}
     style:
-      fill: "#FFFFFF"
+      fill: $glacier_color
     priority: $priority_landuse_2
   - tags: {natural: desert}
     style:
@@ -403,7 +427,20 @@ ways:
     priority: $priority_landuse_2
   - tags: {natural: bare_rock}
     style:
-      fill: $rock_color
+      fill: $bare_ground_color
+  - tags: {natural: shingle}
+    style:
+      fill: $bare_ground_color
+    priority: $priority_landuse_2
+  - tags: {natural: shoal}
+    style:
+      fill: $shoal_color
+    priority: $priority_landuse_2
+  - tags: {natural: mud}
+    style:
+      fill: $mud_color
+      opacity: 0.3
+    priority: $priority_landuse_2
   - tags: {natural: cliff}
     style:
       stroke-width: 1.0
@@ -421,6 +458,8 @@ ways:
   - tags: {landuse: allotments}
     style:
       fill: $allotments_color
+      stroke: $allotments_border_color
+      stroke-width: $allotments_border_width
     priority: $priority_landuse_2
   - tags: {landuse: conservation}
     style:
@@ -429,14 +468,24 @@ ways:
   - tags: {landuse: construction}
     style:
       fill: $construction_color
+  - tags: {landuse: brownfield}
+    style:
+      fill: $brownfield_color
+  - tags: {landuse: landfill}
+    style:
+      fill: $landfill_color
+  - tags: {landuse: salt_pond}
+    style:
+      fill: $salt_pond_color
+    priority: $priority_landuse_2
   - tags: {landuse: farmland}
-    style: {fill: $farmland_color, stroke: $farmland_border_color}
+    style: {fill: $farmland_color, stroke: $farmland_border_color, stroke-width: $farmland_border_width}
     priority: $priority_landuse_2
   - tags: {landuse: greenhouse_horticulture}
-    style: {fill: $farmland_color, stroke: $farmland_border_color}
+    style: {fill: $farmland_color, stroke: $farmland_border_color, stroke-width: $farmland_border_width}
     priority: $priority_landuse_2
   - tags: {landuse: farmyard}
-    style: {fill: $farmland_color, stroke: $farmland_border_color}  # FIXME
+    style: {fill: $farmyard_color, stroke: $farmyard_border_color, stroke-width: 0.5}
     priority: $priority_landuse_2
   - tags: {landuse: farmland, crop: wheat}
     style: {fill: $wheat_color, stroke: $wheat_border_color}
@@ -453,7 +502,7 @@ ways:
     priority: $priority_landuse_2
   - tags: {landuse: garages}
     style:
-      fill: $parking_color
+      fill: $garages_color
     priority: $priority_landuse_3
   - tags: {landuse: retail}
     style:
@@ -475,6 +524,18 @@ ways:
     style:
       fill: $orchard_color
     priority: $priority_landuse_1
+  - tags: {landuse: vineyard}
+    style:
+      fill: $vineyard_color
+    priority: $priority_landuse_1
+  - tags: {landuse: plant_nursery}
+    style:
+      fill: $plant_nursery_color
+    priority: $priority_landuse_1
+  - tags: {landuse: flowerbed}
+    style:
+      fill: $flowerbed_color
+    priority: $priority_landuse_2
   - tags: {landuse: meadow}
     style:
       fill: $meadow_color
@@ -512,10 +573,19 @@ ways:
       stroke: $industrial_border_color
       stroke-width: $industrial_border_width
     priority: $priority_landuse_1
+  - tags: {landuse: quarry}
+    style:
+      fill: $quarry_color
+      stroke: $quarry_border_color
+      stroke-width: $quarry_border_width
+    priority: $priority_landuse_1
   - tags: {landuse: military}
     style:
       fill: $military_color
-      opacity: $military_opacity
+      opacity: $military_fill_opacity
+      stroke: $military_color
+      stroke-width: $military_border_width
+      stroke-opacity: $military_border_opacity
     priority: $priority_landuse_1
   - tags: {landuse: railway}
     style:
@@ -533,8 +603,33 @@ ways:
     priority: $priority_landuse_1
   - tags: {power: substation}
     style:
-      fill: $hidden_color
-      opacity: 0.05
+      fill: $power_color
+      stroke: $power_border_color
+      stroke-width: 0.5
+    priority: $priority_landuse_1
+  - tags: {power: plant}
+    style:
+      fill: $power_color
+      stroke: $power_border_color
+      stroke-width: 0.5
+    priority: $priority_landuse_1
+  - tags: {power: generator}
+    style:
+      fill: $power_color
+      stroke: $power_border_color
+      stroke-width: 0.5
+    priority: $priority_landuse_1
+  - tags: {man_made: wastewater_plant}
+    style:
+      fill: $wastewater_plant_color
+      stroke: $wastewater_plant_border_color
+      stroke-width: 0.5
+    priority: $priority_landuse_1
+  - tags: {man_made: water_works}
+    style:
+      fill: $water_works_color
+      stroke: $water_works_border_color
+      stroke-width: 0.5
     priority: $priority_landuse_1
 
   - tags: {amenity: ferry_terminal}
@@ -557,9 +652,116 @@ ways:
       fill: $school_color
       opacity: $school_opacity
     priority: $priority_landuse_1
+  - tags: {amenity: hospital}
+    style:
+      fill: $societal_amenities_color
+      stroke: $societal_amenities_border_color
+      stroke-width: $societal_amenities_border_width
+    priority: $priority_landuse_1
+  - tags: {amenity: clinic}
+    style:
+      fill: $societal_amenities_color
+      stroke: $societal_amenities_border_color
+      stroke-width: $societal_amenities_border_width
+    priority: $priority_landuse_1
+  - tags: {amenity: university}
+    style:
+      fill: $societal_amenities_color
+      stroke: $societal_amenities_border_color
+      stroke-width: $societal_amenities_border_width
+    priority: $priority_landuse_1
+  - tags: {amenity: college}
+    style:
+      fill: $societal_amenities_color
+      stroke: $societal_amenities_border_color
+      stroke-width: $societal_amenities_border_width
+    priority: $priority_landuse_1
+  - tags: {amenity: community_centre}
+    style:
+      fill: $societal_amenities_color
+      stroke: $societal_amenities_border_color
+      stroke-width: $societal_amenities_border_width
+    priority: $priority_landuse_1
+  - tags: {amenity: social_facility}
+    style:
+      fill: $societal_amenities_color
+      stroke: $societal_amenities_border_color
+      stroke-width: $societal_amenities_border_width
+    priority: $priority_landuse_1
+  - tags: {amenity: arts_centre}
+    style:
+      fill: $societal_amenities_color
+      stroke: $societal_amenities_border_color
+      stroke-width: $societal_amenities_border_width
+    priority: $priority_landuse_1
+  - tags: {amenity: place_of_worship}
+    style:
+      fill: $place_of_worship_color
+      stroke: $place_of_worship_border_color
+      stroke-width: $place_of_worship_border_width
+    priority: $priority_landuse_1
+  - tags: {landuse: religious}
+    style:
+      fill: $place_of_worship_color
+      stroke: $place_of_worship_border_color
+      stroke-width: $place_of_worship_border_width
+    priority: $priority_landuse_1
+  - tags: {amenity: prison}
+    style:
+      fill: $prison_color
+      opacity: $prison_opacity
+      stroke: $prison_border_color
+      stroke-width: $prison_border_width
+      stroke-opacity: $prison_border_opacity
+    priority: $priority_landuse_1
+  - tags: {amenity: fire_station}
+    style:
+      fill: $fire_station_color
+      stroke: $fire_station_border_color
+      stroke-width: $fire_station_border_width
+      stroke-opacity: $fire_station_border_opacity
+    priority: $priority_landuse_1
+  - tags: {amenity: police}
+    style:
+      fill: $fire_station_color
+      stroke: $fire_station_border_color
+      stroke-width: $fire_station_border_width
+      stroke-opacity: $fire_station_border_opacity
+    priority: $priority_landuse_1
+  - tags: {amenity: marketplace}
+    style:
+      fill: $retail_color
+      stroke: $retail_border_color
+      stroke-width: $retail_border_width
+    priority: $priority_landuse_1
+  - tags: {amenity: bicycle_parking}
+    style:
+      fill: $parking_color
+      stroke: $parking_border_color
+      stroke-width: $parking_stroke_width
+    priority: $priority_landuse_3
+  - tags: {amenity: motorcycle_parking}
+    style:
+      fill: $parking_color
+      stroke: $parking_border_color
+      stroke-width: $parking_stroke_width
+    priority: $priority_landuse_3
+  - tags: {amenity: taxi}
+    style:
+      fill: $parking_color
+      stroke: $parking_border_color
+      stroke-width: $parking_stroke_width
+    priority: $priority_landuse_3
+  - tags: {amenity: bus_station}
+    style:
+      fill: $transportation_area_color
+      stroke: $transportation_area_border_color
+      stroke-width: $transportation_area_border_width
+    priority: $priority_landuse_3
   - tags: {amenity: parking_space}
     style:
-      stroke: "#FFFFFF"
+      stroke: $parking_space_border_color
+      stroke-width: 0.3
 
   - tags: {aeroway: landingpad}
     style:
@@ -569,6 +771,28 @@ ways:
     style:
       fill: "#440044"
       opacity: 0.1
+  - tags: {aeroway: apron}
+    style:
+      fill: $apron_color
+    priority: $priority_airport_1
+  - tags: {aeroway: aerodrome}
+    style:
+      fill: $transportation_area_color
+      stroke: $transportation_area_border_color
+      stroke-width: $transportation_area_border_width
+    priority: $priority_airport_1
+  - tags: {highway: services}
+    style:
+      fill: $rest_area_color
+    priority: $priority_landuse_2
+  - tags: {highway: rest_area}
+    style:
+      fill: $rest_area_color
+    priority: $priority_landuse_2
+  - tags: {railway: station}
+    style:
+      fill: $railway_color
+    priority: $priority_landuse_3
 
   - tags: {waterway: river}
     style:
@@ -599,91 +823,107 @@ ways:
 
   - tags: {railway: subway}
     style:
-      stroke-width: 3.5
-      opacity: 0.7
-      stroke: "#AAAAAA"
+      stroke-width: $subway_width
+      stroke: $subway_color
     priority: $priority_road_2
   - tags: {railway: rail}
     style:
-      stroke-width: 3.0
-      stroke: "#BBBBBB"
+      stroke-width: $rail_bg_width
+      stroke: $rail_bg_color
+      stroke-linejoin: round
     priority: $priority_rail_2
   - tags: {railway: light_rail}
     style:
-      stroke-width: 3.0
-      stroke: "#CCCCCC"
+      stroke-width: $light_rail_width
+      stroke: $light_rail_color
     priority: $priority_rail_2
   - tags: {railway: monorail}
     style:
-      stroke-width: 3.0
-      stroke: "#CCCCCC"
+      stroke-width: $monorail_bg_width
+      stroke: $monorail_bg_color
+      opacity: $monorail_bg_opacity
+      stroke-linecap: round
+      stroke-linejoin: round
     priority: $priority_rail_2
   - tags: {railway: funicular}
     style:
-      stroke-width: 3.0
-      stroke: "#CCCCCC"
+      stroke-width: $light_rail_width
+      stroke: $light_rail_color
     priority: $priority_rail_2
   - tags: {railway: narrow_gauge}
     style:
-      stroke-width: 3.0
-      stroke: "#DDDDDD"
+      stroke-width: $light_rail_width
+      stroke: $light_rail_color
     priority: $priority_rail_2
   - tags: {railway: tram}
     style:
-      stroke-width: 3.0
-      stroke: "#BBBBBB"
+      stroke-width: $tram_width
+      stroke: $tram_color
     priority: $priority_rail_2
   - tags: {railway: construction}
     style:
-      stroke-width: 2.0
-      stroke: "#000000"
-      stroke-dasharray: 6,3
-      opacity: 0.3
+      stroke-width: $railway_construction_width
+      stroke: $railway_construction_color
+      stroke-dasharray: $railway_construction_dasharray
+      stroke-linejoin: round
     priority: $priority_rail_1
   - tags: {railway: disused}
     style:
-      stroke-width: 3.0
-      stroke: "#000000"
-      stroke-dasharray: 6,6
-      opacity: 0.3
+      stroke-width: $railway_disused_width
+      stroke: $railway_disused_color
+      stroke-dasharray: $railway_disused_dasharray
+      stroke-linejoin: round
     priority: $priority_rail_1
   - tags: {railway: abandoned}
     style:
-      stroke-width: 3.0
-      stroke: "#000000"
-      stroke-dasharray: 6,9
-      opacity: 0.3
+      stroke-width: $railway_disused_width
+      stroke: $railway_disused_color
+      stroke-dasharray: $railway_disused_dasharray
+      stroke-linejoin: round
     priority: $priority_rail_1
 
   - tags: {railway: rail}
     style:
-      stroke-width: 1.0
-      stroke: "#444444"
+      stroke-width: $rail_dash_width
+      stroke: $rail_dash_color
+      stroke-dasharray: $rail_dasharray
+      stroke-linejoin: round
     priority: $priority_rail_4
   - tags: {railway: light_rail}
     style:
-      stroke-width: 1.0
-      stroke: "#444444"
+      stroke-width: $rail_dash_width
+      stroke: $rail_dash_color
+      stroke-dasharray: $rail_dasharray
+      stroke-linejoin: round
     priority: $priority_rail_4
   - tags: {railway: monorail}
     style:
-      stroke-width: 1.0
-      stroke: "#444444"
+      stroke-width: $monorail_width
+      stroke: $monorail_color
+      stroke-dasharray: $monorail_dasharray
+      stroke-linecap: round
+      stroke-linejoin: round
     priority: $priority_rail_4
   - tags: {railway: funicular}
     style:
-      stroke-width: 1.0
-      stroke: "#444444"
+      stroke-width: $rail_dash_width
+      stroke: $rail_dash_color
+      stroke-dasharray: $rail_dasharray
+      stroke-linejoin: round
     priority: $priority_rail_4
   - tags: {railway: narrow_gauge}
     style:
-      stroke-width: 1.0
-      stroke: "#444444"
+      stroke-width: $rail_dash_width
+      stroke: $rail_dash_color
+      stroke-dasharray: $rail_dasharray
+      stroke-linejoin: round
     priority: $priority_rail_4
   - tags: {railway: tram}
     style:
-      stroke-width: 1.0
-      stroke: "#444444"
+      stroke-width: $rail_dash_width
+      stroke: $rail_dash_color
+      stroke-dasharray: $rail_dasharray
+      stroke-linejoin: round
     priority: $priority_rail_4
 
   - tags: {railway: platform}
@@ -719,12 +959,14 @@ ways:
     priority: $priority_landuse_1
   - tags: {landuse: recreation_ground}
     style:
-      fill: $grass_color
-      opacity: 0.5
+      fill: $leisure_color
+      stroke: $playground_border_color
+      stroke-width: 0.3
   - tags: {leisure: recreation_ground}
     style:
-      fill: $grass_color
-      opacity: 0.5
+      fill: $leisure_color
+      stroke: $playground_border_color
+      stroke-width: 0.3
   - tags: {leisure: stadium}
     style:
       fill: $stadium_color
@@ -746,8 +988,7 @@ ways:
       stroke-width: $water_park_border_width
   - tags: {leisure: golf_course}
     style:
-      fill: $grass_color
-      opacity: 0.5
+      fill: $golf_course_color
   - tags: {leisure: pitch}
     style:
       fill: $pitch_color
@@ -762,15 +1003,15 @@ ways:
     priority: $priority_landuse_4
   - tags: {leisure: track, area: "yes"}
     style:
-      fill: $pitch_color
-      stroke: $pitch_border_color
-      stroke-width: 1.0
+      fill: $track_area_color
+      stroke: $track_area_border_color
+      stroke-width: $track_area_border_width
     priority: $priority_landuse_4
   - tags: {leisure: fitness_station}
     style:
-      fill: $pitch_color
-      stroke: $pitch_border_color
-      stroke-width: 1.0
+      fill: $leisure_color
+      stroke: $playground_border_color
+      stroke-width: 0.3
     priority: $priority_landuse_4
   - tags: {leisure: playground}
     style:
@@ -782,8 +1023,36 @@ ways:
     style:
       fill: $water_color
       stroke: $water_border_color
-      stroke-width: $water_border_width
+      stroke-width: 0.5
     priority: $priority_landuse_4
+  - tags: {leisure: ice_rink}
+    style:
+      fill: $ice_rink_color
+      stroke: $ice_rink_border_color
+      stroke-width: $ice_rink_border_width
+    priority: $priority_landuse_4
+  - tags: {leisure: miniature_golf}
+    style:
+      fill: $miniature_golf_color
+    priority: $priority_landuse_4
+  - tags: {tourism: camp_site}
+    style:
+      fill: $campsite_color
+      stroke: $campsite_border_color
+      stroke-width: $campsite_border_width
+    priority: $priority_landuse_2
+  - tags: {tourism: caravan_site}
+    style:
+      fill: $campsite_color
+      stroke: $campsite_border_color
+      stroke-width: $campsite_border_width
+    priority: $priority_landuse_2
+  - tags: {tourism: picnic_site}
+    style:
+      fill: $campsite_color
+      stroke: $campsite_border_color
+      stroke-width: $campsite_border_width
+    priority: $priority_landuse_2
 
   - tags: {tourism: artwork}
     style:

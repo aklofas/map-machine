@@ -84,6 +84,31 @@ variables:
   tertiary_border_color: "#8f8f8f"
   tertiary_color: "#ffffff"
 
+  # Railways.
+  rail_bg_color: "#707070"
+  rail_bg_width: 4.0
+  rail_dash_color: white
+  rail_dash_width: 2.0
+  rail_dasharray: 8,8
+  light_rail_color: "#666666"
+  light_rail_width: 2.0
+  tram_color: "#6E6E6E"
+  tram_width: 1.0
+  subway_color: "#999999"
+  subway_width: 2.0
+  monorail_bg_color: white
+  monorail_bg_width: 4.0
+  monorail_bg_opacity: 0.4
+  monorail_color: "#777777"
+  monorail_width: 3.0
+  monorail_dasharray: 2,3
+  railway_construction_color: "#808080"
+  railway_construction_width: 2.0
+  railway_construction_dasharray: 2,4
+  railway_disused_color: "#aaaaaa"
+  railway_disused_width: 2.0
+  railway_disused_dasharray: 2,4
+
   # Node colors.
   amenity_brown_color: "#734a08"
   craft_color: $default
@@ -104,29 +129,39 @@ variables:
   cemetery_color: "#aacbaf"
   cemetery_opacity: 1.0
   commercial_border_color: "#d1b2b0"
-  commercial_border_width: 1.0
+  commercial_border_width: 0.5
   commercial_color: "#f2dad9"
   commercial_opacity: 1.0
   golf_course_color: $campsite_color
   mud: {rgba: [203, 177, 154, 0.3]}
-  # place_of_worship_outline: darken(@place_of_worship, 30%);
-  # power-line: darken(@industrial-line, 5%);
-  # power: darken(@industrial, 5%);
-  # societal_amenities_color: "#ffffe5"
-  # track: @pitch;
-  # wastewater_plant_border_color: @industrial-line;
-  # wastewater_plant_color: @industrial;
-  # water_works-line: @industrial-line;
-  # water_works: @industrial;
+  mud_color: "#cbb19a"
+  place_of_worship_border_color: {color: "#d0d0d0", darken: 0.3}
+  place_of_worship_border_width: 0.3
+  power_color: {color: $industrial_color, darken: 0.05}
+  power_border_color: {color: $industrial_border_color, darken: 0.05}
+  societal_amenities_color: "#ffffe5"
+  societal_amenities_border_color: {color: "#ffffe5", darken: 0.35}
+  societal_amenities_border_width: 0.3
+  track_area_color: $pitch_color
+  track_area_border_color: {color: "#88e0be", darken: 0.2, desaturate: 0.1}
+  track_area_border_width: 0.5
+  wastewater_plant_border_color: $industrial_border_color
+  wastewater_plant_color: $industrial_color
+  water_works_border_color: $industrial_border_color
+  water_works_color: $industrial_color
   apron_color: "#dadae0"
   bare_ground_color: "#eee5dc"
   beach_color: "#fff1ba"
+  brownfield_color: "#c7c7b4"
   campsite_color: "#def6c0"
+  campsite_border_color: {color: "#def6c0", saturate: 0.3, darken: 0.6}
+  campsite_border_width: 0.3
   farmland_border_color: "#c7c9ae"
   farmland_color: "#eef0d5"
+  farmland_border_width: 0.5
   # farmland_darker_color
   industrial_border_color: "#c6b3c3"
-  industrial_border_width: 1.0
+  industrial_border_width: 0.5
   industrial_color: "#ebdbe8"
   industrial_opacity: 1.0
   military_color: "#ff5555"
@@ -134,6 +169,8 @@ variables:
   aboriginal: "#82643a"
   airtransport: "#8461C4"
   allotments_color: "#c9e1bf"
+  allotments_border_color: {color: "#c9e1bf", darken: 0.1, desaturate: 0.1}
+  allotments_border_width: 0.5
   barrier_color: "#3f3f3f"
   # boundary_color
   bridleway_border_color: white
@@ -144,7 +181,12 @@ variables:
   # emergency_color
   farmyard_border_color: "#d1b48c"
   farmyard_color: "#f5dcba"
+  fire_station_color: "#F3E3DD"
+  fire_station_border_color: $military_color
+  fire_station_border_opacity: 0.24
+  fire_station_border_width: 1.0
   garages_color: "#dfddce"
+  glacier_color: "#ddecec"
   # ferry_terminal_color
   foot_area_border_color: $pedestrian_border_color
   foot_area_color: $pedestrian_color
@@ -153,14 +195,16 @@ variables:
   health_color: "#bf0000"
   heath_color: "#d6d99f"
   # hidden_color
-  industrial_border_color: "#d1b2b0"
-  industrial_color: "#ebdbe8"
   # indoor_border_color
   # indoor_color
   # indoor_column_color
+  ice_rink_color: "#ddecec"
+  ice_rink_border_color: {color: "#88e0be", saturate: 0.2, darken: 0.3}
+  ice_rink_border_width: 0.5
   kindergarten_color: "#ffffe5"
   kindergarten_opacity: 1.0
   landform_color: "#d08f55"
+  landfill_color: "#b6b592"
   leisure_color: {color: $park_color, lighten: 0.05}
   leisure_green_color: {color: "#c8facc", darken: 0.6}
   living_street_border_color: "#bbbbbb"
@@ -169,6 +213,10 @@ variables:
   # meadow_border_color
   # meadow_color
   military_color: "#ff5555"
+  military_fill_opacity: 0.08
+  military_border_opacity: 0.24
+  military_border_width: 1.0
+  miniature_golf_color: $campsite_color
   office_color: "#4863A0"
   # orchard_border_color
   orchard_color: "#aedfa3"
@@ -178,7 +226,8 @@ variables:
   parking_color: "#eeeeee"
   parking_node_color: "#4090d4"
   parking_opacity: 1.0
-  parking_stroke_width: 1.0
+  parking_stroke_width: 0.3
+  parking_space_border_color: {color: "#eeeeee", saturate: 0.2, darken: 0.4, lighten: 0.2}
   path_border_color: white
   pedestrian_border_color: "#999999"
   pedestrian_color: "#dddde8"
@@ -188,18 +237,26 @@ variables:
   place_of_worship_color: "#d0d0d0"
   # platform_border_color
   platform_color: "#bbbbbb"
+  plant_nursery_color: "#aedfa3"
   playground_border_color: {color: $leisure_color, darken: 0.6}
   playground_border_width: 0.3
   playground_color: $leisure_color
+  prison_color: "#8e8e8e"
+  prison_opacity: 0.14
+  prison_border_color: "#888888"
+  prison_border_opacity: 0.329
+  prison_border_width: 3
   protected_area_color: "#008000"
   quarry_color: "#c5c3c3"
+  quarry_border_color: {color: "#c5c3c3", darken: 0.1}
+  quarry_border_width: 0.5
   raceway_color: "#ffc0cb"
   railway_border_color: "#c6b3c3"
-  railway_border_width: 1.0
+  railway_border_width: 0.5
   railway_color: "#ebdbe8"
   railway_opacity: 1.0
   residential_area_border_color: "#b9b9b9"
-  residential_area_border_width: 1.0
+  residential_area_border_width: 0.5
   residential_area_color: "#e0dfdf"
   residential_area_opacity: 1.0
   residential_border_color: "#bbbbbb"
@@ -215,10 +272,11 @@ variables:
   # route_color
   # runway_border_color
   # runway_color
+  salt_pond_color: $water_color
   sand_color: "#f5e9c6"
   school_color: "#ffffe5"
   school_opacity: 1.0
-  # scree_color
+  scrub_color: "#c8d7ab"
   service_border_color: "#bbbbbb"
   service_color: "#ffffff"
   steps_border_color: white
@@ -237,6 +295,8 @@ variables:
   track_grade_5_dasharray: 2,8
   track_grade_no_dasharray: 5,4,2,4
   transportation_area_color: "#e9e7e2"
+  transportation_area_border_color: {color: "#e9e7e2", saturate: 0.2, darken: 0.4}
+  transportation_area_border_width: 0.2
   transportation_color: "#0092da"
   transportation_text_color: "#0066ff"
   tree_color: {color: "#add19e", darken: 0.1}
@@ -263,6 +323,9 @@ variables:
   water_park_opacity: 1.0
   water_park_border_color: {color: $leisure_color, darken: 0.35}
   water_park_border_width: 0.3
+  vineyard_color: "#aedfa3"
+  flowerbed_color: "#cdebb0"
+  shoal_color: "#fff1ba"
   wood_color: "#add19e"
   village_green_color: $grass_color
   wall_bottom_1_color: "#AAAAAA"
