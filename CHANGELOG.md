@@ -1,23 +1,65 @@
 ## Not released
 
+### ⚠️ Breaking Changes️️️️️️️️️️️ ⚠️
+
+- Migrate minimum Python version from 3.9 to 3.10
+  ([manojalluri](https://github.com/manojalluri),
+  [#186](https://github.com/enzet/map-machine/issues/186)).
+- Add `--roads` option with default value `simple`, that means drawing roads as
+  simple styled figures instead of complex structures with lanes
+  ([#188](https://github.com/enzet/map-machine/issues/188)).
+- Move drawing options from CLI to scheme YAML file.
+- Disable `--update-cache` by default for `server` command.
+- Use `$` as prefix for scheme variables.
+- Rename `node_icons` to `nodes` in scheme files.
+
+### Fixes
+
+- Fix drawing water polygons defined by coastline and water tags
+  ([#120](https://github.com/enzet/map-machine/issues/120),
+  [#143](https://github.com/enzet/map-machine/issues/143),
+  [#161](https://github.com/enzet/map-machine/issues/161)).
+- Fix point size in wireframe view
+  ([#194](https://github.com/enzet/map-machine/issues/194)).
+- Simplify icon flipping
+  ([#193](https://github.com/enzet/map-machine/issues/193)).
+- Work around a bug in `svgpathtools`.
+- Fix `InvalidConfigError` ([Strubbl](https://github.com/Strubbl)).
+- Fix tag matching, scheme variable parsing and verification, various color and
+  priority issues.
+
 ### Improvements
 
-- **Breaking change**: disable `--update-cache` by default for `server` command.
-- **Breaking change**: add `--roads` option with default value `simple`, that
-  means drawing roads as simple styled figures instead of complex structures
-  with lanes.
+- Update [Röntgen](https://github.com/enzet/Roentgen) to version 0.12
+  ([#149](https://github.com/enzet/map-machine/issues/149)).
 - Add Leaflet example
   ([#164](https://github.com/enzet/map-machine/issues/164)).
 - Rename `--boundary-box` to `--bounding-box`. `--boundary-box` is still
   supported for backward compatibility.
 - Migrate to `pyproject.toml`
   ([#178](https://github.com/enzet/map-machine/issues/178)).
-- Support scientific notation
+- Support scientific notation in bounding boxes
   ([#167](https://github.com/enzet/map-machine/issues/167)).
 - Migrate to [Ruff](https://github.com/astral-sh/ruff) from
   [Black](https://github.com/psf/black) and
   [Flake8](https://github.com/PyCQA/flake8)
   ([#183](https://github.com/enzet/map-machine/issues/183)).
+- Support GPX files ([#16](https://github.com/enzet/map-machine/issues/16)).
+- Support Overpass API
+  ([#203](https://github.com/enzet/map-machine/issues/203)).
+- Support cropping ways and areas
+  ([#200](https://github.com/enzet/map-machine/issues/200)).
+- Support multiple scheme files.
+- Support `hue` building color mode.
+- Support recursive variable parsing.
+- Rewrite scheme YAML files and way priorities using variables.
+- Update Shapely and Pillow.
+
+### New Tag Support
+
+- Support `man_made=pier` and `highway=primary_link`.
+- Reuse icon for `historic=castle`.
+- Add color for swimming area and memorials.
 
 ## 0.2.0
 
