@@ -236,7 +236,8 @@ variables:
   # transportation_text_color
   tree_color: {color: $wood_color, darken: 0.4}
   # trunk_border_color
-  trunk_color: "#97612b"
+  # trunk_color
+  tree_trunk_color: "#97612b"
 
 
 

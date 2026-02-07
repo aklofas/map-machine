@@ -236,6 +236,7 @@ variables:
   tree_color: {color: "#add19e", darken: 0.1}
   trunk_border_color: "#c84e2f"
   trunk_color: "#f9b29c"
+  tree_trunk_color: "#97612b"
   water_color: "#aad3df"
   # accommodation-text: @transportation-text;
   # advertising-grey: @man-made-icon;

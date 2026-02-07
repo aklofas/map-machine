@@ -1773,7 +1773,7 @@ nodes:
       exception: {"internet_access:fee": "*"}
       add_shapes: [wlan]
     - tags: {material: wood}
-      add_shapes: [{shape: wood, color: $trunk_color}]
+      add_shapes: [{shape: wood, color: $tree_trunk_color}]
     - tags: {access: private}
       add_shapes: [lock_with_keyhole]
     - tags: {access: "no"}
@@ -1825,7 +1825,7 @@ nodes:
     - tags: {recycling:books: "yes"}
       add_shapes: [book]
     - tags: {recycling:wood: "yes"}
-      add_shapes: [{shape: wood, color: $trunk_color}]
+      add_shapes: [{shape: wood, color: $tree_trunk_color}]
     - tags: {recycling:glass_bottles:colour: "yes"}
       add_shapes: [{shape: bottle, color: green}]
     - tags: {recycling:cartons: "yes"}
