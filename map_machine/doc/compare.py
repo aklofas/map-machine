@@ -5,7 +5,7 @@ import logging
 import sys
 from pathlib import Path
 from random import random as random_random
-from xml.etree.ElementTree import Element, ElementTree
+from xml.etree.ElementTree import Element, ElementTree, SubElement
 
 import numpy as np
 from svgwrite import Drawing
@@ -14,6 +14,7 @@ from map_machine.constructor import Constructor
 from map_machine.geometry.bounding_box import BoundingBox
 from map_machine.geometry.flinger import MercatorFlinger
 from map_machine.map_configuration import (
+    BuildingColorMode,
     BuildingMode,
     MapConfiguration,
     RoadMode,
@@ -70,6 +71,86 @@ def _parse_coordinates(string: str) -> np.ndarray:
         raise ValueError
 
     return np.array(list(map(float, pair)))
+
+
+def _write_page(
+    x: int,
+    y: int,
+    svg_paths: dict[str, Path],
+    output_path: Path,
+) -> None:
+    """Write HTML page with OSM tiles, Carto SVG, and default SVG."""
+    root: Element = Element("html")
+
+    head: Element = SubElement(root, "head")
+    style: Element = SubElement(head, "style")
+    style.text = (
+        "body { font-family: sans-serif; margin: 20px; }"
+        " table { border-collapse: collapse; }"
+        " td { padding: 0; margin: 0; }"
+        " .tab-buttons { margin-bottom: 10px; }"
+        " .tab-buttons button {"
+        " padding: 6px 16px; margin-right: 4px; cursor: pointer;"
+        " }"
+        " .tab { display: none; }"
+        " .tab.active { display: block; }"
+    )
+
+    body: Element = SubElement(root, "body")
+
+    buttons_div: Element = SubElement(body, "div")
+    buttons_div.set("class", "tab-buttons")
+    for tab_id, label in [
+        ("osm", "OSM tiles"),
+        ("carto", "Carto scheme"),
+        ("default", "Default scheme"),
+    ]:
+        button: Element = SubElement(buttons_div, "button")
+        button.text = label
+        button.set("onclick", f"switchTab('{tab_id}')")
+
+    # Tab 1: OSM tiles table.
+    osm_div: Element = SubElement(body, "div")
+    osm_div.set("id", "osm")
+    osm_div.set("class", "tab active")
+    table: Element = SubElement(osm_div, "table")
+    for j in y, y + 1:
+        table_row: Element = SubElement(table, "tr")
+        for i in x, x + 1, x + 2:
+            tile: Tile = Tile(i, j, 18)
+            table_cell: Element = SubElement(table_row, "td")
+            img: Element = SubElement(table_cell, "img")
+            img.set("src", tile.get_carto_address())
+
+    # Tab 2: Carto scheme SVG.
+    carto_div: Element = SubElement(body, "div")
+    carto_div.set("id", "carto")
+    carto_div.set("class", "tab")
+    carto_img: Element = SubElement(carto_div, "img")
+    carto_img.set(
+        "src", str(svg_paths["carto"].relative_to(output_path.parent))
+    )
+
+    # Tab 3: Default scheme SVG.
+    default_div: Element = SubElement(body, "div")
+    default_div.set("id", "default")
+    default_div.set("class", "tab")
+    default_img: Element = SubElement(default_div, "img")
+    default_img.set(
+        "src", str(svg_paths["default"].relative_to(output_path.parent))
+    )
+
+    script: Element = SubElement(body, "script")
+    script.text = (
+        "function switchTab(id) {"
+        " document.querySelectorAll('.tab').forEach("
+        "function(el) { el.classList.remove('active'); });"
+        " document.getElementById(id).classList.add('active');"
+        "}"
+    )
+
+    with output_path.open("wb+") as output_file:
+        ElementTree(root).write(output_file, method="html")
 
 
 def main(arguments: argparse.Namespace) -> None:
@@ -135,12 +216,6 @@ def main(arguments: argparse.Namespace) -> None:
     p = (p1 + p2) / 2
     logger.info(p)
     logger.info("https://www.openstreetmap.org/edit#map=18/%s/%s", p[0], p[1])
-    logger.info(
-        "map-machine render -o out/random.html --scheme carto "
-        "-s 768,512 -c %s/%s --tooltips",
-        p[0],
-        p[1],
-    )
 
     boundary_box: BoundingBox = tile_1.get_bounding_box()
     boundary_box.combine(tile_2.get_bounding_box())
@@ -151,6 +226,8 @@ def main(arguments: argparse.Namespace) -> None:
 
     tiles: Tiles = Tiles(tile_list, tile_1, tile_2, 18, boundary_box)
     osm_data: OSMData = tiles.load_osm_data(Path("cache"))
+
+    svg_paths: dict[str, Path] = {}
 
     for scheme_id in ("default", "carto"):
         scheme: Scheme = Scheme.from_file(
@@ -165,6 +242,8 @@ def main(arguments: argparse.Namespace) -> None:
             road_mode=RoadMode.SIMPLE,
             building_mode=BuildingMode.ISOMETRIC,
         )
+        if scheme_id == "default":
+            configuration.building_color_mode = BuildingColorMode.HUE
         tiles.draw(
             Path("out/tiles"),
             Path("cache"),
@@ -173,44 +252,11 @@ def main(arguments: argparse.Namespace) -> None:
             redraw=True,
         )
 
-        def write_page(*, is_osm: bool, output_path: Path) -> None:
-            """Write HTML page with the map."""
-            root: Element = Element("html")
-            table: Element = Element("table")
-            table.set("style", "border-collapse: collapse;")
-            root.append(table)
+        svg_path = Path(f"out/random_{scheme_id}.svg")
+        draw(tiles.bounding_box, configuration, svg_path)
+        svg_paths[scheme_id] = svg_path
 
-            for j in y, y + 1:
-                table_row: Element = Element("tr")
-                table.append(table_row)
-                for i in x, x + 1, x + 2:
-                    tile: Tile = Tile(i, j, 18)
-                    table_cell: Element = Element("td")
-                    table_cell.set("style", "padding: 0; margin: 0;")
-                    table_row.append(table_cell)
-
-                    img: Element = Element("img")
-                    address: str
-                    if is_osm:
-                        address = tile.get_carto_address()
-                    else:
-                        address = "../" + str(
-                            tile.get_file_name(Path("out/tiles")).with_suffix(
-                                ".png"
-                            )
-                        )
-                    img.set("src", address)
-                    table_cell.append(img)
-
-            with output_path.open("wb+") as output_file:
-                ElementTree(root).write(output_file)
-
-        draw(
-            tiles.bounding_box,
-            configuration,
-            Path(f"out/random_{scheme_id}.html"),
-        )
-        write_page(is_osm=True, output_path=Path("out/random_osm.html"))
+    _write_page(x, y, svg_paths, Path("out/output.html"))
 
 
 if __name__ == "__main__":
