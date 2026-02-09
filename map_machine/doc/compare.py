@@ -46,6 +46,13 @@ def draw(
     flinger: MercatorFlinger = MercatorFlinger(
         boundary_box, 18, osm_data.equator_length
     )
+    frequency_path: Path = Path("work", "frequency.txt")
+    with frequency_path.open() as input_file:
+        frequency_lines: list[str] = input_file.readlines()
+    with frequency_path.open("a") as output_file:
+        line: str = f"{boundary_box.get_format()} {len(osm_data.nodes)}\n"
+        if line not in frequency_lines:
+            output_file.write(line)
 
     svg: Drawing = Drawing(output_path.name, flinger.size)
 
@@ -76,6 +83,7 @@ def _parse_coordinates(string: str) -> np.ndarray:
 def _write_page(
     x: int,
     y: int,
+    point: np.ndarray,
     svg_paths: dict[str, Path],
     output_path: Path,
 ) -> None:
@@ -149,6 +157,13 @@ def _write_page(
         "}"
     )
 
+    a = SubElement(body, "a")
+    a.set(
+        "href",
+        f"https://www.openstreetmap.org/edit#map=18/{point[0]}/{point[1]}",
+    )
+    a.text = "Edit OSM"
+
     with output_path.open("wb+") as output_file:
         ElementTree(root).write(output_file, method="html")
 
@@ -169,9 +184,11 @@ def main(arguments: argparse.Namespace) -> None:
             "Amsterdam": BoundingBox(4.73, 52.32, 4.94, 52.42),
             "Berlin": BoundingBox(13.29, 52.41, 13.48, 52.60),
             "Buenos Aires": BoundingBox(-58.61, -34.69, -58.35, -34.56),
+            "Canberra": BoundingBox(149.01, -35.34, 149.18, -35.18),
+            "Habana": BoundingBox(-82.41, 23.03, -82.3, 23.14),
             "Kinshasa": BoundingBox(15.24, -4.39, 15.33, -4.30),
             "Lubumbashi": BoundingBox(27.44, -11.70, 27.51, -11.61),
-            "Los Angeles": BoundingBox(-118.41, 33.75, -117.94, 34.11),
+            # "Los Angeles": BoundingBox(-118.41, 33.75, -117.94, 34.11),
             "Mexico": BoundingBox(-99.26, 19.28, -99.04, 19.52),
             "Moscow center": BoundingBox(37.49, 55.69, 37.73, 55.81),
             "New Delhi": BoundingBox(77.01, 28.53, 77.39, 28.74),
@@ -197,7 +214,6 @@ def main(arguments: argparse.Namespace) -> None:
                     )
                 )
                 logger.info(city)
-                logger.info("%s,%s", str(point[0]), str(point[1]))
                 break
 
         if point is not None:
@@ -210,22 +226,13 @@ def main(arguments: argparse.Namespace) -> None:
     x, y = tile_1.x, tile_1.y
     tile_2: Tile = Tile(x + 2, y + 1, 18)
 
-    tile_3: Tile = Tile(x + 3, y + 2, 18)
-    p1 = tile_1.get_coordinates()
-    p2 = tile_3.get_coordinates()
-    p = (p1 + p2) / 2
-    logger.info(p)
-    logger.info("https://www.openstreetmap.org/edit#map=18/%s/%s", p[0], p[1])
-
     boundary_box: BoundingBox = tile_1.get_bounding_box()
     boundary_box.combine(tile_2.get_bounding_box())
 
     tile_list: list[Tile] = [
         Tile(i, j, 18) for j in (y, y + 1) for i in (x, x + 1, x + 2)
     ]
-
     tiles: Tiles = Tiles(tile_list, tile_1, tile_2, 18, boundary_box)
-    osm_data: OSMData = tiles.load_osm_data(Path("cache"))
 
     svg_paths: dict[str, Path] = {}
 
@@ -244,19 +251,12 @@ def main(arguments: argparse.Namespace) -> None:
         )
         if scheme_id == "default":
             configuration.building_color_mode = BuildingColorMode.HUE
-        tiles.draw(
-            Path("out/tiles"),
-            Path("cache"),
-            configuration,
-            osm_data,
-            redraw=True,
-        )
 
         svg_path = Path(f"out/random_{scheme_id}.svg")
         draw(tiles.bounding_box, configuration, svg_path)
         svg_paths[scheme_id] = svg_path
 
-    _write_page(x, y, svg_paths, Path("out/output.html"))
+    _write_page(x, y, point, svg_paths, Path("out/output.html"))
 
 
 if __name__ == "__main__":
