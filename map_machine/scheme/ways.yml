@@ -1009,6 +1009,12 @@ ways:
       stroke: $track_area_border_color
       stroke-width: $track_area_border_width
     priority: $priority_landuse_4
+  - tags: {leisure: track}
+    exception: {area: "yes"}
+    style:
+      stroke: $pitch_border_color
+      stroke-width: 5.0
+    priority: $priority_landuse_4
   - tags: {leisure: fitness_station}
     style:
       fill: $leisure_color
