@@ -1,5 +1,7 @@
 ## Not-released
 
+Update urllib3 to 2.6.3.
+
 ### Fixes
 
 - Fix Carto colors.
@@ -8,8 +10,8 @@
 ### Improvements
 
 Support:
-  - node opacity.
-  - `saturate` and `desaturate` color modifiers in scheme.
+  - node opacity,
+  - `saturate` and `desaturate` color modifiers in scheme,
   - `addr:interpolation` key,
   - colors for `railway=rail`.
 
