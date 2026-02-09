@@ -33,7 +33,7 @@ nodes:
     - tags: {aeroway: landingpad}
       shapes: [booster_landing]
     - tags: {highway: bus_station}
-      shapes: [buses]
+      shapes: [{shape: buses, color: $transportation_color}]
     - tags: {highway: bus_stop}
       shapes: [{shape: bus_stop, color: $transportation_color}]
       add_shapes: [bus]
@@ -46,7 +46,7 @@ nodes:
     - tags: {railway: subway_entrance, entrance: "yes"}
       shapes: [train]
     - tags: {public_transport: stop_position}
-      shapes: [bus_stop]
+      shapes: [{shape: bus_stop, color: $transportation_color}]
     - tags: {railway: tram_station}
       shapes: [{shape: tram, color: $transportation_color}]
     - tags: {railway: tram_stop}
@@ -83,7 +83,7 @@ nodes:
     - tags: {leisure: fishing}
       shapes: [fishing_angle]
     - tags: {historic: archaeological_site}
-      shapes: [amphora]
+      shapes: [{shape: amphora, color: $memorials_color}]
     - tags: {leisure: swimming_area}
       shapes: [{shape: swimming_area, color: $marina_text_color}]
     - tags: {leisure: swimming_pool}
@@ -205,7 +205,7 @@ nodes:
     - tags: {historic: castle}
       shapes: [{shape: fort, color: $memorials_color}]
     - tags: {historic: fort}
-      shapes: [fort]
+      shapes: [{shape: fort, color: $memorials_color}]
     - tags: {shop: mall}
       shapes: [{shape: bag, color: $sell_color}]
     - tags: {shop: department_store}
@@ -236,13 +236,13 @@ nodes:
     - tags: {amenity: townhall}
       shapes: [townhall]
     - tags: {historic: city_gate}
-      shapes: [city_gate]
+      shapes: [{shape: city_gate, color: $memorials_color}]
     - tags: {amenity: pharmacy}
       shapes: [{shape: medicine_bottle, color: $health_color}]
     - tags: {amenity: embassy}
       shapes: [waving_flag]
     - tags: {office: diplomatic, diplomatic: embassy}
-      shapes: [waving_flag]
+      shapes: [{shape: waving_flag, color: $office_color}]
     - tags: {man_made: monitoring_station, monitoring:weather: "yes"}
       shapes: [japan_weather_station]
       location_restrictions: {include: [jp]}
@@ -276,7 +276,7 @@ nodes:
       shapes: [{shape: tooth, color: $health_color}]
     - tags: {amenity: post_office}
       location_restrictions: {include: world, exclude: [jp]}
-      shapes: [envelope]
+      shapes: [{shape: envelope, color: $amenity_brown_color}]
     - tags: {amenity: post_office}
       location_restrictions: {include: [jp]}
       shapes: [japan_post]
@@ -330,9 +330,9 @@ nodes:
     - tags: {amenity: place_of_worship, religion: jewish}
       shapes: [star_of_david]
     - tags: {historic: tomb, tomb: mausoleum}
-      shapes: [mausoleum]
+      shapes: [{shape: mausoleum, color: $memorials_color}]
     - tags: {historic: tomb, tomb: pyramid}
-      shapes: [pyramid]
+      shapes: [{shape: pyramid, color: $memorials_color}]
     - tags: {historic: "*"}
       shapes: [japan_historic]
       replace_shapes: no
@@ -356,7 +356,7 @@ nodes:
     - tags: {amenity: casino}
       shapes: [card_and_dice]
     - tags: {amenity: community_centre}
-      shapes: [two_people_together]
+      shapes: [{shape: two_people_together, color: $amenity_brown_color}]
     - tags: {amenity: gym}
       shapes: [dumbbell]
     - tags: {amenity: social_facility}
@@ -559,7 +559,7 @@ nodes:
     - tags: {shop: frame}
       shapes: [{shape: frame, color: $sell_color}]
     - tags: {tourism: gallery}
-      shapes: [picture]
+      shapes: [{shape: picture, color: $amenity_brown_color}]
     - tags: {amenity: cafe}
       shapes: [{shape: coffee_cup, color: $eat_color}]
     - tags: {amenity: ice_cream}
@@ -780,7 +780,9 @@ nodes:
     - tags: {amenity: parking}
       shapes: [{shape: p, color: $parking_node_color}]
     - tags: {amenity: parking, parking: multi-storey}
-      shapes: [{shape: car, offset: [0, 4]}, {shape: car, offset: [0, -3]}]
+      shapes:
+      - {shape: car, offset: [0, 4], color: $parking_node_color}
+      - {shape: car, offset: [0, -3], color: $parking_node_color}
     - tags: {highway: turning_circle}
       shapes: [circle_empty]
     - tags: {highway: turning_loop}
@@ -831,7 +833,7 @@ nodes:
     - tags: {amenity: toilets}
       shapes: [{shape: toilet_bowl, color: $amenity_brown_color}]
     - tags: {amenity: shelter}
-      shapes: [shelter]
+      shapes: [{shape: shelter, color: $man_made_color}]
     - tags: {man_made: obelisk}
       shapes: [{shape: obelisk, color: $memorials_color}]
     - tags: {historic: monument}
@@ -1311,9 +1313,9 @@ nodes:
     - tags: {highway: elevator}
       shapes: [{shape: elevator, color: $transportation_color}]
     - tags: {historic: cannon}
-      shapes: [cannon]
+      shapes: [{shape: cannon, color: $memorials_color}]
     - tags: {historic: olympic_flame}
-      shapes: [torch]
+      shapes: [{shape: torch, color: $memorials_color}]
     - tags: {historic: memorial}
       shapes: [{shape: memorial, color: $memorials_color}]
     - tags: {historic: memorial, memorial: plaque}
@@ -1354,7 +1356,7 @@ nodes:
     - tags: {railway: signal}
       shapes: [signal]
     - tags: {amenity: atm}
-      shapes: [atm]
+      shapes: [{shape: atm, color: $amenity_brown_color}]
     - tags: {amenity: bicycle_parking}
       shapes:
       - {shape: bicycle, offset: [0, 2], color: $transportation_color}
@@ -1396,15 +1398,15 @@ nodes:
     - tags: {amenity: drinking_water}
       shapes: [{shape: drinking_water, color: $amenity_brown_color}]
     - tags: {tourism: artwork}
-      shapes: [picture]
+      shapes: [{shape: picture, color: $amenity_brown_color}]
     - tags: {tourism: artwork, artwork_type: statue}
-      shapes: [statue]
+      shapes: [{shape: statue, color: $amenity_brown_color}]
     - tags: {tourism: artwork, artwork_type: stone}
-      shapes: [stone_with_inscription]
+      shapes: [{shape: stone_with_inscription, color: $amenity_brown_color}]
     - tags: {exhibit: artwork, artwork_type: statue}
       shapes: [statue_exhibit]
     - tags: {tourism: artwork, artwork_type: sculpture}
-      shapes: [statue]
+      shapes: [{shape: statue, color: $amenity_brown_color}]
     - tags: {exhibit: artwork, artwork_type: sculpture}
       shapes: [statue_exhibit]
     - tags: {exhibit: artwork, artwork_type: painting}
@@ -1412,7 +1414,7 @@ nodes:
     - tags: {exhibit: artwork, artwork_type: stained_glass}
       shapes: [stained_glass]
     - tags: {tourism: attraction}
-      shapes: [photo_camera]
+      shapes: [{shape: photo_camera, color: $amenity_brown_color}]
     - tags: {xmas:feature: tree}
       shapes: {christmas_tree}
 
@@ -1436,7 +1438,7 @@ nodes:
     - tags: {amenity: recycling, recycling_type: container}
       shapes: [recycling_container]
     - tags: {amenity: shower}
-      shapes: [shower]
+      shapes: [{shape: shower, color: $amenity_brown_color}]
     - tags: {amenity: vending_machine}
       shapes: [vending_machine]
     - tags: {vending: admission_tickets}
@@ -1513,12 +1515,16 @@ nodes:
     tags:
     - tags: {amenity: parking_entrance}
       shapes:
-      - {shape: p, offset: [-1, 0]}
-      - {shape: arrow_right, offset: [4, 5]}
+      - {shape: p, offset: [-1, 0], color: $parking_node_color}
+      - {shape: arrow_right, offset: [4, 5], color: $parking_node_color}
     - tags: {amenity: parking_entrance, parking: underground}
-      shapes: [{shape: p, offset: [-1, 0]}, {shape: arrow_down, offset: [4, 5]}]
+      shapes:
+      - {shape: p, offset: [-1, 0], color: $parking_node_color}
+      - {shape: arrow_down, offset: [4, 5], color: $parking_node_color}
     - tags: {amenity: parking_entrance, parking: multi-storey}
-      shapes: [{shape: p, offset: [-1, 0]}, {shape: arrow_up, offset: [4, 5]}]
+      shapes:
+      - {shape: p, offset: [-1, 0], color: $parking_node_color}
+      - {shape: arrow_up, offset: [4, 5], color: $parking_node_color}
     - tags: {entrance: gate}
       shapes: [gate]
     - tags: {barrier: gate}
