@@ -158,6 +158,23 @@ ways:
       stroke-linejoin: round
       stroke-dasharray: $track_grade_no_dasharray
     priority: $priority_road_2
+  - tags: {highway: track, surface: [asphalt, chipseal, concrete, paved]}
+    exception: {tracktype: [grade1, grade2, grade3, grade4, grade5]}
+    style:
+      stroke-width: 1.5
+      stroke: $track_color
+      stroke-linecap: round
+      stroke-linejoin: round
+    priority: $priority_road_2
+  - tags: {highway: track, surface: [compacted, fine_gravel, gravel]}
+    exception: {tracktype: [grade1, grade2, grade3, grade4, grade5]}
+    style:
+      stroke-width: 1.5
+      stroke: $track_color
+      stroke-linecap: round
+      stroke-linejoin: round
+      stroke-dasharray: $track_grade_2_dasharray
+    priority: $priority_road_2
   - tags: {highway: track, tracktype: grade5}
     style:
       stroke-width: 1.5
@@ -190,22 +207,7 @@ ways:
       stroke-linejoin: round
       stroke-dasharray: $track_grade_2_dasharray
     priority: $priority_road_2
-  - tags: {highway: track, surface: [compacted, fine_gravel, gravel]}
-    style:
-      stroke-width: 1.5
-      stroke: $track_color
-      stroke-linecap: round
-      stroke-linejoin: round
-      stroke-dasharray: $track_grade_2_dasharray
-    priority: $priority_road_2
   - tags: {highway: track, tracktype: grade1}
-    style:
-      stroke-width: 1.5
-      stroke: $track_color
-      stroke-linecap: round
-      stroke-linejoin: round
-    priority: $priority_road_2
-  - tags: {highway: track, surface: [asphalt, chipseal, concrete, paved]}
     style:
       stroke-width: 1.5
       stroke: $track_color
