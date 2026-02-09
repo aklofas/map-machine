@@ -86,9 +86,9 @@ ways:
 
   - tags: {power: line}
     style:
-      stroke: "#000000"
-      stroke-width: 1.0
-      opacity: 0.2
+      stroke: $power_line_color
+      stroke-width: $power_line_width
+      opacity: $power_line_opacity
     priority: $priority_power
   - tags: {power: cable}
     style:
@@ -235,6 +235,7 @@ ways:
     style:
       stroke-width: 3.0
       stroke: $foot_border_color
+      opacity: $cycle_border_opacity
       stroke-linecap: round
       stroke-linejoin: round
     priority: $priority_road_3

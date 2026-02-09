@@ -66,6 +66,7 @@ variables:
   # bridge_color
   cycle_border_color: white
   cycle_noaccess_color: "#9999ff"
+  cycle_border_opacity: 0.4
   cycle_color: blue
   cycle_dasharray: 3,3
   # embankment_color
@@ -124,6 +125,11 @@ variables:
   address_interpolation_border_color: "#666666"
   address_interpolation_border_width: 1
   address_interpolation_border_dasharray: 2,4
+
+  # Power.
+  power_line_color: "#888888"
+  power_line_width: 1.0
+  power_line_opacity: 1.0
 
   # Land cover.
   cemetery_color: "#aacbaf"

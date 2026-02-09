@@ -4,12 +4,13 @@ Update Röntgen to 0.13.0 and urllib3 to 2.6.3.
 
 ### Fixes
 
-- Fix Carto colors.
+- Fix Carto colors and priorities.
 - Fix processing `building=no`.
 
 ### Improvements
 
 Support:
+  - `waterway=drain`,
   - node opacity,
   - `saturate` and `desaturate` color modifiers in scheme,
   - `addr:interpolation` key,
