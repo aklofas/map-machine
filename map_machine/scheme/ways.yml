@@ -822,6 +822,11 @@ ways:
       stroke: $water_color
       stroke-width: 2.0
     priority: $priority_water_1
+  - tags: {waterway: drain}
+    style:
+      stroke: $water_color
+      stroke-width: 2.0
+    priority: $priority_water_1
 
   - tags: {railway: subway}
     style:
