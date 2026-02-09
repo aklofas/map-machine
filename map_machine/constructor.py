@@ -248,7 +248,7 @@ class Constructor:
             return
 
         building_mode: BuildingMode = self.configuration.building_mode
-        if "building" in line.tags or (
+        if line.tags.get("building") not in (None, "no") or (
             building_mode == BuildingMode.ISOMETRIC
             and "building:part" in line.tags
         ):

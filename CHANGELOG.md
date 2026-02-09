@@ -3,6 +3,7 @@
 ### Fixes
 
 - Fix Carto colors.
+- Fix processing `building=no`.
 
 ### Improvements
 
