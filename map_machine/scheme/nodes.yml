@@ -829,7 +829,7 @@ nodes:
     - tags: {tourism: attraction, attraction: amusement_ride}
       shapes: [amusement_ride]
     - tags: {amenity: toilets}
-      shapes: [{shape: woman_and_man, color: $amenity_brown_color}]
+      shapes: [{shape: toilet_bowl, color: $amenity_brown_color}]
     - tags: {amenity: shelter}
       shapes: [shelter]
     - tags: {man_made: obelisk}
@@ -1859,7 +1859,7 @@ nodes:
     - tags: {drinking_water: "yes"}
       add_shapes: [drinking_water]
     - tags: {toilets: "yes"}
-      add_shapes: [woman_and_man]
+      add_shapes: [toilet_bowl]
     - tags: {washing_machine: "yes"}
       add_shapes: [washing_machine]
     - tags: {shower: "yes"}

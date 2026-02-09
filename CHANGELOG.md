@@ -1,6 +1,6 @@
 ## Not-released
 
-Update urllib3 to 2.6.3.
+Update Röntgen to 0.13.0 and urllib3 to 2.6.3.
 
 ### Fixes
 
@@ -14,6 +14,8 @@ Support:
   - `saturate` and `desaturate` color modifiers in scheme,
   - `addr:interpolation` key,
   - colors for `railway=rail`.
+
+Use `toilet_bowl` icon for toilet amenities instead of `woman_and_man`.
 
 ## 0.3.0
 
